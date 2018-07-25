@@ -20,10 +20,22 @@
   <a class="navbar-brand" href="#">TELCO-SOCIAL</a>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" href="#"><i class="fas fa-home"></i>Home</a>
-      <a class="nav-item nav-link" href="#"><i class="fas fa-home"></i>Features</a>
-      <a class="nav-item nav-link" href="#"><i class="fas fa-home"></i>Pricing</a>
-      <a class="nav-item nav-link" href="#"><i class="fas fa-home"></i>Disabled</a>
+      <a class="nav-item nav-link" href="#"><i class="fas fa-home mr-2 align-baseline icon-size"></i>Home</a>
+      <a class="nav-item nav-link" href="#"><i class="fas fa-calendar-alt mr-2 align-baseline"></i>Timeline</a>
+      <a class="nav-item nav-link" href="#"><i class="fas fa-users mr-2 align-baseline"></i>Personas</a>
     </div>
+    <button class="btn btn-secondary" type="button">Iniciar Sesión</button>
   </div>
 </header>
+
+<aside class="aside-1 col-md-3">
+  <div>
+
+  </div>
+</aside>
+
+<aside class="aside-2 col-md-3">
+  <div>
+
+  </div>
+</aside>
