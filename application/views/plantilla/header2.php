@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?php echo $titulo?></title>
     <script src="<?php echo base_url();?>assest/js/jquery-3.3.1.min.js"></script>
+    <script src="<?php echo base_url();?>assest/js/popper.min.js"></script>
     <script src="<?php echo base_url();?>assest/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url();?>assest/js/datatables.min.js"></script>
     <script defer src="<?php echo base_url();?>assest/js/all.js"></script>
@@ -76,5 +77,9 @@
     <img class="perfil mr-2 mt-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
     <img class="perfil mr-2 mt-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
     <img class="perfil mr-2 mt-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
+  </div><br><br><br>
+  <div>
+    <h5 class="mb-4">Encuesta</h5>
+    <button type="button" class="btn btn-primary">Ir a Encuesta</button>
   </div>
 </aside>
