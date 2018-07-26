@@ -16,4 +16,11 @@ class Usuario extends CI_Controller {
         );
         $this->load->view('plantilla/plantilla2', $contenido2);
     }
+
+    public function login(){
+        $datos = array(
+            'titulo' => "Login"
+        );
+        $this->load->view('Interfaz/login', $datos);
+    }
 }
