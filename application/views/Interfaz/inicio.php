@@ -5,23 +5,36 @@
         <hr>
     </div> 
     
-    <div class="container p-cero mt-4">
+    <div class="container-post border-post">
         <p style="background:#fff;padding:15px;">
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere, fuga labore. 
         Dignissimos ipsam facilis veniam alias repudiandae recusandae enim, assumenda,
          dolor error praesentium esse quod, cum voluptatibus reprehenderit nobis dolorum.
         </p>
-    </div> 
-    <div class="container border-post p-cero">
+    </div>
+
+    <div class="container-post border-post">
+        <div class="perfil-post">
+       <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">Nombre Usuario
+        </div>
+        <p style="background:#fff;padding:15px;">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere, fuga labore. 
+        Dignissimos ipsam facilis veniam alias repudiandae recusandae enim, assumenda,
+         dolor error praesentium esse quod, cum voluptatibus reprehenderit nobis dolorum.
+        </p>
+        <img class="img-post" src="<?php echo base_url();?>assest/imagenes/t5.jpg" alt="">
+    </div>
+
+    <div class="container-post border-post">
         <img class="img-post" src="<?php echo base_url();?>assest/imagenes/t1.jpg" alt="">
     </div>
-    <div class="container border-post p-cero">
+    <div class="container-post border-post">
         <img class="img-post" src="<?php echo base_url();?>assest/imagenes/t2.jpg" alt="">
     </div>
-    <div class="container border-post p-cero">
+    <div class="container-post border-post">
         <img class="img-post" src="<?php echo base_url();?>assest/imagenes/t3.jpg" alt="">
     </div>
-    <div class="container border-post p-cero">
+    <div class="container-post border-post">
         <img class="img-post" src="<?php echo base_url();?>assest/imagenes/t4.jpg" alt="">
     </div>
 </div>
