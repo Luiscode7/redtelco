@@ -1,5 +1,5 @@
-<div class="container-principal p-cero col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-    <div class="container p-cero">
+<div class="container-principal p-cero col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+    <div class="container-public p-cero">
         <textarea name="textarea-post" id="textarea-post" placeholder="Escriba lo que desee..." cols="30" rows="10"></textarea>
         <button type="submit" name="Comentar" id="Comentar" class="btn btn-primary">Publicar</button>
         <hr>

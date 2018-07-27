@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-3 col-lg-3 col-xl-3">
+  <div class="col-md-3 col-lg-3 col-xl-3 row justify-content-center">
     <div class="aside-1 position-fixed">
       <ul class="list-group">
         <li class="list-group-item d-flex justify-content-between align-items-center">

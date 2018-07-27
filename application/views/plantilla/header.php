@@ -21,6 +21,9 @@
     <div class="col">
       <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">TELCO-SOCIAL</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item active">
@@ -41,40 +44,7 @@
           </ul>
           <button type="submit" class="btn btn-secondary ml-4">Iniciar Sesi&oacute;n</button>
         </div>
-      </nav>
-    </div>
+      </div>
+    </nav>
   </div>
   
-<!--<aside class="aside-1 col-md-3 col-lg-3 col-xl-3">
-  <div class="">
-  <ul class="list-group">
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Cantidad de publicaciones
-    <span class="badge badge-primary badge-pill">14</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Cantidad de comentarios
-    <span class="badge badge-primary badge-pill">2</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Cantidad de me gusta
-    <span class="badge badge-primary badge-pill">1</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Cantidad de no me gusta
-    <span class="badge badge-primary badge-pill">1</span>
-  </li>
-</ul>
-  </div>
-</aside>-->
-
-<!--<aside class="aside-2 col-md-3 col-lg-3 col-xl-3">
-<div class="card text-center" style="width: 17,5rem;">
-  <div class="card-body">
-    <h5 class="card-title">Registro</h5>
-    <p class="card-text">¿Desea compartir im&aacute;genes y conocer a T&eacute;cnicos como Ud.?
-       Comience registrandose en nuestra red y disfrute de todo el contenido.</p>
-    <a href="#" class="btn btn-primary">Registrar</a>
-  </div>
-</div>
-</aside>-->

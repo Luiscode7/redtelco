@@ -110,11 +110,10 @@ hr{
     color:#DF013A !important;
 }
 
-.container-post {
+.container-public{
     width: 100%;
-    margin-right: 15px;
-    margin-left: 15px;
-    background: #fff;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .p-cero{
@@ -145,7 +144,7 @@ hr{
     background: #fff;
 }
 
-@media (max-width:576px){
+@media (max-width:768px){
     aside{
         display:none;
     }
