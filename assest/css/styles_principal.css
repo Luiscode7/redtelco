@@ -7,7 +7,9 @@ body{
     background: #FAFAFA;
     min-height: 100vh;
     margin:0 !important;
+    padding-top: 80px;
 }
+
 
 .titulo-principal{
     display:flex;
@@ -18,9 +20,6 @@ body{
     background: #DF013A !important;
     width: 100%;
     box-shadow:0 3px 10px #A4A4A4;
-    position: fixed;
-    top:0;
-    z-index: 1;
 }
 
 .nav-link,.navbar-brand{
@@ -32,30 +31,21 @@ a:hover{
 }
 
 .aside-1{
-    width: 23%;
     min-height:100vh;
-    position: fixed;
-    left:0;
+    /*position: fixed;
+    left:0;*/
     background: #FAFAFA;
-    border-right:1px solid #D8D8D8;
 }
 
 .aside-2{
-    width: 23%;
     min-height:100vh;
-    position: fixed;
-    right:0;
+    /*position: fixed;
+    right:0;*/
     background: #FAFAFA;
-    border-left:1px solid #D8D8D8;
 }
 
 .container-principal{
-    margin: auto;
     min-height: 100vh;
-}
-
-header{
-    margin:100px 0 0 0;
 }
 
 .btn-secondary{
@@ -76,7 +66,7 @@ header{
 
 #textarea-post{
     width: 100%;
-    border: 1px solid #A4A4A4;
+    border: 0.5px solid #A4A4A4;
     height:100px;
     resize: none;
     text-indent: 10px;
@@ -88,13 +78,13 @@ hr{
     margin:6px 0 15px 0;
 }
 
-aside .nav-link{
+.aside-1 .nav-link{
     width: 70%;
-    color: #585858 !important;
+    color: #0c0c0c !important;
     margin: auto;
 }
 
-aside .nav-link:hover{
+.aside-1 .nav-link:hover{
     color:#DF013A !important;
 }
 
@@ -153,4 +143,10 @@ aside .nav-link:hover{
     margin-right:auto;
     margin-left:auto;
     background: #fff;
+}
+
+@media (max-width:576px){
+    aside{
+        display:none;
+    }
 }

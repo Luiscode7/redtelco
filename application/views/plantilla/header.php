@@ -16,33 +16,36 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assest/css/styles_principal.css">
 </head>
 <body>
-<header>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">TELCO-SOCIAL</a>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#"><i class="fas fa-info-circle mr-2 align-baseline"></i>Acerca De</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fas fa-users mr-2 align-baseline"></i>Personas</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-calendar-alt mr-2 align-baseline"></i>Publicaciones
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Recientes</a>
-          <a class="dropdown-item" href="#">M&aacute;s Populares</a>
-          <a class="dropdown-item" href="#">Antiguas</a>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">TELCO-SOCIAL</a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#"><i class="fas fa-info-circle mr-2 align-baseline"></i>Acerca De</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="fas fa-users mr-2 align-baseline"></i>Personas</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-calendar-alt mr-2 align-baseline"></i>Publicaciones</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">Recientes</a>
+                <a class="dropdown-item" href="#">M&aacute;s Populares</a>
+                <a class="dropdown-item" href="#">Antiguas</a>
+              </div>
+            </li>
+          </ul>
+          <button type="submit" class="btn btn-secondary ml-4">Iniciar Sesi&oacute;n</button>
         </div>
-      </li>
-    </ul>
-    <button type="submit" class="btn btn-secondary ml-4">Iniciar Sesi&oacute;n</button>
+      </nav>
+    </div>
   </div>
-</header>
-
-<aside class="aside-1 col-md-3">
+  
+<!--<aside class="aside-1 col-md-3 col-lg-3 col-xl-3">
   <div class="">
   <ul class="list-group">
   <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -63,11 +66,9 @@
   </li>
 </ul>
   </div>
-</aside>
-  </div>
-</aside>
+</aside>-->
 
-<aside class="aside-2 col-md-3">
+<!--<aside class="aside-2 col-md-3 col-lg-3 col-xl-3">
 <div class="card text-center" style="width: 17,5rem;">
   <div class="card-body">
     <h5 class="card-title">Registro</h5>
@@ -76,4 +77,4 @@
     <a href="#" class="btn btn-primary">Registrar</a>
   </div>
 </div>
-</aside>
+</aside>-->

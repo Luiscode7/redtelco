@@ -16,8 +16,10 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assest/css/styles_principal.css">
 </head>
 <body>
-<header>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <div class="row">
+        <div class="col">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">TELCO-SOCIAL</a>
   <div class="collapse navbar-collapse col-md-10" id="navbarNavDropdown">
     <ul class="navbar-nav">
@@ -47,9 +49,12 @@
   <div class="ml-auto" style="color:#fff;">
     <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">Nombre usuario
   </div>
-</header>
-
-<aside class="aside-1 col-md-3">
+</nav>
+        </div>
+    </div>
+  
+  
+<!--<aside class="aside-1 col-md-3 col-lg-3 col-xl-3">
   <div>
         <h5>Multimedia</h5>
   </div>
@@ -85,9 +90,9 @@
 
 </ul>
   </div>
-</aside>
+</aside>-->
 
-<aside class="aside-2 col-md-3">
+<!--<aside class="aside-2 col-md-3 col-lg-3 col-xl-3">
   <div>
     <h5 class="mb-4">Seguidores</h5>
   </div>
@@ -106,7 +111,7 @@
   <div>
     <h5 class="mb-4">Encuesta</h5>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Ir a Encuesta</button>
-  </div>
+  </div>-->
 
   <!-- Modal -->
 <!--<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -128,4 +133,4 @@
     </div>
   </div>
 </div>-->
-</aside>
+
