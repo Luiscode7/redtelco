@@ -31,16 +31,14 @@ a:hover{
 }
 
 .aside-1{
+    width:25%;
     min-height:100vh;
-    /*position: fixed;
-    left:0;*/
     background: #FAFAFA;
 }
 
 .aside-2{
+    width:25%;
     min-height:100vh;
-    /*position: fixed;
-    right:0;*/
     background: #FAFAFA;
 }
 
@@ -66,7 +64,8 @@ a:hover{
 
 #textarea-post{
     width: 100%;
-    border: 0.5px solid #A4A4A4;
+    border-color: #A4A4A4;
+    border-radius:3px;
     height:100px;
     resize: none;
     text-indent: 10px;
@@ -122,9 +121,7 @@ hr{
 }
 
 .img-post{
-    width:674.5px;
-    height:450px;
-    padding: 15px;    
+    margin: 15px 0 15px 0;    
 }
 
 .border-post{
@@ -133,19 +130,63 @@ hr{
 }
 
 .perfil-post{
-    margin-left:15px;
     margin-top:15px;
 }
 
 .container-post{
     width:100%;
+    border-radius:3px;
     margin-right:auto;
     margin-left:auto;
     background: #fff;
 }
 
-@media (max-width:768px){
-    aside{
-        display:none;
+.list-group{
+    width:100%;
+    margin:auto;
+    padding-right:15px;
+}
+
+.p-post{
+    background:#fff;
+    padding:15px 0 15px 0;
+}
+
+.card{
+    margin-right:45px;
+}
+
+.h5-usuario{
+    padding-left:15px;
+}
+
+.icon-size{
+    width:25px;
+    height:25px;
+}
+
+.container-button-post{
+    padding:6px 15px;
+}
+
+@media (max-width:992px){
+    .container-central{
+        padding-right:30px;
+        padding-left:30px;
     }
 }
+
+
+@media (max-width:992px){
+    .aside-2{
+        visibility:hidden;
+    }
+}
+
+@media (max-width:992px){
+    .aside-1{
+        visibility:hidden;
+    }
+}
+
+
