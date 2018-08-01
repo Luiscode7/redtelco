@@ -1,3 +1,8 @@
+<script type="text/javascript">
+
+</script>
+
+<!-- Muro -->
 <div class="container-central col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
     <div class="col container-public p-cero">
         <textarea name="textarea-post" id="textarea-post" placeholder="Escriba lo que desee..." cols="30" rows="10"></textarea>

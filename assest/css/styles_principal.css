@@ -53,6 +53,10 @@ a:hover{
     border:none;
 }
 
+.btn-secondary:hover{
+    color:#fff !important;
+}
+
 .btn-primary{
     border-radius:  0;
     border: none;

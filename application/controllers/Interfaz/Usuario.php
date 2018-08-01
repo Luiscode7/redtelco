@@ -23,4 +23,11 @@ class Usuario extends CI_Controller {
         );
         $this->load->view('Interfaz/login', $datos);
     }
+
+    public function registro(){
+        $datos = array(
+            'titulo' => "Login"
+        );
+        $this->load->view('Interfaz/registro', $datos);
+    }
 }

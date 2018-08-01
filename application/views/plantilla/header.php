@@ -41,8 +41,10 @@
                 <a class="dropdown-item" href="#">Antiguas</a>
               </div>
             </li>
+            <li class="nav-item">
+              <a href="<?php base_url();?>login" class="btn btn-secondary ml-4">Iniciar Sesi&oacute;n</a>
+            </li>
           </ul>
-          <button type="submit" class="btn btn-secondary ml-4">Iniciar Sesi&oacute;n</button>
         </div>
       </div>
     </nav>

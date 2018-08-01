@@ -30,32 +30,13 @@
         overflow:hidden;
     }
 
-    .container-login{
+    .container-registro{
         padding:30px 30px 10px 30px;;
         background: #fff;
     }
 
-    img{
-        width:155px;
-        height:155px;
-    }
-
-    .icon-user{
-        margin-left:3px;
-        position:absolute;
-        top:222px;
-        left:50px;
-    }
-
-    .icon-pass{
-        margin-left:3px;
-        position:absolute;
-        top:270px;
-        left:50px;
-    }
-
     .input-indent{
-        text-indent:30px;
+        text-indent:10px;
     }
 
     .hv-100{
@@ -84,24 +65,30 @@
 <body>
     <div class="row hv-100 justify-content-center align-items-center">
         <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-            <div class="container-login">
-                <div class="text-center" style="padding-bottom:30px">
-                    <img src="<?php base_url();?>assest/imagenes/login1.png" alt="">
+            <div class="container-registro">
+                <div class="col mb-4 pl-0">
+                    <h5>Ingrese sus Datos</h5>
                 </div>
                 <div class="form-group">
-                    <i class="fas fa-user icon-user"></i>
+                    <input type="text" name="nombre" id="nombre" autocomplete="off" placeholder="Ingrese su nombre" class="form-control form-control-sm input-indent">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="apellidos" id="apellidos" autocomplete="off" placeholder="Ingrese apellidos" class="form-control form-control-sm input-indent">                 </div>
+                <div class="form-group">
                     <input type="email" name="correo" id="correo" autocomplete="off" placeholder="Ingrese su correo" class="form-control form-control-sm input-indent">
                 </div>
                 <div class="form-group">
-                    <i class="fas fa-key icon-pass"></i>
                     <input type="password" name="pass" id="pass" autocomplete="off" placeholder="Ingrese su contrase&ntilde;a" class="form-control form-control-sm input-indent">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary col-12">Ingresar</button>
+                    <input type="password" name="pass2" id="pass2" autocomplete="off" placeholder="Repita su contrase&ntilde;a" class="form-control form-control-sm input-indent">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary col-12">Registrarse</button>
                 </div>
                 <div class="row pl-2">
-                    <p>¿No tiene cuenta?, por favor</p>&nbsp;
-                    <a class="a-login" href="<?php base_url();?>registro">Registrese</a>
+                    <p>¿Ya tienes una cuenta?, por favor</p>&nbsp;
+                    <a class="a-login" href="<?php base_url();?>login">Inicia sesi&oacute;n</a>
                 </div>
             </div>
         </div>
