@@ -1,6 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
+define("ERROR_MSG", "Problemas accediendo a la BD, intente nuevamente.");
+define("LOAD_OK", "Datos cargados correctamente.");
+define("LOAD_OK_ID", "Registro cargado correctamente.");
+define("OK_MSG", "Registro ingresado correctamente.");
+define("EMPTY_DATA", "Debe ingresar los datos.");
+define("MOD_MSG", "Registro actualizado correctamente.");
+define("DEL_MSG", "Registro eliminado correctamente.");
+define("EXISTE_MSG", "Este registro ya esta registrado en la base de datos.");
+define("MAIL_ERROR", "Problemas enviando el correo, intente nuevamente.");
+
 /*
 |--------------------------------------------------------------------------
 | Display Debug backtrace

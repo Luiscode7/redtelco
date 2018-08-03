@@ -5,7 +5,8 @@ class Usuario extends CI_Controller {
 
     public function __construct(){
 		parent::__construct();
-	
+        
+        $this->load->model("UsuarioModel");
     }
     
 	public function index()
@@ -17,17 +18,4 @@ class Usuario extends CI_Controller {
         $this->load->view('plantilla/plantilla2', $contenido2);
     }
 
-    public function login(){
-        $datos = array(
-            'titulo' => "Login"
-        );
-        $this->load->view('Interfaz/login', $datos);
-    }
-
-    public function registro(){
-        $datos = array(
-            'titulo' => "Login"
-        );
-        $this->load->view('Interfaz/registro', $datos);
-    }
 }
