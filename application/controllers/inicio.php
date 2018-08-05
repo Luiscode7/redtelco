@@ -33,11 +33,11 @@ class Inicio extends CI_Controller {
     }
 
     public function procesoRegistro(){
-        $id_usuario=$this->security->xss_clean($this->input->post("id_usuario"));
-        $nombre=$this->security->xss_clean($this->input->post("nombre"));
-        $apellidos=$this->security->xss_clean($this->input->post("apellidos"));
-        $correo=$this->security->xss_clean($this->input->post("correo"));
-        $pass=$this->security->xss_clean($this->input->post("pass"));
+        $id_usuario=$this->security->xss_clean(strip_tags($this->input->post("id_usuario")));
+        $nombre=$this->security->xss_clean(strip_tags($this->input->post("nombre")));
+        $apellidos=$this->security->xss_clean(strip_tags($this->input->post("apellidos")));
+        $correo=$this->security->xss_clean(strip_tags($this->input->post("correo")));
+        $pass=$this->security->xss_clean(strip_tags($this->input->post("pass")));
         $pass2=sha1($pass);
 
         if ($this->form_validation->run("registro") == FALSE){
