@@ -8,3 +8,5 @@ $route['usuario'] = 'interfaz/usuario/index';
 $route['login'] = "inicio/login";
 $route['registro'] = "inicio/registro";
 $route['procesoRegistro'] = "inicio/procesoRegistro";
+$route['postCualquiera'] = "inicio/postCualquiera";
+$route['mostrarPostMuro'] = "inicio/mostrarPostMuro";

@@ -9,6 +9,7 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => 'asdf1212',
+	//'password' => '',
 	'database' => 'redtelco',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

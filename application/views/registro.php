@@ -7,15 +7,10 @@
     <title><?php echo $titulo?></title>
     <script src="<?php echo base_url();?>assest/js/popper.min.js"></script>
     <script src="<?php echo base_url();?>assest/js/jquery-3.3.1.min.js"></script>
-    <script src="<?php echo base_url();?>assest/js/notify.min.js" charset="UTF-8"></script>
-    <!--<script src="<?php echo base_url();?>assest/js/loader.js" charset="UTF-8"></script>-->
-    <!--<script src="<?php echo base_url();?>assest/js/envioformularios.js"></script>-->
     <script src="<?php echo base_url();?>assest/js/bootstrap.min.js"></script>
-    <!--<script src="<?php echo base_url();?>assest/js/datatables.min.js"></script>-->
     <script defer src="<?php echo base_url();?>assest/js/all.js"></script>
     <!--<link rel="stylesheet" href="<?php echo base_url();?>assest/css/loader.css" >-->
     <link rel="stylesheet" href="<?php echo base_url();?>assest/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>assest/css/datatables.min.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assest/css/normalize.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assest/css/styles_principal.css">
 <style>
@@ -72,7 +67,7 @@ $(function(){
     /* ---- Creacion de usuario con AJAX ----*/
     $(document).on('submit', '#procesoRegistro',function(event) {
           var url="<?php echo base_url()?>";
-          var formElement = document.querySelector("#procesoRegistro").value();
+          var formElement = document.querySelector("#procesoRegistro");
           var formData = new FormData(formElement);
             $.ajax({
                 url: $('#procesoRegistro').attr('action')+"?"+$.now(),  
@@ -89,17 +84,16 @@ $(function(){
                       $.notify(data.msg, {
                         className:'error',
                         globalPosition: 'top right',
-                        autoHideDelay:5000,
+                        autoHideDelay:5000
                       });
                   }else if(data.res == "ok"){
                     $(".btn_registro").attr("disabled", false);
-                    $('#procesoRegistro')[0].reset();
                     $("#procesoRegistro input,#procesoRegistro button,#procesoRegistro").prop("disabled", false);
                     window.location="registro";
                     $.notify(data.msg, {
                       className:'success',
                       globalPosition: 'top right',
-                      autoHideDelay:5000,
+                      autoHideDelay:5000
                     });
                   }
                 }
@@ -145,13 +139,12 @@ $(function(){
             </div>
         </div>
     </div>
-
+    
     
     <script src="<?php echo base_url();?>assest/js/popper.min.js"></script>
     <script src="<?php echo base_url();?>assest/js/jquery-3.3.1.min.js"></script>
-    <script src="<?php echo base_url();?>assest/js/notify.min.js" charset="UTF-8"></script>
+    <script src="<?php echo base_url();?>assest/js/notify.min.js"></script>
     <script src="<?php echo base_url();?>assest/js/bootstrap.min.js"></script>
-    <!--<script src="<?php echo base_url();?>assest/js/datatables.min.js"></script>-->
     <script defer src="<?php echo base_url();?>assest/js/all.js"></script>
 </body>
 </html>

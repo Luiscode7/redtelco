@@ -66,7 +66,7 @@ a:hover{
     background: #A4A4A4 !important;
 }
 
-#textarea-post{
+.textarea-post{
     width: 100%;
     border-color: #A4A4A4;
     border-radius:3px;
@@ -173,9 +173,14 @@ hr{
     padding:6px 15px;
 }
 
-#perfil-usuario, span{
+#perfil-usuario span{
     color:#fff;
 }
+
+.perfil-post span{
+    color: #000000;
+}
+
 
 /*--- Media query menu navbar usuarios---*/
 @media (max-width:992px){
