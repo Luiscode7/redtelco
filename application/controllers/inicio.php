@@ -62,4 +62,40 @@ class Inicio extends CI_Controller {
         
     }
 
+    public function postCualquiera(){
+        $id_usuario_post=$this->security->xss_clean(strip_tags($this->input->post("id_usuario_post")));
+        $anonimo=$this->security->xss_clean(strip_tags($this->input->post("anonimo")));
+        $contenido=$this->security->xss_clean(strip_tags($this->input->post("contenido")));
+        $imagen=$this->security->xss_clean(strip_tags($this->input->post("imagen")));
+
+        $data_insert=array(
+            "anonimo"=>$anonimo,
+            "contenido"=>$contenido,
+            "imagen"=>$imagen
+        );
+
+        if($this->InicioModel->insertarPost($data_insert)){
+            echo json_encode(array('res'=>"ok", 'msg' => "publicacion realizada con éxito"));exit;
+        }else{
+            echo json_encode(array('res'=>"error", 'msg' => "No se ha podido registrar"));exit;
+        }
+        
+    }
+
+    public function mostrarPostMuro(){
+        if($this->input->is_ajax_request()){
+            $anonimo=$this->securimostrarPostty->xss_clean(strip_tags($this->input->post("anonimo")));
+            $contenido=$this->security->xss_clean(strip_tags($this->input->post("contenido")));
+            //$imagen=$this->security->xss_clean(strip_tags($this->input->post("imagen")));
+            $data=$this->InicioModel->mostrarPost($anonimo,$contenido);
+            if($data!=FALSE){
+                echo json_encode(array("res" => "ok" ,"dato" => $data));
+            }else{
+                echo json_encode(array("res" => "error" , "msg" => "Problemas procesando su solicitud, intente nuevamente."));
+            }
+        }else{
+            exit('No direct script access allowed');
+        }
+    }
+
 }
