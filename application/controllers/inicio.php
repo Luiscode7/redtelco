@@ -59,7 +59,5 @@ class Inicio extends CI_Controller {
                 }
             }
         }    
-        
     }
-
 }
