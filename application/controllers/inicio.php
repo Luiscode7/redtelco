@@ -14,7 +14,7 @@ class Inicio extends CI_Controller {
         $contenido = array(
             'titulo' => "Portal", 
             'contenido' => "Inicio",
-            'posteo' => $this->InicioModel->mostrarPostAnonimo()
+            'posteo' => $this->InicioModel->mostrarMuroAnonimo()
         );
         $this->load->view('plantilla/plantilla', $contenido);
     }
@@ -82,18 +82,30 @@ class Inicio extends CI_Controller {
                 if($id_post ==""){
                     if($this->InicioModel->insertarPostAnonimo($data_insert)){
                         echo json_encode(array('res'=>"ok", 'msg' => "publicacion realizada con éxito"));exit;
-    
-                        //$this->mostrarPostMuro();
-                        /*$data=$this->InicioModel->mostrarPost($anonimo,$contenido);
-                            if($data!=FALSE){
-                                echo json_encode(array("res" => "ok" ,"dato" => $data));
-                            }else{
-                                echo json_encode(array("res" => "error" , "msg" => "Problemas procesando su solicitud, intente nuevamente."));
-                            }*/
                     }else{
                         echo json_encode(array('res'=>"error", 'msg' => "No se ha podido publicar"));exit;
                     }
+
                 }
+                
+                $data=$this->InicioModel->mostrarMuroAnonimo($nombre,$contenido);
+                if($data!=FALSE){
+                    echo json_encode(array("res" => "ok" ,"dato" => $data));
+                }else{
+                    echo json_encode(array("res" => "error" , "msg" => "Problemas procesando su solicitud, intente nuevamente."));
+                }
+
+                /*$data_mostrar=array(
+                    "id"=>$id_post
+                );
+                if($id_post !== ""){
+                    $data=$this->InicioModel->mostrarPostAnonimo($data_mostrar);
+                    echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
+                }
+                /*else{
+
+                }*/
+    
             }
 
         }                            

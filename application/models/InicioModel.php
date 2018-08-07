@@ -22,7 +22,7 @@ class InicioModel extends CI_Model{
       return FALSE;
     }
 
-    public function mostrarPostAnonimo(){
+    public function mostrarMuroAnonimo(){
       $this->db->select('id, nombre, contenido');
       $this->db->order_by('id', 'DESC');
       $res=$this->db->get('publicaciones_anonimos');
@@ -30,5 +30,16 @@ class InicioModel extends CI_Model{
 				return $res->result_array();
 			}
       return FALSE;
+    }
+
+    public function mostrarPostAnonimo($dato){
+      $this->db->select('id, nombre, contenido');
+      $this->db->where('id', $dato);
+      $res=$this->db->get('publicaciones_anonimos');
+      if($res->num_rows()>0){
+				return $res->result_array();
+			}
+      return FALSE;
+      
     }
 }

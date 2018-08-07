@@ -39,6 +39,12 @@ $(function(){
                 });
                 $('#postAnonimo')[0].reset();
                 $("#id_post").val("");
+                for(dato in data.datos){
+                  
+                  $("#id_post").val(data.datos[dato].id_post);
+                  $("#nombrepu").val(data.datos[dato].nombre);
+                  $("#public").val(data.datos[dato].contenido);
+                }    
               }
             }
       });
@@ -90,7 +96,7 @@ $(function(){
     <?php echo form_open_multipart("postAnonimo",array("id"=>"postAnonimo","class"=>"postAnonimo"))?>
     <input type="hidden" name="id_post" id="id_post">
     <div class="col container-public p-cero">
-        <input type="text" class="form-control form-control-sm mb-3" style="text-indent:15px" autofocus placeholder="ingrese un nombre" name="nombre" id="nombre">
+        <input type="text" class="form-control form-control-sm mb-3" style="text-indent:15px" autofocus placeholder="ingrese un nombre" name="nombre" id="nombre" autocomplete="off">
         <textarea name="contenido" id="contenido" class="textarea-post" placeholder="Escriba lo que desee..." cols="30" rows="10"></textarea>
         <button type="submit" name="Comentar" id="Comentar" class="btn btn-primary btn-post">Publicar</button>
         <hr>
@@ -110,6 +116,14 @@ $(function(){
     <?php
     }
     ?>
+
+    <div class="col container-post border-post">
+        <div class="perfil-post" id="post-p">
+            <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
+            <span id="nombrepu"></span>
+        </div>
+        <p id="public" class="p-post"></p>
+    </div>
 
     <div class="row">
             <div class="col-6 container-button-post d-flex justify-content-start">
