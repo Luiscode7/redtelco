@@ -3,7 +3,6 @@ $(function(){
 
     /* ---- Creacion de publicacion con AJAX ----*/
     $(document).on('submit', '#postCualquiera',function(event) {
-        event.preventDefault();
       var url="<?php echo base_url()?>";
       var formElement = document.querySelector("#postCualquiera");
       var formData = new FormData(formElement);
@@ -18,7 +17,6 @@ $(function(){
             success: function (data) {
               if(data.res == "error"){
                  $(".btn-post").attr("disabled", false);
-                  $("#postCualquiera input,#postCualquiera button,#postCualquiera").prop("disabled", false);
                   $.notify(data.msg, {
                     className:'error',
                     globalPosition: 'top right',
@@ -26,7 +24,6 @@ $(function(){
                   });
               }else if(data.res == "ok"){
                 $(".btn-post").attr("disabled", false);
-                $("#postCualquiera input,#postCualquiera button,#postCualquiera").prop("disabled", false);
                 $.notify(data.msg, {
                   className:'success',
                   globalPosition: 'top right',

@@ -13,7 +13,7 @@ class Inicio extends CI_Controller {
 	{
         $contenido = array(
             'titulo' => "Portal", 
-            'contenido' => "inicio",
+            'contenido' => "Inicio"
             //'posteo' => $this->InicioModel->mostrarPost()
         );
         $this->load->view('plantilla/plantilla', $contenido);

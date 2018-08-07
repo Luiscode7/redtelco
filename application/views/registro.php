@@ -79,8 +79,8 @@ $(function(){
                 contentType : false,
                 success: function (data) {
                   if(data.res == "error"){
-                     $(".btn_registro").attr("disabled", true);
-                      $("#procesoRegistro input,#procesoRegistro button,#procesoRegistro").prop("disabled", false);
+                     $(".btn_registro").attr("disabled", false);
+                      //$("#procesoRegistro input,#procesoRegistro button,#procesoRegistro").prop("disabled", false);
                       $.notify(data.msg, {
                         className:'error',
                         globalPosition: 'top right',
@@ -88,13 +88,14 @@ $(function(){
                       });
                   }else if(data.res == "ok"){
                     $(".btn_registro").attr("disabled", false);
-                    $("#procesoRegistro input,#procesoRegistro button,#procesoRegistro").prop("disabled", false);
-                    window.location="registro";
+                    //$("#procesoRegistro input,#procesoRegistro button,#procesoRegistro").prop("disabled", false);
                     $.notify(data.msg, {
                       className:'success',
                       globalPosition: 'top right',
                       autoHideDelay:5000
                     });
+                    $('#procesoRegistro')[0].reset();
+                    $("#id_usuario").val("");
                   }
                 }
           });
@@ -131,11 +132,11 @@ $(function(){
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn_registro col-12">Registrarse</button>
                 </div>
-                <?php echo form_close();?>
                 <div class="row pl-2">
                     <p>¿Ya tienes una cuenta?, por favor</p>&nbsp;
                     <a class="a-login" href="<?php base_url();?>login">Inicia sesi&oacute;n</a>
                 </div>
+                <?php echo form_close();?>
             </div>
         </div>
     </div>
