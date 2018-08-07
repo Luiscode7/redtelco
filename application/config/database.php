@@ -6,8 +6,8 @@ $query_builder = TRUE;
 if($_SERVER["HTTP_HOST"]=="localhost"){
 	$hostname='localhost';
 	$username='root';
-	//$password='asdf1212';
-	$password='';
+	$password='asdf1212';
+	//$password='';
 	$database='redtelco';
  }
 

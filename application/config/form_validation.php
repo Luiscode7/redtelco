@@ -25,5 +25,23 @@ $config = array(
             'rules'   => 'trim|required'
            )
         
-     )
+        ),
+
+      'postAnonimo' => array(
+            array(
+                  'field'   => 'nombre',
+                  'rules'   => 'required'
+            ),
+            array(
+                  'field'   => 'contenido',
+                  'rules'   => 'required'
+            )
+      ),
+
+      'postUsuario' => array(
+            array(
+                  'field'   => 'contenido_usuario',
+                  'rules'   => 'required'
+            )
+      )
 );

@@ -13,8 +13,8 @@ class Inicio extends CI_Controller {
 	{
         $contenido = array(
             'titulo' => "Portal", 
-            'contenido' => "Inicio"
-            //'posteo' => $this->InicioModel->mostrarPost()
+            'contenido' => "Inicio",
+            'posteo' => $this->InicioModel->mostrarPostAnonimo()
         );
         $this->load->view('plantilla/plantilla', $contenido);
     }
@@ -65,38 +65,54 @@ class Inicio extends CI_Controller {
     }
 
 
-    public function postCualquiera(){
+    public function postAnonimo(){
         if($this->input->is_ajax_request()){
             $id_post=$this->security->xss_clean(strip_tags($this->input->post("id_post")));
-            $anonimo=$this->security->xss_clean(strip_tags($this->input->post("anonimo")));
+            $nombre=$this->security->xss_clean(strip_tags($this->input->post("nombre")));
             $contenido=$this->security->xss_clean(strip_tags($this->input->post("contenido")));
-            $imagen=$this->security->xss_clean(strip_tags($this->input->post("imagen")));
 
             $data_insert=array(
-                "anonimo"=>$anonimo,
-                "contenido"=>$contenido,
-                "imagen"=>$imagen
+                "nombre"=>$nombre,
+                "contenido"=>$contenido
             );
 
-            if($id_post ==""){
-                if($this->InicioModel->insertarPost($data_insert)){
-                    echo json_encode(array('res'=>"ok", 'msg' => "publicacion realizada con éxito"));exit;
-                }else{
-                    echo json_encode(array('res'=>"error", 'msg' => "No se ha podido registrar"));exit;
+            if($this->form_validation->run("postAnonimo") == FALSE){
+                echo json_encode(array('res'=>"error", 'msg' => strip_tags(validation_errors())));exit;
+            }else{
+                if($id_post ==""){
+                    if($this->InicioModel->insertarPostAnonimo($data_insert)){
+                        echo json_encode(array('res'=>"ok", 'msg' => "publicacion realizada con éxito"));exit;
+    
+                        //$this->mostrarPostMuro();
+                        /*$data=$this->InicioModel->mostrarPost($anonimo,$contenido);
+                            if($data!=FALSE){
+                                echo json_encode(array("res" => "ok" ,"dato" => $data));
+                            }else{
+                                echo json_encode(array("res" => "error" , "msg" => "Problemas procesando su solicitud, intente nuevamente."));
+                            }*/
+                    }else{
+                        echo json_encode(array('res'=>"error", 'msg' => "No se ha podido publicar"));exit;
+                    }
                 }
             }
+
         }                            
     }
 
-    public function mostrarPostMuro(){
+    /*public function mostrarPostMuro(){
             $anonimo=$this->security->xss_clean(strip_tags($this->input->post("anonimo")));
             $contenido=$this->security->xss_clean(strip_tags($this->input->post("contenido")));
             //$imagen=$this->security->xss_clean(strip_tags($this->input->post("imagen")));
-            $data=$this->InicioModel->mostrarPost($anonimo,$contenido);
+
+            $data_mostrar=array(
+                "anonimo"=>$anonimo,
+                "contenido"=>$contenido
+            );
+            $data=$this->InicioModel->mostrarPost($data_mostrar);
             if($data!=FALSE){
                 echo json_encode(array("res" => "ok" ,"dato" => $data));
             }else{
                 echo json_encode(array("res" => "error" , "msg" => "Problemas procesando su solicitud, intente nuevamente."));
             }
-    }
+    }*/
 }

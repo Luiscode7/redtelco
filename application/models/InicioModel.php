@@ -7,24 +7,25 @@ class InicioModel extends CI_Model{
     }
 
     public function insertarUsuario($datos){
-      if($this->db->insert('usuario', $datos)){
+      if($this->db->insert('usuarios', $datos)){
 				$insert_id = $this->db->insert_id();
 				return $insert_id;
 			}
 			return FALSE;
     }
     
-    public function insertarPost($datos){
-      if($this->db->insert('publicaciones', $datos)){
+    public function insertarPostAnonimo($datos){
+      if($this->db->insert('publicaciones_anonimos', $datos)){
         $insert_id = $this->db->insert_id();
         return $insert_id;
       }
       return FALSE;
     }
 
-    public function mostrarPost(){
-      $this->db->select('anonimo, contenido');
-      $res=$this->db->get('publicaciones');
+    public function mostrarPostAnonimo(){
+      $this->db->select('id, nombre, contenido');
+      $this->db->order_by('id', 'DESC');
+      $res=$this->db->get('publicaciones_anonimos');
       if($res->num_rows()>0){
 				return $res->result_array();
 			}
