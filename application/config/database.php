@@ -3,14 +3,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $active_group = 'default';
 $query_builder = TRUE;
+if($_SERVER["HTTP_HOST"]=="localhost"){
+	$hostname='localhost';
+	$username='root';
+	//$password='asdf1212';
+	$password='';
+	$database='redtelco';
+ }
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => $hostname,
+	'username' => $username,
+	'password' => $password,
+	'database' => $database,
+	/*'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => 'asdf1212',
-	//'password' => '',
-	'database' => 'redtelco',
+	'password' => '',
+	'database' => 'redtelco',*/
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

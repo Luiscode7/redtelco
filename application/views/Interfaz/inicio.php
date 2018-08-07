@@ -17,7 +17,6 @@ $(function(){
             success: function (data) {
               if(data.res == "error"){
                  $(".btn-post").attr("disabled", false);
-                  $("#postCualquiera input,#postCualquiera button,#postCualquiera").prop("disabled", false);
                   $.notify(data.msg, {
                     className:'error',
                     globalPosition: 'top right',
@@ -25,7 +24,6 @@ $(function(){
                   });
               }else if(data.res == "ok"){
                 $(".btn-post").attr("disabled", false);
-                $("#postCualquiera input,#postCualquiera button,#postCualquiera").prop("disabled", false);
                 $.notify(data.msg, {
                   className:'success',
                   globalPosition: 'top right',

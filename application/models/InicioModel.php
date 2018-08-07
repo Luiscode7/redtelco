@@ -8,7 +8,7 @@ class InicioModel extends CI_Model{
 
     public function insertarUsuario($datos){
       if($this->db->insert('usuario', $datos)){
-				$insert_id = $this->db->insert();
+				$insert_id = $this->db->insert_id();
 				return $insert_id;
 			}
 			return FALSE;
