@@ -3,7 +3,6 @@ $(function(){
 
     /* ---- Creacion de publicacion con AJAX ----*/
     $(document).on('submit', '#postCualquiera',function(event) {
-        event.preventDefault();
       var url="<?php echo base_url()?>";
       var formElement = document.querySelector("#postCualquiera");
       var formData = new FormData(formElement);

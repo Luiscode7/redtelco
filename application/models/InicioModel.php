@@ -16,8 +16,8 @@ class InicioModel extends CI_Model{
     
     public function insertarPost($datos){
       if($this->db->insert('publicaciones', $datos)){
-        $insert = $this->db->insert_id();
-        return $insert;
+        $insert_id = $this->db->insert_id();
+        return $insert_id;
       }
       return FALSE;
     }
