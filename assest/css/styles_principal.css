@@ -222,4 +222,16 @@ hr{
     }
 }
 
+/*--- Media query bloque comentarios publicaciones---*/
+
+@media (max-width:768px){
+    .block-comment{
+        width:100%;
+    }
+
+    .block-likes{
+        position: absolute !important;
+        bottom:50px !important;
+    }
+}
 

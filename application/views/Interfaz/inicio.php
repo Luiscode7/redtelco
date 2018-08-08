@@ -25,10 +25,22 @@ $(function(){
               }else if(data.res == "ok"){
                     var html = '<div class="col container-post border-post">'
                         + '<div class="perfil-post">'
-                        + '<img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">'
+                        + '<img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">'
                         + '<span id="nombre">'+data.datos.nombre+'</span>'
                         + '</div>'
                         + '<p id="public" class="p-post">'+data.datos.contenido+'</p>'    
+                        + '<div class="row">'
+                        + '<div class="col-6 container-button-post d-flex justify-content-start">'
+                        + '<button type="submit" class="btn btn-secondary form-control">Me gusta</button>'
+                        + '<button type="submit" class="btn btn-secondary form-control">No me gusta</button>'
+                        + '<button type="submit" class="btn btn-secondary form-control">Comentar</button>'
+                        + '</div>'
+                        + '<div class="col-6 d-flex justify-content-end align-items-center">'
+                        + '<a class="pr-2" href=""><i class="far fa-thumbs-up"></i></a>'
+                        + '<span>5</span>'
+                        + '<a class=" pr-2 pl-2" href=""><i class="far fa-thumbs-down"></i></a>'
+                        + '<span>10</span>'
+                        + '</div>'
                         + '</div>';
                 $(".publicado").append(html);
                 $(".btn-post").attr("disabled", false);
@@ -59,33 +71,32 @@ $(function(){
         <button type="submit" name="Comentar" id="Comentar" class="btn btn-primary btn-post">Publicar</button>
         <hr>
     </div> 
+    <?php echo form_close();?>
     <div class="publicado"></div>
     <?php
     foreach($posteo as $post){
     ?>
     <div class="col container-post border-post">
         <div class="perfil-post" id="post-p">
-            <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
+            <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">
             <span id="nombreP"><?php echo $post["nombre"]?></span>
         </div>
         <p id="p-post" class="p-post"><?php echo $post["contenido"]?></p>
-    </div>
-    <?php
-    }
-    ?>
-    
-    <?php echo form_close();?>
-    <div class="row">
-            <div class="col-6 container-button-post d-flex justify-content-start">
+        <div class="row">
+            <div class="col-md-10 col-lg-6 block-comment container-button-post d-flex justify-content-start">
                 <button type="submit" class="btn btn-secondary form-control">Me gusta</button>
                 <button type="submit" class="btn btn-secondary form-control">No me gusta</button>
                 <button type="submit" class="btn btn-secondary form-control">Comentar</button>
             </div>
-            <div class="col-6 d-flex justify-content-end align-items-center">
+            <div class="block-likes col-md-2 col-lg-6 d-flex justify-content-end align-items-center">
                 <a class="pr-2" href=""><i class="far fa-thumbs-up"></i></a>
                 <span>5</span>
                 <a class=" pr-2 pl-2" href=""><i class="far fa-thumbs-down"></i></a>
                 <span>10</span>
             </div>
+        </div>
     </div>
+    <?php
+    }
+    ?>
 </div>
