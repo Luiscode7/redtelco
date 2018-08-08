@@ -81,50 +81,13 @@ class Inicio extends CI_Controller {
             }else{
                 if($id_post ==""){
                     if($this->InicioModel->insertarPostAnonimo($data_insert)){
-                        echo json_encode(array('res'=>"ok", 'msg' => "publicacion realizada con éxito"));exit;
+                        echo json_encode(array('res'=>"ok", 'msg' => "publicacion realizada con éxito", 'datos' => $data_insert));exit;
                     }else{
                         echo json_encode(array('res'=>"error", 'msg' => "No se ha podido publicar"));exit;
                     }
 
                 }
-                
-                $data=$this->InicioModel->mostrarMuroAnonimo($nombre,$contenido);
-                if($data!=FALSE){
-                    echo json_encode(array("res" => "ok" ,"dato" => $data));
-                }else{
-                    echo json_encode(array("res" => "error" , "msg" => "Problemas procesando su solicitud, intente nuevamente."));
-                }
-
-                /*$data_mostrar=array(
-                    "id"=>$id_post
-                );
-                if($id_post !== ""){
-                    $data=$this->InicioModel->mostrarPostAnonimo($data_mostrar);
-                    echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
-                }
-                /*else{
-
-                }*/
-    
             }
-
         }                            
     }
-
-    /*public function mostrarPostMuro(){
-            $anonimo=$this->security->xss_clean(strip_tags($this->input->post("anonimo")));
-            $contenido=$this->security->xss_clean(strip_tags($this->input->post("contenido")));
-            //$imagen=$this->security->xss_clean(strip_tags($this->input->post("imagen")));
-
-            $data_mostrar=array(
-                "anonimo"=>$anonimo,
-                "contenido"=>$contenido
-            );
-            $data=$this->InicioModel->mostrarPost($data_mostrar);
-            if($data!=FALSE){
-                echo json_encode(array("res" => "ok" ,"dato" => $data));
-            }else{
-                echo json_encode(array("res" => "error" , "msg" => "Problemas procesando su solicitud, intente nuevamente."));
-            }
-    }*/
 }

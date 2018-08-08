@@ -32,14 +32,14 @@ class InicioModel extends CI_Model{
       return FALSE;
     }
 
-    public function mostrarPostAnonimo($dato){
+    /*public function mostrarPostAnonimo($id){
       $this->db->select('id, nombre, contenido');
-      $this->db->where('id', $dato);
+      $this->db->where('id', $id);
       $res=$this->db->get('publicaciones_anonimos');
       if($res->num_rows()>0){
 				return $res->result_array();
 			}
       return FALSE;
       
-    }
+    }*/
 }

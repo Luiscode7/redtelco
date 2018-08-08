@@ -23,14 +23,14 @@ $(function(){
                     autoHideDelay:5000
                   });
               }else if(data.res == "ok"){
-                /*html += '<div class="col container-post border-post">'
-                            + '<div class="perfil-post">'
-                            + '<span id="nombreP">'<?php echo $anonimo?>'</span>'
-                            + '</div>'
-                            + '<p id="p-post" class="p-post">'<?php echo $contenido?>'</p>'
-                            + '<img style="width:100%" src="<?php echo base_url();?>assest/imagenes/t5.jpg" alt="">'    
-                            + '</div>';
-                $(".container-principal").append(html);*/
+                    var html = '<div class="col container-post border-post">'
+                        + '<div class="perfil-post">'
+                        + '<img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">'
+                        + '<span id="nombre">'+data.datos.nombre+'</span>'
+                        + '</div>'
+                        + '<p id="public" class="p-post">'+data.datos.contenido+'</p>'    
+                        + '</div>';
+                $(".publicado").append(html);
                 $(".btn-post").attr("disabled", false);
                 $.notify(data.msg, {
                   className:'success',
@@ -38,55 +38,13 @@ $(function(){
                   autoHideDelay:5000
                 });
                 $('#postAnonimo')[0].reset();
-                $("#id_post").val("");
-                for(dato in data.datos){
-                  
-                  $("#id_post").val(data.datos[dato].id_post);
-                  $("#nombrepu").val(data.datos[dato].nombre);
-                  $("#public").val(data.datos[dato].contenido);
-                }    
+                $("#id_post").val(""); 
               }
             }
       });
       return false; 
   });
 
-        /* ------ Mostrar datos ------ */
-        /*function publicarPost(){
-            success : function(data){
-                var json = JSON.parse(data);
-                if(json.res == "success"){              
-
-                    for(datos in json.posteos) {
-
-                        html += '<div class="col container-post border-post">'
-                            + '<div class="perfil-post">'
-                            + '<span id="nombreP">'+json.'</span>'
-                            + '</div>'
-                            + '<p id="p-post" class="p-post"></p>'
-                            + '<img style="width:100%" src="<?php echo base_url();?>assest/imagenes/t5.jpg" alt="">'    
-                            + '</div>';
-
-
-                    }  
-                }    
-                $(".content").append(html);
-        
-            },
-        }*/
-        
-        /*function mostrarMuro(){
-            for($posteo in $post){
-                html += '<div class="col container-post border-post">'
-                            + '<div class="perfil-post">'
-                            + '<span id="nombreP">'<?php echo $post["anonimo"]?>'</span>'
-                            + '</div>'
-                            + '<p id="p-post" class="p-post">'<?php echo $post["contenido"]?>'</p>'
-                            + '<img style="width:100%" src="<?php echo base_url();?>assest/imagenes/t5.jpg" alt="">'    
-                            + '</div>';
-            } 
-            $(".container-principal").append(html);      
-        }*/
 });
 
 </script>
@@ -101,8 +59,7 @@ $(function(){
         <button type="submit" name="Comentar" id="Comentar" class="btn btn-primary btn-post">Publicar</button>
         <hr>
     </div> 
-    <?php echo form_close();?>
-
+    <div class="publicado"></div>
     <?php
     foreach($posteo as $post){
     ?>
@@ -116,15 +73,8 @@ $(function(){
     <?php
     }
     ?>
-
-    <div class="col container-post border-post">
-        <div class="perfil-post" id="post-p">
-            <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
-            <span id="nombrepu"></span>
-        </div>
-        <p id="public" class="p-post"></p>
-    </div>
-
+    
+    <?php echo form_close();?>
     <div class="row">
             <div class="col-6 container-button-post d-flex justify-content-start">
                 <button type="submit" class="btn btn-secondary form-control">Me gusta</button>
@@ -138,13 +88,4 @@ $(function(){
                 <span>10</span>
             </div>
     </div>
-        
-    <!--<div class="col container-post border-post">
-        <div class="perfil-post">
-            <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
-            <span id="nombreP"></span>
-        </div>
-        <p id="p-post" class="p-post"></p>
-        <img style="width:100%" src="<?php echo base_url();?>assest/imagenes/t5.jpg" alt="">
-    </div>-->
 </div>
