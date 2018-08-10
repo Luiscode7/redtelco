@@ -90,4 +90,25 @@ class Inicio extends CI_Controller {
             }
         }                            
     }
+
+    public function meGusta(){
+        if($this->input->is_ajax_request()){
+            $id_megusta=$this->security->xss_clean(strip_tags($this->input->post("id_megusta")));
+            $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacion")));
+            $ip=$this->input->ip_address();
+
+            $datos_insertar = array(
+                "id_publicacion"=>$id_publicacion,
+                "ip"=>$ip
+            );
+
+            if($id_megusta ==""){
+                if($this->InicioModel->insertarMeGusta($datos_insertar)){
+                    echo json_encode(array('res'=>"ok", 'datos' => $datos_insertar));exit;
+                }else{
+                    echo json_encode(array('res'=>"error"));exit;
+                }
+            }
+        }
+    }
 }

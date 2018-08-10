@@ -26,9 +26,9 @@ $(function(){
                     var html = '<div class="col container-post border-post">'
                         + '<div class="perfil-post">'
                         + '<img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">'
-                        + '<span id="nombre">'+data.datos.nombre+'</span>'
+                        + '<span id="nombreP">'+data.datos.nombre+'</span>'
                         + '</div>'
-                        + '<p id="public" class="p-post">'+data.datos.contenido+'</p>'    
+                        + '<p id="p-post" class="p-post">'+data.datos.contenido+'</p>'    
                         + '<div class="row">'
                         + '<div class="col-6 container-button-post d-flex justify-content-start">'
                         + '<button type="submit" class="btn btn-secondary form-control">Me gusta</button>'
@@ -42,7 +42,7 @@ $(function(){
                         + '<span>10</span>'
                         + '</div>'
                         + '</div>';
-                $(".publicado").append(html);
+                $(".publicado").html(html);
                 $(".btn-post").attr("disabled", false);
                 $.notify(data.msg, {
                   className:'success',
@@ -57,8 +57,33 @@ $(function(){
       return false; 
   });
 
-});
+        /* -------- FUNCION PARA ME GUSTA ----------- */
+        $(document).on('click', '.btn-megusta', function(event){
+            var url="<?php echo base_url()?>";
+            var formElement = document.querySelector("#meGusta");
+            var formData = new FormData(formElement);
+                $.ajax({
+                    url: $('#meGusta').attr('action')+"?"+$.now(),  
+                    type: 'POST',
+                    data: formData,
+                    cache: false,
+                    processData: false,
+                    dataType: "json",
+                    contentType : false,
+                    success: function (data) {
+                    if(data.res == "error"){
+                        $(".btn-megusta").attr("disabled", false);
+                    }else if(data.res == "ok"){
+                        var htmlmg = '<span>''</span>'
+                        $(".btn-megusta").attr("disabled", false); 
+                    }
+                }
+            });
+            return false; 
+        });
+        
 
+});
 </script>
 
 <!-- Muro -->
@@ -82,21 +107,25 @@ $(function(){
             <span id="nombreP"><?php echo $post["nombre"]?></span>
         </div>
         <p id="p-post" class="p-post"><?php echo $post["contenido"]?></p>
+        <?php echo form_open_multipart("meGusta",array("id"=>"meGusta","class"=>"meGusta"))?>
         <div class="row">
-            <div class="col-md-10 col-lg-6 block-comment container-button-post d-flex justify-content-start">
-                <button type="submit" class="btn btn-secondary form-control">Me gusta</button>
-                <button type="submit" class="btn btn-secondary form-control">No me gusta</button>
-                <button type="submit" class="btn btn-secondary form-control">Comentar</button>
-            </div>
-            <div class="block-likes col-md-2 col-lg-6 d-flex justify-content-end align-items-center">
-                <a class="pr-2" href=""><i class="far fa-thumbs-up"></i></a>
-                <span>5</span>
-                <a class=" pr-2 pl-2" href=""><i class="far fa-thumbs-down"></i></a>
-                <span>10</span>
-            </div>
+                <div class="col-md-10 col-lg-6 block-comment container-button-post d-flex justify-content-start">
+                    <input type="hidden" name="id_megusta">
+                    <input type="hidden" name="id_publicacion" value="<?php echo $post["id"]?>" id="publicacion">
+                    <button type="submit" name="publicacion" class="btn btn-secondary form-control btn-megusta">Me gusta</button>
+                    <button type="submit" name="no_me_gusta" class="btn btn-secondary form-control">No me gusta</button>
+                    <button type="submit" class="btn btn-secondary form-control">Comentar</button>
+                </div>
+                <div id="mg" class="block-likes col-md-2 col-lg-6 d-flex justify-content-end align-items-center">
+                    <a class="pr-2" href="#"><i class="far fa-thumbs-up"></i></a>
+                    
+                    <a class=" pr-2 pl-2" href="#"><i class="far fa-thumbs-down"></i></a>
+                    <span>10</span>
+                </div>
         </div>
+        <?php echo form_close();?>
     </div>
     <?php
     }
-    ?>
+    ?>    
 </div>

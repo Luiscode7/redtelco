@@ -42,4 +42,22 @@ class InicioModel extends CI_Model{
       return FALSE;
       
     }*/
+
+    public function insertarMeGusta($datos){
+      if($this->db->insert('me_gusta_anonimo',$datos)){
+        $insert = $this->db->insert_id();
+        return $insert;
+      }
+      return FALSE;
+    }
+
+    public function countMg($id){
+      $this->db->where('id', $id);
+      $res=$this->db->get('me_gusta_anonimo')
+      if($res->num_rows()>0){
+				return count($res->result_array());
+			}
+      return FALSE;
+    }
+
 }
