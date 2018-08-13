@@ -104,11 +104,26 @@ class Inicio extends CI_Controller {
 
             if($id_megusta ==""){
                 if($this->InicioModel->insertarMeGusta($datos_insertar)){
-                    echo json_encode(array('res'=>"ok", 'datos' => $datos_insertar));exit;
+                    $data=$this->InicioModel->countMg($id_publicacion);
+                    echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
                 }else{
                     echo json_encode(array('res'=>"error"));exit;
                 }
             }
+        }
+    }
+
+    public function mostrarMegusta(){
+        if($this->input->is_ajax_request()){
+            $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacion")));
+            $data=$this->InicioModel->countMg($id_publicacion);
+            if($data){
+                echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
+            }else{
+                echo json_encode(array('res'=>"error", 'msg' => ERROR_MSG));exit;
+            }	
+        }else{
+            exit('No direct script access allowed');
         }
     }
 }

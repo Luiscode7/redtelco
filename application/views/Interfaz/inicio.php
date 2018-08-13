@@ -37,9 +37,9 @@ $(function(){
                         + '</div>'
                         + '<div class="col-6 d-flex justify-content-end align-items-center">'
                         + '<a class="pr-2" href=""><i class="far fa-thumbs-up"></i></a>'
-                        + '<span>5</span>'
+                        + '<span></span>'
                         + '<a class=" pr-2 pl-2" href=""><i class="far fa-thumbs-down"></i></a>'
-                        + '<span>10</span>'
+                        + '<span></span>'
                         + '</div>'
                         + '</div>';
                 $(".publicado").html(html);
@@ -74,7 +74,8 @@ $(function(){
                     if(data.res == "error"){
                         $(".btn-megusta").attr("disabled", false);
                     }else if(data.res == "ok"){
-                        var htmlmg = '<span>''</span>'
+                        var htmlmg = '<span>'+data.datos+'</span>'
+                        $("#mg .mg1").html(htmlmg);
                         $(".btn-megusta").attr("disabled", false); 
                     }
                 }
@@ -98,6 +99,8 @@ $(function(){
     </div> 
     <?php echo form_close();?>
     <div class="publicado"></div>
+    
+    <?php if(!empty($posteo)): ?>
     <?php
     foreach($posteo as $post){
     ?>
@@ -111,14 +114,14 @@ $(function(){
         <div class="row">
                 <div class="col-md-10 col-lg-6 block-comment container-button-post d-flex justify-content-start">
                     <input type="hidden" name="id_megusta">
-                    <input type="hidden" name="id_publicacion" value="<?php echo $post["id"]?>" id="publicacion">
+                    <input type="hidden" name="id_publicacion" value="<?php echo $post["id_publi"]?>" id="publicacion">
                     <button type="submit" name="publicacion" class="btn btn-secondary form-control btn-megusta">Me gusta</button>
                     <button type="submit" name="no_me_gusta" class="btn btn-secondary form-control">No me gusta</button>
                     <button type="submit" class="btn btn-secondary form-control">Comentar</button>
                 </div>
                 <div id="mg" class="block-likes col-md-2 col-lg-6 d-flex justify-content-end align-items-center">
                     <a class="pr-2" href="#"><i class="far fa-thumbs-up"></i></a>
-                    
+                    <span class="mg1"><?php echo $post["mgustas"]?></span>
                     <a class=" pr-2 pl-2" href="#"><i class="far fa-thumbs-down"></i></a>
                     <span>10</span>
                 </div>
@@ -127,5 +130,6 @@ $(function(){
     </div>
     <?php
     }
-    ?>    
+    ?>  
+    <?php endif; ?>
 </div>
