@@ -97,26 +97,25 @@ class Inicio extends CI_Controller {
             $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacion")));
             $ip=$this->input->ip_address();
 
-            $datos_insertar = array(
-                "id_publicacion"=>$id_publicacion,
-                "ip"=>$ip
-            );
-
-            if($id_megusta ==""){
-                if($this->InicioModel->insertarMeGusta($datos_insertar)){
+                $datos_insert = array(
+                    "id_publicacion" => $id_publicacion,
+                    "ip" => $ip
+                );
+            
+                if($this->InicioModel->insertarMeGusta($datos_insert)){
                     $data=$this->InicioModel->countMg($id_publicacion);
                     echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
                 }else{
                     echo json_encode(array('res'=>"error"));exit;
                 }
-            }
+            
         }
     }
 
     public function mostrarMegusta(){
         if($this->input->is_ajax_request()){
             $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacion")));
-            $data=$this->InicioModel->countMg($id_publicacion);
+            $data=$this->InicioModel->mostrarMuroAnonimo($id_publicacion);
             if($data){
                 echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
             }else{
@@ -125,5 +124,10 @@ class Inicio extends CI_Controller {
         }else{
             exit('No direct script access allowed');
         }
+    }
+
+    public function mostrarMuroAn(){
+            $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacion")));
+            return $this->InicioModel->mostrarMuroAnonimo($id_publicacion);
     }
 }
