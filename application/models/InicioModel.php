@@ -22,7 +22,7 @@ class InicioModel extends CI_Model{
       return FALSE;
     }
 
-    public function mostrarMuroAnonimo(){
+    /*public function mostrarMuroAnonimo(){
       $this->db->select('id, nombre, contenido');
       $this->db->order_by('id', 'DESC');
       $res=$this->db->get('publicaciones_anonimos');
@@ -30,9 +30,9 @@ class InicioModel extends CI_Model{
 				return $res->result_array();
 			}
       return FALSE;
-    }
+    }*/
 
-    /*public function mostrarMuroAnonimo(){
+    public function mostrarMuroAnonimo(){
       $this->db->select("p.id as 'id_publi', p.nombre as nombre, p.contenido as contenido, COUNT(mg.id_publicacion) as 'mgustas'");
       $this->db->from('publicaciones_anonimos as p');
       $this->db->join('me_gusta_anonimo as mg', 'p.id = mg.id', 'left');
@@ -40,10 +40,10 @@ class InicioModel extends CI_Model{
       $this->db->order_by('id_publi', 'DESC');
       $res=$this->db->get();
       if($res->num_rows()>0){
-				return $res->result_array();
+        return $res->result_array();
 			}
       return FALSE;
-    }*/
+    }
 
     /*public function mostrarMuroAnonimo($id_publi){
       $this->db->select("p.id as 'id_publi', p.nombre as nombre, p.contenido as contenido, COUNT(mg.id_publicacion) as 'mgustas'");
@@ -99,6 +99,15 @@ class InicioModel extends CI_Model{
       $this->db->join('publicaciones_anonimos as p');
       $this->db->where('mg.id == p.id');
       $res=$this->db->count_all_result();
+      return $res;
+    }
+
+    /* Devuelve el total de publicaciones */
+    
+    public function countPublicaciones(){
+      $this->db->select('id');
+      $this->db->from('publicaciones_anonimos');
+      $res=$this->db->count_all_results();
       return $res;
     }
 

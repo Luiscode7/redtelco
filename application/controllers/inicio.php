@@ -14,7 +14,8 @@ class Inicio extends CI_Controller {
         $contenido = array(
             'titulo' => "Portal", 
             'contenido' => "Inicio",
-            'posteo' => $this->InicioModel->mostrarMuroAnonimo()
+            'posteo' => $this->mostrarMuroAn(),
+            'publicaciones' => $this->InicioModel->countPublicaciones()
         );
         $this->load->view('plantilla/plantilla', $contenido);
     }
