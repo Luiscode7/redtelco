@@ -14,7 +14,8 @@ class Inicio extends CI_Controller {
         $contenido = array(
             'titulo' => "Portal", 
             'contenido' => "Inicio",
-            'posteo' => $this->mostrarMuroAn(),
+            'posteo'=> $this->mostrarMuroAn(),
+            //'posteo' => $this->InicioModel->mostrarMuroAnonimo(),
             'publicaciones' => $this->InicioModel->countPublicaciones()
         );
         $this->load->view('plantilla/plantilla', $contenido);
@@ -113,10 +114,9 @@ class Inicio extends CI_Controller {
         }
     }
 
-    public function mostrarMegusta(){
+    public function mostrarMuroTodos(){
         if($this->input->is_ajax_request()){
-            $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacion")));
-            $data=$this->InicioModel->mostrarMuroAnonimo($id_publicacion);
+            $data=$this->InicioModel->mostrarMuroAnonimo();
             if($data){
                 echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
             }else{
@@ -128,7 +128,7 @@ class Inicio extends CI_Controller {
     }
 
     public function mostrarMuroAn(){
-            $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacion")));
-            return $this->InicioModel->mostrarMuroAnonimo($id_publicacion);
+            $data = $this->InicioModel->mostrarMuroAnonimo();
+            return $data;
     }
 }

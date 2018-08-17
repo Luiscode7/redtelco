@@ -11,5 +11,6 @@ $route['procesoRegistro'] = "inicio/procesoRegistro";
 $route['postAnonimo'] = "inicio/postAnonimo";
 $route['mostrarPostMuro'] = "inicio/mostrarPostMuro";
 $route['meGusta'] = "inicio/meGusta";
+$route['mostrarMuroTodos'] = "inicio/mostrarMuroTodos";
 
 $route['postUsuario'] = "usuario/postUsuario";

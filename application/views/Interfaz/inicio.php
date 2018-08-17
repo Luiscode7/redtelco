@@ -23,7 +23,7 @@ $(function(){
                     autoHideDelay:5000
                   });
               }else if(data.res == "ok"){
-                    var html = '<div class="col container-post border-post">'
+                    /*var html = '<div class="col container-post border-post">'
                         + '<div class="perfil-post">'
                         + '<img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">'
                         + '<span id="nombreP">'+data.datos.nombre+'</span>'
@@ -42,7 +42,47 @@ $(function(){
                         + '<span></span>'
                         + '</div>'
                         + '</div>';
-                $(".publicado").html(html);
+                $(".publicado").html(html);*/
+                    nombre=$(this).attr("data-nombre");
+                    contenido=$(this).attr("data-contenido");
+                    mgustas=$(this).attr("data-mgustas");
+                    $.ajax({
+                        url: 'mostrarMuroTodos'+"?"+$.now(),
+                        type: 'POST',
+                        data: {nombre:nombre, contenido:contenido,mgustas:mgustas},
+                        cache: false,
+                        processData: false,
+                        dataType: "json",
+                        contentType : false,
+                        success: function(dato){
+                            if(dato.res == 'ok'){
+                            for(datito in dato.datos){
+                                var html2 =  '<div class="perfil-post">'
+                                        + '<img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">'
+                                        + '<span id="nombreP">'+dato.datos[datito]+'</span>'
+                                        + '</div>'
+                                        + '<p id="p-post" class="p-post">'+dato.datos[datito]+'</p>'    
+                                        + '<div class="row">'
+                                        + '<div class="col-6 container-button-post d-flex justify-content-start">'
+                                        + '<button type="submit" class="btn btn-secondary form-control">Me gusta</button>'
+                                        + '<button type="submit" class="btn btn-secondary form-control">No me gusta</button>'
+                                        + '<button type="submit" class="btn btn-secondary form-control">Comentar</button>'
+                                        + '</div>'
+                                        + '<div class="col-6 d-flex justify-content-end align-items-center">'
+                                        + '<a class="pr-2" href=""><i class="far fa-thumbs-up"></i></a>'
+                                        + '<span>'+dato.datos[datito]+'</span>'
+                                        + '<a class=" pr-2 pl-2" href=""><i class="far fa-thumbs-down"></i></a>'
+                                        + '<span></span>'
+                                        + '</div>';
+                                        $(".col .container-post").html(html2);
+                                        console.log(dato.datos[datito]);            
+                            } 
+
+                            }else{
+                                console.log("aweonao asi no se hace!!");
+                            }
+                        }
+                    });
                 $(".btn-post").attr("disabled", false);
                 $.notify(data.msg, {
                   className:'success',
@@ -58,7 +98,7 @@ $(function(){
   });
 
         /* -------- FUNCION PARA ME GUSTA ----------- */
-        $(document).on('click', '.btn-megusta', function(event){
+        $(document).on('submit', '#meGusta', function(event){
             var url="<?php echo base_url()?>";
             var formElement = document.querySelector("#meGusta");
             var formData = new FormData(formElement);
@@ -106,9 +146,9 @@ $(function(){
     <?php echo form_close();?>
     <div class="publicado"></div>
     
-    <?php if(!empty($posteo)): ?>
+    <!--<?php if(!empty($posteo)): ?>
     <?php
-    foreach($posteo as $post){
+    foreach($posteo as $post):
     ?>
     <div class="col container-post border-post">
         <div class="perfil-post" id="post-p">
@@ -116,12 +156,13 @@ $(function(){
             <span id="nombreP"><?php echo $post["nombre"]?></span>
         </div>
         <p id="p-post" class="p-post"><?php echo $post["contenido"]?></p>
-        <?php echo form_open_multipart("meGusta",array("id"=>"meGusta","class"=>"meGusta"))?>
         <div class="row">
                 <div class="col-md-10 col-lg-6 block-comment container-button-post d-flex justify-content-start">
-                    <input type="hidden" name="id_megusta" id="id_megusta">
-                    <input type="hidden" name="id_publicacion" value="<?php echo $post["id_publi"]?>" id="publicacion">
-                    <button type="submit" name="publicacion" class="btn btn-secondary form-control btn-megusta">Me gusta</button>
+                    <?php echo form_open_multipart("meGusta",array("id"=>"meGusta","class"=>"meGusta"))?>
+                        <input type="hidden" name="id_megusta" id="id_megusta">
+                        <input type="hidden" name="id_publicacion" value="<?php echo $post["id_publi"]?>" id="publicacion">
+                        <button type="submit" name="publicacion" class="btn btn-secondary form-control btn-megusta">Me gusta</button>
+                    <?php echo form_close();?>
                     <button type="submit" name="no_me_gusta" class="btn btn-secondary form-control">No me gusta</button>
                     <button type="submit" class="btn btn-secondary form-control">Comentar</button>
                 </div>
@@ -135,10 +176,10 @@ $(function(){
                     </div>
                 </div>
         </div>
-        <?php echo form_close();?>
+        
     </div>
     <?php
-    }
-    ?>  
-    <?php endif; ?>
+    endforeach;
+    ?> 
+    <?php endif; ?>-->
 </div>

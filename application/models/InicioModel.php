@@ -16,26 +16,17 @@ class InicioModel extends CI_Model{
     
     public function insertarPostAnonimo($datos){
       if($this->db->insert('publicaciones_anonimos', $datos)){
-        $insert_id = $this->db->insert_id();
-        return $insert_id;
+        return true;
       }
       return FALSE;
     }
 
-    /*public function mostrarMuroAnonimo(){
-      $this->db->select('id, nombre, contenido');
-      $this->db->order_by('id', 'DESC');
-      $res=$this->db->get('publicaciones_anonimos');
-      if($res->num_rows()>0){
-				return $res->result_array();
-			}
-      return FALSE;
-    }*/
+    /* DEVUELVE TODAS LAS PUBLICACIONES JUNTO SUS ME GUSTAS */
 
     public function mostrarMuroAnonimo(){
-      $this->db->select("p.id as 'id_publi', p.nombre as nombre, p.contenido as contenido, COUNT(mg.id_publicacion) as 'mgustas'");
+      $this->db->select("p.id as 'id_publi', p.nombre as nombre, p.contenido as contenido, count(mg.id_publicacion) as 'mgustas'");
       $this->db->from('publicaciones_anonimos as p');
-      $this->db->join('me_gusta_anonimo as mg', 'p.id = mg.id', 'left');
+      $this->db->join('me_gusta_anonimo as mg', 'p.id = mg.id_publicacion', 'left');
       $this->db->group_by('p.id','p.nombre', 'p.contenido');
       $this->db->order_by('id_publi', 'DESC');
       $res=$this->db->get();
@@ -48,8 +39,8 @@ class InicioModel extends CI_Model{
     /*public function mostrarMuroAnonimo($id_publi){
       $this->db->select("p.id as 'id_publi', p.nombre as nombre, p.contenido as contenido, COUNT(mg.id_publicacion) as 'mgustas'");
       $this->db->from('publicaciones_anonimos as p');
-      $this->db->join('me_gusta_anonimo as mg', 'p.id = mg.id', 'left');
-      $this->db->having('mgustas', $id_publi);
+      $this->db->join('me_gusta_anonimo as mg', 'p.id = mg.id_publicacion', 'left');
+      $this->db->having('id_publi', $id_publi);
       $this->db->group_by('p.id','p.nombre', 'p.contenido');
       $this->db->order_by('id_publi', 'DESC');
       $res=$this->db->get();
@@ -72,8 +63,7 @@ class InicioModel extends CI_Model{
 
     public function insertarMeGusta($datos){
       if($this->db->insert('me_gusta_anonimo',$datos)){
-        $insert = $this->db->insert_id();
-        return $insert;
+        return true;
       }
       return FALSE;
     }
@@ -94,15 +84,14 @@ class InicioModel extends CI_Model{
     }
 
     public function mostrarMgInicio(){
-      $this->db->select('mg.id_publicacion');
+      $this->db->select('mg.id_publicacion as public');
       $this->db->from('me_gusta_anonimo as mg');
-      $this->db->join('publicaciones_anonimos as p');
-      $this->db->where('mg.id == p.id');
-      $res=$this->db->count_all_result();
+      $this->db->join('publicaciones_anonimos as p', 'mg.id = p.id', 'left');
+      $res=$this->db->count_all_results();
       return $res;
     }
 
-    /* Devuelve el total de publicaciones */
+    /* DEVUELVE EL TOTAL DE PUBLICACIONES */
     
     public function countPublicaciones(){
       $this->db->select('id');
