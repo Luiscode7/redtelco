@@ -82,8 +82,9 @@ class Inicio extends CI_Controller {
                 echo json_encode(array('res'=>"error", 'msg' => strip_tags(validation_errors())));exit;
             }else{
                 if($id_post ==""){
-                    if($this->InicioModel->insertarPostAnonimo($data_insert)){
-                        echo json_encode(array('res'=>"ok", 'msg' => "publicacion realizada con éxito", 'datos' => $data_insert));exit;
+                    if($dataid=$this->InicioModel->insertarPostAnonimo($data_insert)){
+                        $datos=$this->InicioModel->mostrarPostAnonimo($dataid);
+                        echo json_encode(array('res'=>"ok", 'msg' => "publicacion realizada con éxito", 'datos' => $datos));exit;
                     }else{
                         echo json_encode(array('res'=>"error", 'msg' => "No se ha podido publicar"));exit;
                     }
@@ -92,6 +93,7 @@ class Inicio extends CI_Controller {
             }
         }                            
     }
+
 
     public function meGusta(){
         if($this->input->is_ajax_request()){

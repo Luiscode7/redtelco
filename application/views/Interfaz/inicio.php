@@ -22,67 +22,29 @@ $(function(){
                     globalPosition: 'top right',
                     autoHideDelay:5000
                   });
-              }else if(data.res == "ok"){
-                    /*var html = '<div class="col container-post border-post">'
-                        + '<div class="perfil-post">'
-                        + '<img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">'
-                        + '<span id="nombreP">'+data.datos.nombre+'</span>'
-                        + '</div>'
-                        + '<p id="p-post" class="p-post">'+data.datos.contenido+'</p>'    
-                        + '<div class="row">'
-                        + '<div class="col-6 container-button-post d-flex justify-content-start">'
-                        + '<button type="submit" class="btn btn-secondary form-control">Me gusta</button>'
-                        + '<button type="submit" class="btn btn-secondary form-control">No me gusta</button>'
-                        + '<button type="submit" class="btn btn-secondary form-control">Comentar</button>'
-                        + '</div>'
-                        + '<div class="col-6 d-flex justify-content-end align-items-center">'
-                        + '<a class="pr-2" href=""><i class="far fa-thumbs-up"></i></a>'
-                        + '<span></span>'
-                        + '<a class=" pr-2 pl-2" href=""><i class="far fa-thumbs-down"></i></a>'
-                        + '<span></span>'
-                        + '</div>'
-                        + '</div>';
-                $(".publicado").html(html);*/
-                    nombre=$(this).attr("data-nombre");
-                    contenido=$(this).attr("data-contenido");
-                    mgustas=$(this).attr("data-mgustas");
-                    $.ajax({
-                        url: 'mostrarMuroTodos'+"?"+$.now(),
-                        type: 'POST',
-                        data: {nombre:nombre, contenido:contenido,mgustas:mgustas},
-                        cache: false,
-                        processData: false,
-                        dataType: "json",
-                        contentType : false,
-                        success: function(dato){
-                            if(dato.res == 'ok'){
-                            for(datito in dato.datos){
-                                var html2 =  '<div class="perfil-post">'
-                                        + '<img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">'
-                                        + '<span id="nombreP">'+dato.datos[datito]+'</span>'
-                                        + '</div>'
-                                        + '<p id="p-post" class="p-post">'+dato.datos[datito]+'</p>'    
-                                        + '<div class="row">'
-                                        + '<div class="col-6 container-button-post d-flex justify-content-start">'
-                                        + '<button type="submit" class="btn btn-secondary form-control">Me gusta</button>'
-                                        + '<button type="submit" class="btn btn-secondary form-control">No me gusta</button>'
-                                        + '<button type="submit" class="btn btn-secondary form-control">Comentar</button>'
-                                        + '</div>'
-                                        + '<div class="col-6 d-flex justify-content-end align-items-center">'
-                                        + '<a class="pr-2" href=""><i class="far fa-thumbs-up"></i></a>'
-                                        + '<span>'+dato.datos[datito]+'</span>'
-                                        + '<a class=" pr-2 pl-2" href=""><i class="far fa-thumbs-down"></i></a>'
-                                        + '<span></span>'
-                                        + '</div>';
-                                        $(".col .container-post").html(html2);
-                                        console.log(dato.datos[datito]);            
-                            } 
-
-                            }else{
-                                console.log("aweonao asi no se hace!!");
-                            }
-                        }
-                    });
+              }else if(data.res == "ok"){ 
+                  for(datito in data.datos){
+                            var html = '<div class="col container-post border-post">'
+                                + '<div class="perfil-post">'
+                                + '<img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">'
+                                + '<span id="nombreP">'+data.datos[datito].nombre+'</span>'
+                                + '</div>'
+                                + '<p id="p-post" class="p-post">'+data.datos[datito].contenido+'</p>'    
+                                + '<div class="row">'
+                                + '<div class="col-6 container-button-post d-flex justify-content-start">'
+                                + '<button type="submit" class="btn btn-secondary form-control">Me gusta</button>'
+                                + '<button type="submit" class="btn btn-secondary form-control">No me gusta</button>'
+                                + '<button type="submit" class="btn btn-secondary form-control">Comentar</button>'
+                                + '</div>'
+                                + '<div class="col-6 d-flex justify-content-end align-items-center">'
+                                + '<a class="pr-2" href=""><i class="far fa-thumbs-up"></i></a>'
+                                + '<span></span>'
+                                + '<a class=" pr-2 pl-2" href=""><i class="far fa-thumbs-down"></i></a>'
+                                + '<span></span>'
+                                + '</div>'
+                                + '</div>';
+                            $("#publicar").html(html);
+                  }
                 $(".btn-post").attr("disabled", false);
                 $.notify(data.msg, {
                   className:'success',
@@ -144,9 +106,9 @@ $(function(){
         <hr>
     </div> 
     <?php echo form_close();?>
-    <div class="publicado"></div>
     
-    <!--<?php if(!empty($posteo)): ?>
+    <div id="publicar"></div>
+    <?php if(!empty($posteo)): ?>
     <?php
     foreach($posteo as $post):
     ?>
@@ -181,5 +143,5 @@ $(function(){
     <?php
     endforeach;
     ?> 
-    <?php endif; ?>-->
+    <?php endif; ?>
 </div>

@@ -16,10 +16,12 @@ class InicioModel extends CI_Model{
     
     public function insertarPostAnonimo($datos){
       if($this->db->insert('publicaciones_anonimos', $datos)){
-        return true;
-      }
-      return FALSE;
+        $insert_id = $this->db->insert_id();
+				return $insert_id;
+			}
+			return FALSE;
     }
+
 
     /* DEVUELVE TODAS LAS PUBLICACIONES JUNTO SUS ME GUSTAS */
 
@@ -50,16 +52,15 @@ class InicioModel extends CI_Model{
       return FALSE;
     }*/
 
-    /*public function mostrarPostAnonimo($id){
+    public function mostrarPostAnonimo($id){
       $this->db->select('id, nombre, contenido');
       $this->db->where('id', $id);
-      $res=$this->db->get('publicaciones_anonimos');
+      $res = $this->db->get('publicaciones_anonimos');
       if($res->num_rows()>0){
-				return $res->result_array();
+        return $res->result_array();
 			}
       return FALSE;
-      
-    }*/
+    }
 
     public function insertarMeGusta($datos){
       if($this->db->insert('me_gusta_anonimo',$datos)){
