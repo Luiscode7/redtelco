@@ -97,7 +97,6 @@ class Inicio extends CI_Controller {
 
     public function meGusta(){
         if($this->input->is_ajax_request()){
-            $id_megusta=$this->security->xss_clean(strip_tags($this->input->post("id_megusta")));
             $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacion")));
             $ip=$this->input->ip_address();
 
@@ -108,7 +107,7 @@ class Inicio extends CI_Controller {
             
                 if($this->InicioModel->insertarMeGusta($datos_insert)){
                     $data=$this->InicioModel->countMg($id_publicacion);
-                    echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
+                    echo json_encode($data);
                 }else{
                     echo json_encode(array('res'=>"error"));exit;
                 }

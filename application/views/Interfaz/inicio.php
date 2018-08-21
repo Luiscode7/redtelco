@@ -60,32 +60,24 @@ $(function(){
   });
 
         /* -------- FUNCION PARA ME GUSTA ----------- */
-        $(document).on('submit', '#meGusta', function(event){
+        $(document).on('submit', '.meGusta', function(event){
+            var form=$(this);
             var url="<?php echo base_url()?>";
-            var formElement = document.querySelector("#meGusta");
-            var formData = new FormData(formElement);
                 $.ajax({
-                    url: $('#meGusta').attr('action')+"?"+$.now(),  
+                    url: $('.meGusta').attr('action')+"?"+$.now(), 
                     type: 'POST',
-                    data: formData,
+                    data: form.serialize(),
                     cache: false,
                     processData: false,
-                    dataType: "json",
-                    contentType : false,
                     success: function (data) {
-                    if(data.res == "error"){
-                        $(".btn-megusta").attr("disabled", false);
-                    }else if(data.res == "ok"){
                         var htmlmg = '<div>'
                             + '<a class="pr-2 icon1" href="#"><i class="far fa-thumbs-up"></i></a>'
-                            +  '<span>'+data.datos+'</span>'
+                            +  '<span>'+data+'</span>'
                             +  '</div>'
                             +  '<div>'
                             +  '<a class=" pr-2 pl-2" href="#"><i class="far fa-thumbs-down"></i></a>'
                             +  '</div>'; 
                         $("#mg").html(htmlmg);
-                        $(".btn-megusta").attr("disabled", false); 
-                    }
                 }
             });
             return false; 
@@ -121,8 +113,7 @@ $(function(){
         <div class="row">
                 <div class="col-md-10 col-lg-6 block-comment container-button-post d-flex justify-content-start">
                     <?php echo form_open_multipart("meGusta",array("id"=>"meGusta","class"=>"meGusta"))?>
-                        <input type="hidden" name="id_megusta" id="id_megusta">
-                        <input type="hidden" name="id_publicacion" value="<?php echo $post["id_publi"]?>" id="publicacion">
+                        <input type="hidden" name="id_publicacion" value="<?php echo $post["id_publi"]?>">
                         <button type="submit" name="publicacion" class="btn btn-secondary form-control btn-megusta">Me gusta</button>
                     <?php echo form_close();?>
                     <button type="submit" name="no_me_gusta" class="btn btn-secondary form-control">No me gusta</button>

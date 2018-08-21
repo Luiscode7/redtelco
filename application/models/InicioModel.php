@@ -64,9 +64,10 @@ class InicioModel extends CI_Model{
 
     public function insertarMeGusta($datos){
       if($this->db->insert('me_gusta_anonimo',$datos)){
-        return true;
-      }
-      return FALSE;
+        $insert_id = $this->db->insert_id();
+				return $insert_id;
+			}
+			return FALSE;
     }
 
     /*public function recuperarIdMegusta(){
