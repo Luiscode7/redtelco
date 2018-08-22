@@ -1,7 +1,7 @@
 <script type="text/javascript">
 $(function(){
 
-    /* ---- Creacion de publicacion con AJAX ----*/
+    /* ---- FUNCION PUBLICACIONES ----*/
     $(document).on('submit', '#postAnonimo',function(event) {
       var url="<?php echo base_url()?>";
       var formElement = document.querySelector("#postAnonimo");
@@ -23,7 +23,7 @@ $(function(){
                     autoHideDelay:5000
                   });
               }else if(data.res == "ok"){ 
-                  for(datito in data.datos){
+                for(datito in data.datos){
                             var html = '<div class="col container-post border-post">'
                                 + '<div class="perfil-post">'
                                 + '<img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">'
@@ -32,6 +32,7 @@ $(function(){
                                 + '<p id="p-post" class="p-post">'+data.datos[datito].contenido+'</p>'    
                                 + '<div class="row">'
                                 + '<div class="col-6 container-button-post d-flex justify-content-start">'
+                                + '<input type="hidden" name="id_publicacion" value="'+data.datos[datito].id+'">'
                                 + '<button type="submit" class="btn btn-secondary form-control">Me gusta</button>'
                                 + '<button type="submit" class="btn btn-secondary form-control">No me gusta</button>'
                                 + '<button type="submit" class="btn btn-secondary form-control">Comentar</button>'
@@ -69,21 +70,86 @@ $(function(){
                     data: form.serialize(),
                     cache: false,
                     processData: false,
+                    success: function (data) { 
+                        $("#mg").html(data);
+                    }
+                        
+                });
+                return false; 
+        });
+
+
+        /* -------- FUNCION PARA NO ME GUSTA ----------- */
+        $(document).on('submit', '.nomeGusta', function(event){
+            var form=$(this);
+            var url="<?php echo base_url()?>";
+                $.ajax({
+                    url: $('.nomeGusta').attr('action')+"?"+$.now(), 
+                    type: 'POST',
+                    data: form.serialize(),
+                    cache: false,
+                    processData: false,
                     success: function (data) {
-                        var htmlmg = '<div>'
-                            + '<a class="pr-2 icon1" href="#"><i class="far fa-thumbs-up"></i></a>'
-                            +  '<span>'+data+'</span>'
-                            +  '</div>'
-                            +  '<div>'
-                            +  '<a class=" pr-2 pl-2" href="#"><i class="far fa-thumbs-down"></i></a>'
-                            +  '</div>'; 
-                        $("#mg").html(htmlmg);
-                }
-            });
-            return false; 
+                        $("#mg").each(function(){
+                            var htmlmg = '<div>'
+                                + '<a class="pr-2 icon1" href="#"><i class="far fa-thumbs-up"></i></a>'
+                                +  '</div>'
+                                +  '<div>'
+                                +  '<a class=" pr-2 pl-2" href="#"><i class="far fa-thumbs-down"></i></a>'
+                                +  '<span>'+data+'</span>'
+                                +  '</div>'; 
+                            $(this).html(htmlmg);
+                        });
+                        
+                    }
+                });
+                return false; 
+        });
+
+        
+        /* -------- FUNCION PARA COMENTARIOS ----------- */
+        $(document).on('submit', '.Comentarios', function(event){
+            var url="<?php echo base_url()?>";
+            var formdata=$(this);
+                $.ajax({
+                    url: $('.Comentarios').attr('action')+"?"+$.now(), 
+                    type: 'POST',
+                    data: formdata.serialize(),
+                    cache: false,
+                    processData: false,
+                    success: function (data) {
+                        if(data.res == "error"){
+                                $.notify(data.msg, {
+                                className:'error',
+                                globalPosition: 'top right',
+                                autoHideDelay:5000
+                            });
+                        }else if(data.res == "ok"){
+                            for(dato in data.datos){
+                                $(".btn-commet").click(function(){
+                                    $(this).html('<p>'+data.datos[dato].comentario+'</p>');
+                                });
+                            }
+                            $.notify(data.msg, {
+                            className:'success',
+                            globalPosition: 'top right',
+                            autoHideDelay:5000
+                            });
+                        }
+                             
+                    }
+                        
+                });
+                return false; 
+        });
+
+        $(".btn-comment1").click(function(){
+            if($(".btn-comment1").val()==$("#id_publicacion").val()){
+                $('#collapseExample').collapse('show');
+            }
         });
         
-
+        
 });
 </script>
 
@@ -99,7 +165,9 @@ $(function(){
     </div> 
     <?php echo form_close();?>
     
-    <div id="publicar"></div>
+    <div id="publicar">
+    </div>
+
     <?php if(!empty($posteo)): ?>
     <?php
     foreach($posteo as $post):
@@ -114,20 +182,32 @@ $(function(){
                 <div class="col-md-10 col-lg-6 block-comment container-button-post d-flex justify-content-start">
                     <?php echo form_open_multipart("meGusta",array("id"=>"meGusta","class"=>"meGusta"))?>
                         <input type="hidden" name="id_publicacion" value="<?php echo $post["id_publi"]?>">
-                        <button type="submit" name="publicacion" class="btn btn-secondary form-control btn-megusta">Me gusta</button>
+                        <button type="submit" name="publicacion" class="btn btn-secondary form-control btn-megusta" value="<?php echo $post["id_publi"]?>">Me gusta</button>
                     <?php echo form_close();?>
-                    <button type="submit" name="no_me_gusta" class="btn btn-secondary form-control">No me gusta</button>
-                    <button type="submit" class="btn btn-secondary form-control">Comentar</button>
+                    <?php echo form_open_multipart("nomeGusta",array("id"=>"nomeGusta","class"=>"nomeGusta"))?>
+                        <input type="hidden" id="id_publicacion" name="id_publicacion" value="<?php echo $post["id_publi"]?>">
+                        <button type="submit" name="no_me_gusta" class="btn btn-secondary form-control">No me gusta</button>
+                    <?php echo form_close();?>
+                    <button type="button" class="btn btn-secondary form-control btn-comment1" value="<?php echo $post["id_publi"]?>" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Comentar</button>
                 </div>
-                <div id="mg" class="block-likes col-md-2 col-lg-6 d-flex justify-content-end align-items-center">
+                <div class="block-likes col-md-2 col-lg-6 d-flex justify-content-end align-items-center">
                     <div>
                         <a class="pr-2 icon1" href="#"><i class="far fa-thumbs-up"></i></a>
-                        <span><?php echo $post["mgustas"]?></span>
+                        <span id="mg"><?php echo $post["mgustas"]?></span>
                     </div>
                     <div>
                         <a class=" pr-2 pl-2" href="#"><i class="far fa-thumbs-down"></i></a>
+                        <span><?php echo $post["nmgustas"]?></span>
                     </div>
                 </div>
+                <?php echo form_open_multipart("Comentarios",array("id"=>"Comentarios","class"=>"Comentarios"))?>
+                    <div class="col pt-3 pb-1 collapse" id="collapseExample">
+                        <input type="hidden" name="id_publicacion" value="<?php echo $post["id_publi"]?>">
+                        <textarea name="comentario" class="textarea-comment" placeholder="Comentario..." cols="30" rows="10"></textarea>
+                        <button type="submit" class="btn btn-primary btn-comment2">Comentar</button>
+                        <div class="col p-0 pt-2" id="commets"></div>
+                    </div>
+                <?php echo form_close();?>
         </div>
         
     </div>

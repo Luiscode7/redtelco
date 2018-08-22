@@ -115,6 +115,46 @@ class Inicio extends CI_Controller {
         }
     }
 
+    public function nomeGusta(){
+        if($this->input->is_ajax_request()){
+            $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacion")));
+            $ip=$this->input->ip_address();
+
+                $datos_insert = array(
+                    "id_publicacion" => $id_publicacion,
+                    "ip" => $ip
+                );
+            
+                if($this->InicioModel->insertarNoMeGusta($datos_insert)){
+                    $data=$this->InicioModel->countNoMg($id_publicacion);
+                    echo json_encode($data);
+                }else{
+                    echo json_encode(array('res'=>"error"));exit;
+                }
+            
+        }
+    }
+
+    public function Comentarios(){
+        if($this->input->is_ajax_request()){
+            $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacion")));
+            $comentario=$this->security->xss_clean(strip_tags($this->input->post("comentario")));
+
+                $datos_insert = array(
+                    "id_publicacion" => $id_publicacion,
+                    "comentario" => $comentario
+                );
+            
+                if($dataid=$this->InicioModel->insertarComentario($datos_insert)){
+                    $datos=$this->InicioModel->mostrarComentarioAnonimo($dataid);
+                    echo json_encode(array('res'=>"ok", 'msg' => "comentario realizado", 'datos' => $datos));exit;
+                }else{
+                    echo json_encode(array('res'=>"error"));exit;
+                }
+            
+        }
+    }
+
     public function mostrarMuroTodos(){
         if($this->input->is_ajax_request()){
             $data=$this->InicioModel->mostrarMuroAnonimo();
