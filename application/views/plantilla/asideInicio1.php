@@ -9,15 +9,15 @@
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
               Cantidad de comentarios
-              <span class="badge badge-primary badge-pill">2</span>
+              <span class="badge badge-primary badge-pill"><?php echo $countComentarios ?></span>
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
               Cantidad de me gusta
-              <span class="badge badge-primary badge-pill">1</span>
+              <span class="badge badge-primary badge-pill"><?php echo $countMg ?></span>
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
               Cantidad de no me gusta
-              <span class="badge badge-primary badge-pill">1</span>
+              <span class="badge badge-primary badge-pill"><?php echo $countNoMg ?></span>
           </li>
         </ul>
       </div>

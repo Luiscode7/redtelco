@@ -16,7 +16,10 @@ class Inicio extends CI_Controller {
             'contenido' => "Inicio",
             'posteo'=> $this->mostrarMuroAn(),
             //'posteo' => $this->InicioModel->mostrarMuroAnonimo(),
-            'publicaciones' => $this->InicioModel->countPublicaciones()
+            'publicaciones' => $this->InicioModel->countPublicaciones(),
+            'countMg' => $this->InicioModel->cantidadMg(),
+            'countNoMg' => $this->InicioModel->cantidadNoMg(),
+            'countComentarios' => $this->InicioModel->cantidadComentarios()
         );
         $this->load->view('plantilla/plantilla', $contenido);
     }
@@ -137,17 +140,17 @@ class Inicio extends CI_Controller {
 
     public function Comentarios(){
         if($this->input->is_ajax_request()){
-            $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacion")));
+            $id_publicacion_c=$this->security->xss_clean(strip_tags($this->input->post("id_publicacion_c")));
             $comentario=$this->security->xss_clean(strip_tags($this->input->post("comentario")));
 
                 $datos_insert = array(
-                    "id_publicacion" => $id_publicacion,
+                    "id_publicacion" => $id_publicacion_c,
                     "comentario" => $comentario
                 );
             
-                if($dataid=$this->InicioModel->insertarComentario($datos_insert)){
-                    $datos=$this->InicioModel->mostrarComentarioAnonimo($dataid);
-                    echo json_encode(array('res'=>"ok", 'msg' => "comentario realizado", 'datos' => $datos));exit;
+                if($this->InicioModel->insertarComentario($datos_insert)){
+                    $datos=$this->InicioModel->mostrarComentarioAnonimo($id_publicacion_c);
+                    echo json_encode($datos);
                 }else{
                     echo json_encode(array('res'=>"error"));exit;
                 }

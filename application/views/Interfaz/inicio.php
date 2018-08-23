@@ -68,16 +68,18 @@ $(function(){
                     url: $('.meGusta').attr('action')+"?"+$.now(), 
                     type: 'POST',
                     data: form.serialize(),
-                    cache: false,
-                    processData: false,
-                    success: function (data) { 
-                        $("#mg").html(data);
+                    success: function (data) {
+                        console.log($(".mg").html(data));             
                     }
                         
                 });
                 return false; 
         });
 
+
+        /*$(".btn-megusta").click(function(){
+            console.log($(this).val());
+        });*/
 
         /* -------- FUNCION PARA NO ME GUSTA ----------- */
         $(document).on('submit', '.nomeGusta', function(event){
@@ -87,20 +89,8 @@ $(function(){
                     url: $('.nomeGusta').attr('action')+"?"+$.now(), 
                     type: 'POST',
                     data: form.serialize(),
-                    cache: false,
-                    processData: false,
                     success: function (data) {
-                        $("#mg").each(function(){
-                            var htmlmg = '<div>'
-                                + '<a class="pr-2 icon1" href="#"><i class="far fa-thumbs-up"></i></a>'
-                                +  '</div>'
-                                +  '<div>'
-                                +  '<a class=" pr-2 pl-2" href="#"><i class="far fa-thumbs-down"></i></a>'
-                                +  '<span>'+data+'</span>'
-                                +  '</div>'; 
-                            $(this).html(htmlmg);
-                        });
-                        
+                        console.log($(".nmg").html(data));
                     }
                 });
                 return false; 
@@ -115,39 +105,22 @@ $(function(){
                     url: $('.Comentarios').attr('action')+"?"+$.now(), 
                     type: 'POST',
                     data: formdata.serialize(),
-                    cache: false,
-                    processData: false,
                     success: function (data) {
-                        if(data.res == "error"){
-                                $.notify(data.msg, {
-                                className:'error',
-                                globalPosition: 'top right',
-                                autoHideDelay:5000
-                            });
-                        }else if(data.res == "ok"){
-                            for(dato in data.datos){
-                                $(".btn-commet").click(function(){
-                                    $(this).html('<p>'+data.datos[dato].comentario+'</p>');
-                                });
-                            }
-                            $.notify(data.msg, {
-                            className:'success',
-                            globalPosition: 'top right',
-                            autoHideDelay:5000
-                            });
+                        for(datito in data){
+                            console.log($(".comments").html(data));
                         }
-                             
+                                                             
                     }
                         
                 });
                 return false; 
         });
 
-        $(".btn-comment1").click(function(){
+        /*$(".btn-comment1").click(function(){
             if($(".btn-comment1").val()==$("#id_publicacion").val()){
                 $('#collapseExample').collapse('show');
             }
-        });
+        });*/
         
         
 });
@@ -181,31 +154,33 @@ $(function(){
         <div class="row">
                 <div class="col-md-10 col-lg-6 block-comment container-button-post d-flex justify-content-start">
                     <?php echo form_open_multipart("meGusta",array("id"=>"meGusta","class"=>"meGusta"))?>
-                        <input type="hidden" name="id_publicacion" value="<?php echo $post["id_publi"]?>">
+                        <input type="hidden" id="id_publicacion" name="id_publicacion" value="<?php echo $post["id_publi"]?>">
                         <button type="submit" name="publicacion" class="btn btn-secondary form-control btn-megusta" value="<?php echo $post["id_publi"]?>">Me gusta</button>
                     <?php echo form_close();?>
                     <?php echo form_open_multipart("nomeGusta",array("id"=>"nomeGusta","class"=>"nomeGusta"))?>
                         <input type="hidden" id="id_publicacion" name="id_publicacion" value="<?php echo $post["id_publi"]?>">
                         <button type="submit" name="no_me_gusta" class="btn btn-secondary form-control">No me gusta</button>
                     <?php echo form_close();?>
-                    <button type="button" class="btn btn-secondary form-control btn-comment1" value="<?php echo $post["id_publi"]?>" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Comentar</button>
+                    <button type="button" class="btn btn-secondary form-control btn-comment1" value="<?php echo $post["id_publi"]?>" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Comentar</button>
                 </div>
                 <div class="block-likes col-md-2 col-lg-6 d-flex justify-content-end align-items-center">
                     <div>
                         <a class="pr-2 icon1" href="#"><i class="far fa-thumbs-up"></i></a>
-                        <span id="mg"><?php echo $post["mgustas"]?></span>
+                        <span class="mg"><?php echo $post["mgustas"]?></span>
                     </div>
                     <div>
                         <a class=" pr-2 pl-2" href="#"><i class="far fa-thumbs-down"></i></a>
-                        <span><?php echo $post["nmgustas"]?></span>
+                        <span class="nmg"><?php echo $post["nmgustas"]?></span>
                     </div>
                 </div>
                 <?php echo form_open_multipart("Comentarios",array("id"=>"Comentarios","class"=>"Comentarios"))?>
                     <div class="col pt-3 pb-1 collapse" id="collapseExample">
-                        <input type="hidden" name="id_publicacion" value="<?php echo $post["id_publi"]?>">
+                        <input type="hidden" name="id_publicacion_c" value="<?php echo $post["id_publi"]?>">
                         <textarea name="comentario" class="textarea-comment" placeholder="Comentario..." cols="30" rows="10"></textarea>
                         <button type="submit" class="btn btn-primary btn-comment2">Comentar</button>
-                        <div class="col p-0 pt-2" id="commets"></div>
+                        <div class="col p-0 pt-2" id="comments">
+                        <p class="comments"></p>
+                        </div>
                     </div>
                 <?php echo form_close();?>
         </div>

@@ -90,7 +90,7 @@ class InicioModel extends CI_Model{
 
     public function mostrarComentarioAnonimo($id){
       $this->db->select('id, id_publicacion, comentario');
-      $this->db->where('id', $id);
+      $this->db->where('id_publicacion', $id);
       $res = $this->db->get('comentarios_anonimos');
       if($res->num_rows()>0){
         return $res->result_array();
@@ -105,10 +105,8 @@ class InicioModel extends CI_Model{
     }*/
 
     public function countMg($id){
-      $this->db->select('id_publicacion');
-      $this->db->from('me_gusta_anonimo');
       $this->db->where('id_publicacion', $id);
-      $res=$this->db->count_all_results();
+      $res=$this->db->count_all_results('me_gusta_anonimo');
       return $res;
       
     }
@@ -135,6 +133,27 @@ class InicioModel extends CI_Model{
     public function countPublicaciones(){
       $this->db->select('id');
       $this->db->from('publicaciones_anonimos');
+      $res=$this->db->count_all_results();
+      return $res;
+    }
+
+    public function cantidadMg(){
+      $this->db->select('id');
+      $this->db->from('me_gusta_anonimo');
+      $res=$this->db->count_all_results();
+      return $res;
+    }
+
+    public function cantidadNoMg(){
+      $this->db->select('id');
+      $this->db->from('no_me_gusta_anonimo');
+      $res=$this->db->count_all_results();
+      return $res;
+    }
+
+    public function cantidadComentarios(){
+      $this->db->select('id');
+      $this->db->from('comentarios_anonimos');
       $res=$this->db->count_all_results();
       return $res;
     }
