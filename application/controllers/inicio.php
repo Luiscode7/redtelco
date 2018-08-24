@@ -19,7 +19,9 @@ class Inicio extends CI_Controller {
             'publicaciones' => $this->InicioModel->countPublicaciones(),
             'countMg' => $this->InicioModel->cantidadMg(),
             'countNoMg' => $this->InicioModel->cantidadNoMg(),
-            'countComentarios' => $this->InicioModel->cantidadComentarios()
+            'countComentarios' => $this->InicioModel->cantidadComentarios(),
+            'comentarios' => $this->InicioModel->mostrarComentarioAnonimo()
+            //'comentarios' => $this->mostrarComentariosAn()
         );
         $this->load->view('plantilla/plantilla', $contenido);
     }
@@ -104,13 +106,13 @@ class Inicio extends CI_Controller {
             $ip=$this->input->ip_address();
 
                 $datos_insert = array(
-                    "id_publicacion" => $id_publicacion,
-                    "ip" => $ip
+                    "mg_fk" => $id_publicacion,
+                    "ip_mg" => $ip
                 );
             
                 if($this->InicioModel->insertarMeGusta($datos_insert)){
-                    $data=$this->InicioModel->countMg($id_publicacion);
-                    echo json_encode($data);
+                    $data=$this->InicioModel->mostrarMg($id_publicacion);
+                    echo json_encode(array('datos' => $data));
                 }else{
                     echo json_encode(array('res'=>"error"));exit;
                 }
@@ -124,13 +126,13 @@ class Inicio extends CI_Controller {
             $ip=$this->input->ip_address();
 
                 $datos_insert = array(
-                    "id_publicacion" => $id_publicacion,
-                    "ip" => $ip
+                    "nomg_fk" => $id_publicacion,
+                    "ip_nomg" => $ip
                 );
             
                 if($this->InicioModel->insertarNoMeGusta($datos_insert)){
-                    $data=$this->InicioModel->countNoMg($id_publicacion);
-                    echo json_encode($data);
+                    $data=$this->InicioModel->mostrarNoMg($id_publicacion);
+                    echo json_encode($data);exit;
                 }else{
                     echo json_encode(array('res'=>"error"));exit;
                 }
@@ -140,16 +142,16 @@ class Inicio extends CI_Controller {
 
     public function Comentarios(){
         if($this->input->is_ajax_request()){
-            $id_publicacion_c=$this->security->xss_clean(strip_tags($this->input->post("id_publicacion_c")));
+            $id_publicacionc=$this->security->xss_clean(strip_tags($this->input->post("id_publicacionc")));
             $comentario=$this->security->xss_clean(strip_tags($this->input->post("comentario")));
 
                 $datos_insert = array(
-                    "id_publicacion" => $id_publicacion_c,
+                    "id_publicacion" => $id_publicacionc,
                     "comentario" => $comentario
                 );
             
-                if($this->InicioModel->insertarComentario($datos_insert)){
-                    $datos=$this->InicioModel->mostrarComentarioAnonimo($id_publicacion_c);
+                if($data=$this->InicioModel->insertarComentario($datos_insert)){
+                    $datos=$this->InicioModel->mostrarComentarioAnonimo();
                     echo json_encode($datos);
                 }else{
                     echo json_encode(array('res'=>"error"));exit;
@@ -174,5 +176,12 @@ class Inicio extends CI_Controller {
     public function mostrarMuroAn(){
             $data = $this->InicioModel->mostrarMuroAnonimo();
             return $data;
+    }
+
+    public function mostrarComentariosAn(){
+            $id_publicacion_c=$this->security->xss_clean(strip_tags($this->input->post("id_publicacionc")));
+            $datos=$this->InicioModel->mostrarComentarioAnonimo($id_publicacion_c);
+            echo $datos;exit;
+    
     }
 }

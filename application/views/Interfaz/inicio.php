@@ -60,16 +60,44 @@ $(function(){
       return false; 
   });
 
+  
         /* -------- FUNCION PARA ME GUSTA ----------- */
-        $(document).on('submit', '.meGusta', function(event){
+        $(document).off('submit', '.meGusta').on('submit', '.meGusta', function(event){
             var form=$(this);
             var url="<?php echo base_url()?>";
                 $.ajax({
                     url: $('.meGusta').attr('action')+"?"+$.now(), 
                     type: 'POST',
+                    dataType: "json",
                     data: form.serialize(),
+                    processData:false,
                     success: function (data) {
-                        console.log($(".mg").html(data));             
+                        /*var html = '<div>'
+                            + '<a class="pr-2 icon1" href="#"><i class="far fa-thumbs-up"></i></a>'
+                            + '<span>'+data.datos+'</span>'
+                            + '</div>'
+                            + '<div>'
+                            + '<a class="pr-2 icon1" href="#"><i class="far fa-thumbs-up"></i></a>'
+                            + '<span></span>'
+                            + '</div>';
+                            console.log($("#mg").html(html));*/
+                        /*for(dato in data.datos){
+                            var html = '<div>'
+                            + '<a class="pr-2 icon1" href="#"><i class="far fa-thumbs-up"></i></a>'
+                            + '<span>'+data.datos[dato].mg_fk+'</span>'
+                            + '</div>'
+                            + '<div>'
+                            + '<a class="pr-2 icon1" href="#"><i class="far fa-thumbs-up"></i></a>'
+                            + '<span></span>'
+                            + '</div>';
+                            console.log($("#mg").html(html));
+                        }*/
+                        $("span .mg").each(function(i,value){
+                            console.log($(value).html(data.datos));
+
+                        });
+                        //console.log(data);
+                        //console.log($(".mg").html(data.datos));
                     }
                         
                 });
@@ -78,7 +106,7 @@ $(function(){
 
 
         /*$(".btn-megusta").click(function(){
-            console.log($(this).val());
+            console.log($("#id_publicacion").val());
         });*/
 
         /* -------- FUNCION PARA NO ME GUSTA ----------- */
@@ -106,10 +134,15 @@ $(function(){
                     type: 'POST',
                     data: formdata.serialize(),
                     success: function (data) {
-                        for(datito in data){
+                        /*for(datito in data){
                             console.log($(".comments").html(data));
-                        }
-                                                             
+                        }*/
+                        /*$.each(data, function(i,valor){
+                            console.log($(".comments").html(valor));
+                        });*/
+                        console.log($("#comments").append(data));
+                        //console.log(data);
+                                                                                 
                     }
                         
                 });
@@ -161,7 +194,7 @@ $(function(){
                         <input type="hidden" id="id_publicacion" name="id_publicacion" value="<?php echo $post["id_publi"]?>">
                         <button type="submit" name="no_me_gusta" class="btn btn-secondary form-control">No me gusta</button>
                     <?php echo form_close();?>
-                    <button type="button" class="btn btn-secondary form-control btn-comment1" value="<?php echo $post["id_publi"]?>" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Comentar</button>
+                    <button type="button" class="btn btn-secondary form-control btn-comment1" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Comentar</button>
                 </div>
                 <div class="block-likes col-md-2 col-lg-6 d-flex justify-content-end align-items-center">
                     <div>
@@ -170,17 +203,19 @@ $(function(){
                     </div>
                     <div>
                         <a class=" pr-2 pl-2" href="#"><i class="far fa-thumbs-down"></i></a>
-                        <span class="nmg"><?php echo $post["nmgustas"]?></span>
+                        <span><?php echo $post["nmgustas"]?></span>
                     </div>
                 </div>
                 <?php echo form_open_multipart("Comentarios",array("id"=>"Comentarios","class"=>"Comentarios"))?>
                     <div class="col pt-3 pb-1 collapse" id="collapseExample">
-                        <input type="hidden" name="id_publicacion_c" value="<?php echo $post["id_publi"]?>">
+                        <input type="hidden" name="id_publicacionc" value="<?php echo $post["id_publi"]?>">
                         <textarea name="comentario" class="textarea-comment" placeholder="Comentario..." cols="30" rows="10"></textarea>
                         <button type="submit" class="btn btn-primary btn-comment2">Comentar</button>
-                        <div class="col p-0 pt-2" id="comments">
-                        <p class="comments"></p>
-                        </div>
+                        <?php foreach($comentarios as $com): ?>
+                            <div class="col p-0 pt-2">
+                            <p id="comments"><?php echo $com["comentario"]?></p>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                 <?php echo form_close();?>
         </div>
