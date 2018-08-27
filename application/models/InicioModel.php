@@ -26,10 +26,10 @@ class InicioModel extends CI_Model{
     /* DEVUELVE TODAS LAS PUBLICACIONES JUNTO SUS ME GUSTAS, NO ME GUSTAS Y COMENTARIOS */
 
     public function mostrarMuroAnonimo(){
-      $this->db->select("p.id as 'id_publi', p.nombre as nombre, p.contenido as contenido, count(mg.mg_fk) as 'mgustas', count(ng.nomg_fk) as 'nmgustas'");
+      $this->db->select("p.id as 'id_publi', p.nombre as nombre, p.contenido as contenido, count(mg.id_publicacion) as 'mgustas', count(ng.id_publicacion) as 'nmgustas'");
       $this->db->from('publicaciones_anonimos as p');
-      $this->db->join('me_gusta_anonimo as mg', 'p.id = mg.mg_fk', 'left');
-      $this->db->join('no_me_gusta_anonimo as ng', 'p.id = ng.nomg_fk', 'left');
+      $this->db->join('me_gusta_anonimos as mg', 'p.id = mg.id_publicacion', 'left');
+      $this->db->join('no_me_gusta_anonimos as ng', 'p.id = ng.id_publicacion', 'left');
       $this->db->group_by('p.id','p.nombre', 'p.contenido');
       $this->db->order_by('id_publi', 'DESC');
       $res=$this->db->get();
@@ -65,7 +65,7 @@ class InicioModel extends CI_Model{
     }
 
     public function insertarMeGusta($datos){
-      if($this->db->insert('me_gusta_anonimo',$datos)){
+      if($this->db->insert('me_gusta_anonimos',$datos)){
         $insert_id = $this->db->insert_id();
 				return $insert_id;
 			}
@@ -73,7 +73,7 @@ class InicioModel extends CI_Model{
     }
     
     public function insertarNoMeGusta($datos){
-      if($this->db->insert('no_me_gusta_anonimo',$datos)){
+      if($this->db->insert('no_me_gusta_anonimos',$datos)){
         $insert_id = $this->db->insert_id();
 				return $insert_id;
 			}
@@ -89,7 +89,7 @@ class InicioModel extends CI_Model{
     }
 
     public function mostrarComentarioAnonimo(){
-      $this->db->select('comentario');
+      $this->db->select('contenido');
       $this->db->order_by('id','DESC');
       $res = $this->db->get('comentarios_anonimos');
       if($res->num_rows()>0){
@@ -116,29 +116,29 @@ class InicioModel extends CI_Model{
     }*/
 
     public function mostrarMg($id){
-      $this->db->select('id_mg');
-      $this->db->where('mg_fk', $id);
-      $res=$this->db->count_all_results('me_gusta_anonimo');
+      $this->db->select('id');
+      $this->db->where('id_publicacion', $id);
+      $res=$this->db->count_all_results('me_gusta_anonimos');
       return $res;
       
     }
 
     public function mostrarNoMg($id){
-      $this->db->select('id_nomg');
-      $this->db->from('no_me_gusta_anonimo');
-      $this->db->where('nomg_fk', $id);
+      $this->db->select('id');
+      $this->db->from('no_me_gusta_anonimos');
+      $this->db->where('id_publicacion', $id);
       $res=$this->db->count_all_results();
       return $res;
       
     }
 
-    public function mostrarMgInicio(){
+    /*public function mostrarMgInicio(){
       $this->db->select('mg.id_publicacion as public');
       $this->db->from('me_gusta_anonimo as mg');
       $this->db->join('publicaciones_anonimos as p', 'mg.id = p.id', 'left');
       $res=$this->db->count_all_results();
       return $res;
-    }
+    }*/
 
     /* DEVUELVE EL TOTAL DE PUBLICACIONES */
     
@@ -150,15 +150,15 @@ class InicioModel extends CI_Model{
     }
 
     public function cantidadMg(){
-      $this->db->select('id_mg');
-      $this->db->from('me_gusta_anonimo');
+      $this->db->select('id');
+      $this->db->from('me_gusta_anonimos');
       $res=$this->db->count_all_results();
       return $res;
     }
 
     public function cantidadNoMg(){
-      $this->db->select('id_nomg');
-      $this->db->from('no_me_gusta_anonimo');
+      $this->db->select('id');
+      $this->db->from('no_me_gusta_anonimos');
       $res=$this->db->count_all_results();
       return $res;
     }

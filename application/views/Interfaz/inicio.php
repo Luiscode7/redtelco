@@ -52,6 +52,7 @@ $(function(){
                   globalPosition: 'top right',
                   autoHideDelay:5000
                 });
+                window.location="inicio";
                 $('#postAnonimo')[0].reset();
                 $("#id_post").val(""); 
               }
@@ -71,33 +72,11 @@ $(function(){
                     dataType: "json",
                     data: form.serialize(),
                     processData:false,
-                    success: function (data) {
-                        /*var html = '<div>'
-                            + '<a class="pr-2 icon1" href="#"><i class="far fa-thumbs-up"></i></a>'
-                            + '<span>'+data.datos+'</span>'
-                            + '</div>'
-                            + '<div>'
-                            + '<a class="pr-2 icon1" href="#"><i class="far fa-thumbs-up"></i></a>'
-                            + '<span></span>'
-                            + '</div>';
-                            console.log($("#mg").html(html));*/
-                        /*for(dato in data.datos){
-                            var html = '<div>'
-                            + '<a class="pr-2 icon1" href="#"><i class="far fa-thumbs-up"></i></a>'
-                            + '<span>'+data.datos[dato].mg_fk+'</span>'
-                            + '</div>'
-                            + '<div>'
-                            + '<a class="pr-2 icon1" href="#"><i class="far fa-thumbs-up"></i></a>'
-                            + '<span></span>'
-                            + '</div>';
-                            console.log($("#mg").html(html));
-                        }*/
-                        $("span .mg").each(function(i,value){
-                            console.log($(value).html(data.datos));
-
-                        });
-                        //console.log(data);
-                        //console.log($(".mg").html(data.datos));
+                    success: function (data) {    
+                           var padre = $(form).parent().parent();
+                           var secondhijo = padre.children().eq(1);
+                           var firsthijo = secondhijo.children().eq(0);
+                           var megusta = firsthijo.children().eq(1).html(data.datos);
                     }
                         
                 });
@@ -185,13 +164,14 @@ $(function(){
         </div>
         <p id="p-post" class="p-post"><?php echo $post["contenido"]?></p>
         <div class="row">
-                <div class="col-md-10 col-lg-6 block-comment container-button-post d-flex justify-content-start">
+                <div class="padre col-md-10 col-lg-6 block-comment container-button-post d-flex justify-content-start">
                     <?php echo form_open_multipart("meGusta",array("id"=>"meGusta","class"=>"meGusta"))?>
-                        <input type="hidden" id="id_publicacion" name="id_publicacion" value="<?php echo $post["id_publi"]?>">
-                        <button type="submit" name="publicacion" class="btn btn-secondary form-control btn-megusta" value="<?php echo $post["id_publi"]?>">Me gusta</button>
+                    <label id="idescondido" style="display:none"><?php echo $post["id_publi"]?></label>
+                        <input type="hidden" id="id_publicacionmg" name="id_publicacionmg" value="<?php echo $post["id_publi"]?>">
+                        <button type="submit" name="publicacion" id="publicacion" class="btn btn-secondary form-control btn-megusta" value="<?php echo $post["id_publi"]?>">Me gusta</button>
                     <?php echo form_close();?>
                     <?php echo form_open_multipart("nomeGusta",array("id"=>"nomeGusta","class"=>"nomeGusta"))?>
-                        <input type="hidden" id="id_publicacion" name="id_publicacion" value="<?php echo $post["id_publi"]?>">
+                        <input type="hidden" id="id_publicacionomg" name="id_publicacionomg" value="<?php echo $post["id_publi"]?>">
                         <button type="submit" name="no_me_gusta" class="btn btn-secondary form-control">No me gusta</button>
                     <?php echo form_close();?>
                     <button type="button" class="btn btn-secondary form-control btn-comment1" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Comentar</button>
@@ -199,7 +179,7 @@ $(function(){
                 <div class="block-likes col-md-2 col-lg-6 d-flex justify-content-end align-items-center">
                     <div>
                         <a class="pr-2 icon1" href="#"><i class="far fa-thumbs-up"></i></a>
-                        <span class="mg"><?php echo $post["mgustas"]?></span>
+                        <span id="mg"><?php echo $post["mgustas"]?></span>
                     </div>
                     <div>
                         <a class=" pr-2 pl-2" href="#"><i class="far fa-thumbs-down"></i></a>

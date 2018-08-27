@@ -102,12 +102,12 @@ class Inicio extends CI_Controller {
 
     public function meGusta(){
         if($this->input->is_ajax_request()){
-            $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacion")));
+            $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacionmg")));
             $ip=$this->input->ip_address();
 
                 $datos_insert = array(
-                    "mg_fk" => $id_publicacion,
-                    "ip_mg" => $ip
+                    "id_publicacion" => $id_publicacion,
+                    "ip" => $ip
                 );
             
                 if($this->InicioModel->insertarMeGusta($datos_insert)){
@@ -122,12 +122,12 @@ class Inicio extends CI_Controller {
 
     public function nomeGusta(){
         if($this->input->is_ajax_request()){
-            $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacion")));
+            $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacionomg")));
             $ip=$this->input->ip_address();
 
                 $datos_insert = array(
-                    "nomg_fk" => $id_publicacion,
-                    "ip_nomg" => $ip
+                    "id_publicacion" => $id_publicacion,
+                    "ip" => $ip
                 );
             
                 if($this->InicioModel->insertarNoMeGusta($datos_insert)){
@@ -147,7 +147,7 @@ class Inicio extends CI_Controller {
 
                 $datos_insert = array(
                     "id_publicacion" => $id_publicacionc,
-                    "comentario" => $comentario
+                    "contenido" => $comentario
                 );
             
                 if($data=$this->InicioModel->insertarComentario($datos_insert)){
