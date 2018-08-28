@@ -15,7 +15,6 @@ class Inicio extends CI_Controller {
             'titulo' => "Portal", 
             'contenido' => "Inicio",
             'posteo' => $this->InicioModel->mostrarMuroAnonimo(),
-            'comentarios' => $this->InicioModel->mostrarMuroAnonimo2(),
             'publicaciones' => $this->InicioModel->countPublicaciones(),
             'countMg' => $this->InicioModel->cantidadMg(),
             'countNoMg' => $this->InicioModel->cantidadNoMg(),
@@ -104,8 +103,8 @@ class Inicio extends CI_Controller {
             $ip=$this->input->ip_address();
 
                 $datos_insert = array(
-                    "id_publicacion" => $id_publicacion,
-                    "ip" => $ip
+                    "mg_id_publicacion" => $id_publicacion,
+                    "mg_ip" => $ip
                 );
             
                 if($this->InicioModel->insertarMeGusta($datos_insert)){
@@ -124,8 +123,8 @@ class Inicio extends CI_Controller {
             $ip=$this->input->ip_address();
 
                 $datos_insert = array(
-                    "id_publicacion" => $id_publicacion,
-                    "ip" => $ip
+                    "nmg_id_publicacion" => $id_publicacion,
+                    "nmg_ip" => $ip
                 );
             
                 if($this->InicioModel->insertarNoMeGusta($datos_insert)){
@@ -145,8 +144,8 @@ class Inicio extends CI_Controller {
             $comentario=$this->security->xss_clean(strip_tags($this->input->post("comentario")));
 
                 $datos_insert = array(
-                    "id_publicacion" => $id_publicacionc,
-                    "contenido" => $comentario
+                    "com_id_publicacion" => $id_publicacionc,
+                    "comentario" => $comentario
                 );
             
                 if($data=$this->InicioModel->insertarComentario($datos_insert)){
@@ -159,17 +158,15 @@ class Inicio extends CI_Controller {
         }
     }
 
-    public function mostrarMuroTodos(){
-        if($this->input->is_ajax_request()){
-            $data=$this->InicioModel->mostrarMuroAnonimo();
+    public function mostrarComPublicados(){
+            $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacionc")));
+            $data=$this->InicioModel->mostrarComPublicados($id_publicacion);
             if($data){
                 echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
             }else{
                 echo json_encode(array('res'=>"error", 'msg' => ERROR_MSG));exit;
             }	
-        }else{
-            exit('No direct script access allowed');
-        }
+    
     }
 
 }

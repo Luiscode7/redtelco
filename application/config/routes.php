@@ -14,5 +14,6 @@ $route['meGusta'] = "inicio/meGusta";
 $route['mostrarMuroTodos'] = "inicio/mostrarMuroTodos";
 $route['nomeGusta'] = "inicio/nomeGusta";
 $route['Comentarios'] = "inicio/Comentarios";
+$route['mostrarComPublicados'] = "inicio/mostrarComPublicados";
 
 $route['postUsuario'] = "usuario/postUsuario";
