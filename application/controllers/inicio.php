@@ -19,6 +19,7 @@ class Inicio extends CI_Controller {
             'countMg' => $this->InicioModel->cantidadMg(),
             'countNoMg' => $this->InicioModel->cantidadNoMg(),
             'countComentarios' => $this->InicioModel->cantidadComentarios(),
+            //'comentario' => $this->mostrarComPublicados()
         );
         $this->load->view('plantilla/plantilla', $contenido);
     }
@@ -149,8 +150,8 @@ class Inicio extends CI_Controller {
                 );
             
                 if($data=$this->InicioModel->insertarComentario($datos_insert)){
-                    $datos=$this->InicioModel->mostrarComentarioAnonimo($id_publicacionc);
-                    echo json_encode(array('datos' => $datos));
+                    $datos=$this->InicioModel->mostrarComentarioAnonimo($data,$id_publicacionc);
+                    echo json_encode($datos);
                 }else{
                     echo json_encode(array('res'=>"error"));exit;
                 }
@@ -159,7 +160,7 @@ class Inicio extends CI_Controller {
     }
 
     public function mostrarComPublicados(){
-            $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacionc")));
+            $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacionshow")));
             $data=$this->InicioModel->mostrarComPublicados($id_publicacion);
             if($data){
                 echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
@@ -168,5 +169,16 @@ class Inicio extends CI_Controller {
             }	
     
     }
+
+    public function agrega_miniatura($width,$height,$nombre){
+		$config["source_image"]='./assets/imagenes/noticias/'.$nombre;
+		$config['new_image'] = "min_".$nombre;
+		$config["width"]=$width;
+		$config["height"]=$height;
+		$config["quality"]='90%';
+		$config["maintain_ratio"]=TRUE;
+		$config["maintain_ratio"]=TRUE;
+		return $config;
+	}
 
 }

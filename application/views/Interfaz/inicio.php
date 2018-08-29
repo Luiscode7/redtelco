@@ -116,15 +116,13 @@ $(function(){
                     data: formdata.serialize(),
                     processData:false,
                     success: function (data) {
-                        var pd = $(formdata).children().eq(4);
-                        for(dato in data.datos){ 
-                            var coment = pd.children().html(data.datos[dato].comentario);
-                            //var comentario = pd.children();
-                            console.log(coment);
-                            //console.log(data.datos[dato].contenido);
+                        var pd = $(formdata);
+            
+                        for(dato in data){
+                            var coment = pd.append('<div id ="publicar" class="col p-0 pt-4"><p id="comments" class="mb-0"><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">'+data[dato].comentario+'</p></div>');
+                            console.log(pd);
                         }
-                    $('.Comentarios')[0].reset();
-                    $("#id_comment").val("");
+                        $('.Comentarios')[0].reset();   
                     }
                         
                 });
@@ -132,35 +130,59 @@ $(function(){
         });
 
         /* -------- FUNCION PARA VER COMENTARIOS ----------- */
-        $(document).on('click', '.btn-showmore', function(event){
+        $(document).on('submit', '.mostrarComPublicados', function(event){
             var url="<?php echo base_url()?>";
             var formdata2=$(this);
                 $.ajax({
-                    url: "mostrarComPublicados"+"?"+$.now(), 
+                    url: $('.mostrarComPublicados').attr('action')+"?"+$.now(), 
                     type: 'POST',
                     dataType: "json",
-                    data: formdata2,
+                    data: formdata2.serialize(),
                     processData:false,
                     success: function (data) {
-                        /*var showmore = $(formdata2).parent().parent();
-                        var showmore2 = showmore.children().eq(4);
-                        var showmore3 = showmore2.children();*/
-                            //var comentario = pd.children();
-                            console.log(data);
-                            //console.log(data.datos[dato].contenido);
+                        if(data.res == 'ok'){
+                            $("#publicar").empty();
+                            var showmore = $(formdata2);
+                            
+                            for(dato in data.datos){
+                                var comentarios = data.datos[dato].comments;
+                                var showmore2 = showmore.append('<div class="col p-0 pt-1 muestra"><p id="comment"><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">'+comentarios+'</p></div>');
+                            }
+                            $(".btn-showmore").hide();
+                        }
+                        else
+                        if(data.res == 'error'){
+                            var ocultar = $(formdata2).children().eq(1);
+                            var ocultar2 = ocultar.children();
+                            var ocultarboton = ocultar2.hide();
+                            var mostrarmsj = formdata2.addClass("row justify-content-center").append('<p>'+"no hay comentarios..."+'</p>');
+                        }
+                        
                     }
                         
                 });
                 return false; 
         });
 
-        /*$(document).off('click', '.btn-comment1').on('click', '.btn-comment1', function(){
-            if($(this).val()==$("#id_publicacionmg").val()){
-                $('#collapseExample').collapse('show');
-            }
-        });*/    
+         ocultarVerMasComments();
+         //limpiarCampo();
         
 });
+
+/*---- OCULTA LOS COMENTARIOS ----*/
+function ocultarVerMasComments(){
+    $(".btn-comment1").click(function(){
+        $("div").remove(".muestra"); //elimina el div de mostrar comentarios
+        $("div").remove("#publicar");//elimina el div de publicar comentarios
+        $(".btn-showmore").show();//muestra el boton ver comentarios, nuevamente
+    });
+}
+
+function limpiarCampo(){
+    $(".textarea-comment").blur(function(){
+        $(this).val("").delay(2000);
+    });
+}
 </script>
 
 <!-- Muro -->
@@ -214,14 +236,14 @@ $(function(){
                 <div class="col pt-3 pb-1 collapse" id="collapseExample">
                     <?php echo form_open_multipart("Comentarios",array("id"=>"Comentarios","class"=>"Comentarios"))?>
                         <input type="hidden" name="id_comment" id="id_comment">
-                        <input type="hidden" name="id_publicacionc" value="<?php echo $post["id_publi"]?>" data-id="<?php echo $post["id_publi"]?>">
+                        <input type="hidden" name="id_publicacionc" value="<?php echo $post["id_publi"]?>">
                         <textarea name="comentario" class="textarea-comment" placeholder="Comentario..." cols="30" rows="10"></textarea>
                         <button type="submit" class="btn btn-primary btn-comment2">Comentar</button>
-                        <div class="col p-0 pt-2">
-                            <p id="comment"></p>
-                        </div>
+                    <?php echo form_close();?>
+                    <?php echo form_open_multipart("mostrarComPublicados",array("id"=>"mostrarComPublicados","class"=>"mostrarComPublicados"))?>
+                        <input type="hidden" name="id_publicacionshow" value="<?php echo $post["id_publi"]?>">
                         <div class="d-flex justify-content-center mb-3">
-                            <button class="btn btn-primary btn-showmore" type="button" id="showmore" name="showmore">ver comentarios</button>
+                            <button class="btn btn-primary btn-showmore" type="submit" id="showmore" name="showmore">ver comentarios</button>
                         </div>
                     <?php echo form_close();?>
                 </div>

@@ -38,6 +38,7 @@ class InicioModel extends CI_Model{
       $this->db->from('comentarios_anonimos as com');
       $this->db->join('publicaciones_anonimos as p', 'p.id = com.com_id_publicacion', 'left');
       $this->db->where('p.id', $id);
+      $this->db->order_by('comments', 'DESC');
       $res=$this->db->get();
       if($res->num_rows()>0){
         return $res->result_array();
@@ -80,19 +81,10 @@ class InicioModel extends CI_Model{
 			return FALSE;
     }
 
-    /*public function mostrarComentarioAnonimo(){
-      $this->db->select('contenido');
-      $this->db->order_by('id','DESC');
-      $res = $this->db->get('comentarios_anonimos');
-      if($res->num_rows()>0){
-        return $res->result_array();
-			}
-      return FALSE;
-    }*/
-
-    public function mostrarComentarioAnonimo($id){
+    public function mostrarComentarioAnonimo($id, $idpubli){
       $this->db->select('comentario');
-      $this->db->where('com_id_publicacion', $id);
+      $this->db->where('id_com', $id);
+      $this->db->where('com_id_publicacion', $idpubli);
       $res = $this->db->get('comentarios_anonimos');
       if($res->num_rows()>0){
         return $res->result_array();
