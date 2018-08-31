@@ -38,6 +38,13 @@ $config = array(
             )
       ),
 
+      'Comentarios' => array(
+            array(
+                  'field'   => 'comentario',
+                  'rules'   => 'required'
+            )
+      ),
+
       'postUsuario' => array(
             array(
                   'field'   => 'contenido_usuario',

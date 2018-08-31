@@ -39,7 +39,7 @@
               </div>
             </li>-->
             <li class="nav-item">
-              <a class="nav-link" href="inicio"><i class="fas fa-home mr-2 align-baseline"></i>Inicio</a>
+              <a class="nav-link" href="anonimo"><i class="fas fa-home mr-2 align-baseline"></i>Inicio</a>
             </li>
             <li class="nav-item">
               <a href="<?php base_url();?>login" class="btn btn-secondary ml-4">Iniciar Sesi&oacute;n</a>

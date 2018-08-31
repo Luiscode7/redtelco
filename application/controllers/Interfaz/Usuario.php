@@ -6,7 +6,7 @@ class Usuario extends CI_Controller {
     public function __construct(){
 		parent::__construct();
         
-        $this->load->model("UsuarioModel");
+        $this->load->model("Usuario/UsuarioModel", "usu");
     }
     
 	public function index()
@@ -14,9 +14,13 @@ class Usuario extends CI_Controller {
         $contenido2 = array(
             'titulo' => "Portal Usuario", 
             'contenido2' => "usuario",
-            'posteos_usu' => $this->UsuarioModel->mostrarPostUsuario() 
+            'posteos_usu' => $this->usu->mostrarPostUsuario() 
         );
         $this->load->view('plantilla/plantilla2', $contenido2);
+    }
+
+    public function loginProceso(){
+        
     }
 
     public function postUsuario(){
@@ -34,7 +38,7 @@ class Usuario extends CI_Controller {
                 echo json_encode(array('res'=>"error", 'msg' => strip_tags(validation_errors())));exit;
             }else{
                 if($id_post_usuario ==""){
-                    if($this->UsuarioModel->InsertarPostUsuario($data_insert)){
+                    if($this->usu->InsertarPostUsuario($data_insert)){
                         echo json_encode(array('res'=>"ok", 'msg' => "publicacion realizada con éxito"));exit;
     
                         //$this->mostrarPostMuro();

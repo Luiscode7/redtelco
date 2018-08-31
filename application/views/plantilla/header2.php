@@ -35,7 +35,7 @@
                 <li class="nav-item">
                   <a class="nav-link" href="#"><i class="fas fa-bell mr-2 align-baseline"></i>Notificaciones</a>
                 </li>
-                <li class="nav-item dropdown">
+                <!--<li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fas fa-calendar-alt mr-2 align-baseline"></i>Publicaciones
                   </a>
@@ -44,7 +44,7 @@
                     <a class="dropdown-item" href="#">M&aacute;s Populares</a>
                     <a class="dropdown-item" href="#">Antiguas</a>
                   </div>
-                </li>
+                </li>-->
                 <li class="nav-item ml-auto col-3" id="perfil-usuario" style="padding-left:0 !important;">
                   <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
                   <span>Nombre&nbsp;Usuario</span>

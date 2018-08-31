@@ -60,11 +60,7 @@ $(function(){
     </div> 
     <?php echo form_close();?> 
     <div class="col container-post border-post">
-        <p class="p-post">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere, fuga labore. 
-        Dignissimos ipsam facilis veniam alias repudiandae recusandae enim, assumenda,
-         dolor error praesentium esse quod, cum voluptatibus reprehenderit nobis dolorum.
-        </p>
+        <p class="p-post"></p>
     </div>
 
     <div class="col container-post border-post">
@@ -72,11 +68,7 @@ $(function(){
             <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
             <span>Nombre Usuario</span>
         </div>
-        <p class="p-post">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere, fuga labore. 
-        Dignissimos ipsam facilis veniam alias repudiandae recusandae enim, assumenda,
-         dolor error praesentium esse quod, cum voluptatibus reprehenderit nobis dolorum.
-        </p>
+        <p class="p-post"></p>
         <img style="width:100%" src="<?php echo base_url();?>assest/imagenes/t5.jpg" alt="">
         <div class="row">
             <div class="col-6 container-button-post d-flex justify-content-start">
@@ -96,14 +88,5 @@ $(function(){
 
     <div class="container-post border-post">
         <img class="col img-post" src="<?php echo base_url();?>assest/imagenes/t1.jpg" alt="">
-    </div>
-    <div class="container-post border-post">
-        <img class="col img-post" src="<?php echo base_url();?>assest/imagenes/t2.jpg" alt="">
-    </div>
-    <div class="container-post border-post">
-        <img class="col img-post" src="<?php echo base_url();?>assest/imagenes/t3.jpg" alt="">
-    </div>
-    <div class="container-post border-post">
-        <img class="col img-post" src="<?php echo base_url();?>assest/imagenes/t4.jpg" alt="">
     </div>
 </div>

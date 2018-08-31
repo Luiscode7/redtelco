@@ -83,28 +83,30 @@
 </head>
 <body>
     <div class="row hv-100 justify-content-center align-items-center">
-        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-            <div class="container-login">
-                <div class="text-center" style="padding-bottom:30px">
-                    <img src="<?php base_url();?>assest/imagenes/login1.png" alt="">
-                </div>
-                <div class="form-group">
-                    <i class="fas fa-user icon-user"></i>
-                    <input type="email" name="correo" id="correo" autocomplete="off" placeholder="Ingrese su correo" class="form-control form-control-sm input-indent">
-                </div>
-                <div class="form-group">
-                    <i class="fas fa-key icon-pass"></i>
-                    <input type="password" name="pass" id="pass" autocomplete="off" placeholder="Ingrese su contrase&ntilde;a" class="form-control form-control-sm input-indent">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary col-12">Ingresar</button>
-                </div>
-                <div class="row pl-2">
-                    <p>¿No tiene cuenta?, por favor</p>&nbsp;
-                    <a class="a-login" href="<?php base_url();?>registro">Registrese</a>
+        <?php echo form_open_multipart("procesoLogin",array("id"=>"procesoLogin","class"=>"procesoLogin"))?>
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <div class="container-login">
+                    <div class="text-center" style="padding-bottom:30px">
+                        <img src="<?php base_url();?>assest/imagenes/login1.png" alt="">
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-user icon-user"></i>
+                        <input type="email" name="correo" id="correo" autocomplete="off" placeholder="Ingrese su correo" class="form-control form-control-sm input-indent">
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-key icon-pass"></i>
+                        <input type="password" name="pass" id="pass" autocomplete="off" placeholder="Ingrese su contrase&ntilde;a" class="form-control form-control-sm input-indent">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary col-12">Ingresar</button>
+                    </div>
+                    <div class="row pl-2">
+                        <p>¿No tiene cuenta?, por favor</p>&nbsp;
+                        <a class="a-login" href="<?php base_url();?>registro">Registrese</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        <?php echo form_close();?>
     </div>
 </body>
 </html>

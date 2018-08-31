@@ -1,19 +1,27 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$route['default_controller'] = 'inicio';
+$route['default_controller'] = 'anonimo';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-$route['usuario'] = 'interfaz/usuario/index';
-$route['login'] = "inicio/login";
-$route['registro'] = "inicio/registro";
-$route['procesoRegistro'] = "inicio/procesoRegistro";
-$route['postAnonimo'] = "inicio/postAnonimo";
-$route['mostrarPostMuro'] = "inicio/mostrarPostMuro";
-$route['meGusta'] = "inicio/meGusta";
-$route['mostrarMuroTodos'] = "inicio/mostrarMuroTodos";
-$route['nomeGusta'] = "inicio/nomeGusta";
-$route['Comentarios'] = "inicio/Comentarios";
-$route['mostrarComPublicados'] = "inicio/mostrarComPublicados";
 
+/* ------- INICIO ---------- */
+
+$route['registro'] = "inicio/inicio/registro";
+$route['procesoRegistro'] = "inicio/inicio/procesoRegistro";
+$route['login'] = "inicio/inicio/login";
+
+/* ------- PORTAL ANONIMO ---------- */
+
+$route['postAnonimo'] = "anonimo/postAnonimo";
+$route['mostrarPostMuro'] = "anonimo/mostrarPostMuro";
+$route['meGusta'] = "anonimo/meGusta";
+$route['mostrarMuroTodos'] = "anonimo/mostrarMuroTodos";
+$route['nomeGusta'] = "anonimo/nomeGusta";
+$route['Comentarios'] = "anonimo/Comentarios";
+$route['mostrarComPublicados'] = "anonimo/mostrarComPublicados";
+
+/* ------- PORTAL USUARIO ---------- */
+
+$route['usuario'] = 'interfaz/usuario/index';
 $route['postUsuario'] = "usuario/postUsuario";
