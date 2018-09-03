@@ -31,11 +31,16 @@ $(function(){
                   autoHideDelay:5000
                 });
                 $('#postUsuario')[0].reset();
-                $("#id_post_usuario").val("");
+                window.location="usuario";
               }
             }
       });
       return false; 
+  });
+
+  /*--- FUNCION PARA UTILIZAR IMAGEN COMO INPUT FILE ---*/
+  $("#imagen").click(function(){
+      $("#uploadimagen").trigger("click");
   });
 
 });
@@ -43,10 +48,11 @@ $(function(){
 <div class="container-central col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
     <?php echo form_open_multipart("postUsuario",array("id"=>"postUsuario","class"=>"postUsuario"))?>
     <input type="hidden" name="id_post_usuario" id="id_post_usuario">
-    <input type="hidden" name="id_usuario" id="id_post_usuario">
+    <input type="hidden" name="id_usuario" id="id_post_usuario" value="<?php echo $this->session->userdata("id")?>">
     <div class="col container-public p-cero">
         <textarea name="contenido_usuario" id="contenido_usuario" class="textarea-post" placeholder="Escriba lo que desee..." cols="30" rows="10"></textarea>
         <button type="submit" name="Comentar" id="Comentar" class="btn btn-primary btn-post_u">Publicar</button>
+        <input type="file" name="uploadimagen" id="uploadimagen" style="display:none">
         <a href="#"><i class="fas fa-smile ml-4 mr-4"></i></a>
         <a id="imagen" href="#"><i class="far fa-image mr-4"></i></a>
         <a href="#"><i class="fas fa-video"></i></a>
@@ -56,19 +62,15 @@ $(function(){
 
     <div id="publicarusu"></div>
 
-    <div class="col container-post border-post">
-        <p class="p-post"></p>
-    </div>
-
     <?php if(!empty($posteos_usu)): ?>
         <?php foreach($posteos_usu as $usu): ?>
             <div class="col container-post border-post">
                 <div class="perfil-post">
                     <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
-                    <span>nombre usuario</span>
+                    <span><?php echo $usu["nombre"]?></span>
                 </div>
                 <p class="p-post"><?php echo $usu["contenido"]?></p>
-                <img style="width:100%" src="<?php echo base_url();?>assest/imagenes/t5.jpg" alt="">
+                <img style="width:100%" src="<?php echo base_url();?>assest/imagenes/subidas/<?php echo $usu["imagen"]?>" alt="">
                 <div class="row">
                     <div class="col-6 container-button-post d-flex justify-content-start">
                         <button type="submit" class="btn btn-secondary form-control">Me gusta</button>
@@ -87,7 +89,7 @@ $(function(){
         <?php endforeach; ?>
     <?php endif; ?>
 
-    <div class="container-post border-post">
+    <!--<div class="container-post border-post">
         <img class="col img-post" src="<?php echo base_url();?>assest/imagenes/t1.jpg" alt="">
-    </div>
+    </div>-->
 </div>

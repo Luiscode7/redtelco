@@ -47,7 +47,7 @@
                 </li>-->
                 <li class="nav-item ml-auto col-3" id="perfil-usuario" style="padding-left:0 !important;">
                   <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
-                  <span>Nombre&nbsp;Usuario</span>
+                  <span><?php echo $this->session->userdata("nombre")." ".$this->session->userdata("apellidos")?></span>
                 </li>
               </ul>
               <!--<div class="col-3 ml-auto" id="perfil" style="color:#fff;padding-left:0 !important;">
