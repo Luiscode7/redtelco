@@ -16,7 +16,6 @@ $(function(){
             contentType : false,
             success: function (data) {
               if(data.res == "error"){
-                 $(".btn-post_u").attr("disabled", false);
                   $.notify(data.msg, {
                     className:'error',
                     globalPosition: 'top right',
@@ -24,7 +23,6 @@ $(function(){
                   });
               }else if(data.res == "ok"){
                 
-                $(".btn-post_u").attr("disabled", false);
                 $.notify(data.msg, {
                   className:'success',
                   globalPosition: 'top right',
@@ -37,6 +35,28 @@ $(function(){
       });
       return false; 
   });
+
+  /* -------- FUNCION PARA ME GUSTA ----------- */
+  $(document).off('submit', '.meGustaUsu').on('submit', '.meGustaUsu', function(event){
+            var form=$(this);
+            var url="<?php echo base_url()?>";
+                $.ajax({
+                    url: $('.meGustaUsu').attr('action')+"?"+$.now(), 
+                    type: 'POST',
+                    dataType: "json",
+                    data: form.serialize(),
+                    processData:false,
+                    success: function (data) {    
+                           var padre = $(form).parent().parent();
+                           var secondhijo = padre.children().eq(1);
+                           var firsthijo = secondhijo.children().eq(1);
+                           //var megusta = firsthijo.children().eq(1).html(data.datos);
+                           console.log($(firsthijo));
+                    }
+                        
+                });
+                return false; 
+        });
 
   /*--- FUNCION PARA UTILIZAR IMAGEN COMO INPUT FILE ---*/
   $("#imagen").click(function(){
@@ -73,15 +93,18 @@ $(function(){
                 <img style="width:100%" src="<?php echo base_url();?>assest/imagenes/subidas/<?php echo $usu["imagen"]?>" alt="">
                 <div class="row">
                     <div class="col-6 container-button-post d-flex justify-content-start">
-                        <button type="submit" class="btn btn-secondary form-control">Me gusta</button>
+                        <?php echo form_open_multipart("meGustaUsu",array("id"=>"meGustaUsu","class"=>"meGustaUsu"))?>
+                            <input type="hidden" name="id_usuariomg" id="id_usuariomg" value="<?php echo $this->session->userdata("id")?>">
+                            <button type="submit" class="btn btn-secondary form-control">Me gusta</button>
+                        <?php echo form_close();?> 
                         <button type="submit" class="btn btn-secondary form-control">No me gusta</button>
                         <button type="submit" class="btn btn-secondary form-control">Comentar</button>
                     </div>
                     <div class="col-6 d-flex justify-content-end align-items-center">
                         <a class="pr-2" href=""><i class="far fa-thumbs-up"></i></a>
-                        <span>5</span>
+                        <span><?php echo $usu["mgustas"]?></span>
                         <a class=" pr-2 pl-2" href=""><i class="far fa-thumbs-down"></i></a>
-                        <span>10</span>
+                        <span></span>
                     </div>
                 </div>
                 

@@ -26,3 +26,4 @@ $route['mostrarComPublicados'] = "anonimo/mostrarComPublicados";
 
 $route['usuario'] = 'interfaz/usuario/index';
 $route['postUsuario'] = "interfaz/usuario/postUsuario";
+$route['meGustaUsu'] = "interfaz/usuario/meGustaUsu";

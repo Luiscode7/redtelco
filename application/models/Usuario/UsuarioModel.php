@@ -52,6 +52,15 @@ class UsuarioModel extends CI_Model{
       return FALSE;
     }
 
+    public function mostrarMuroUsuario2(){
+      $query=$this->db->query("SELECT p.id as id, p.id_usuario as usuario, p.contenido as contenido,
+       p.imagen as imagen, CONCAT(usu.nombre, ' ' ,usu.apellidos) as 'nombre',
+       (SELECT COUNT(*) FROM me_gusta_usuarios mg WHERE mg.mg_id_usu = p.id) as mgustas,
+       (SELECT COUNT(*) FROM no_me_gusta_usuarios ng WHERE ng.nmg_id_usu = p.id) as nmgustas
+       FROM publicaciones_usuarios as p JOIN usuarios usu ON p.id_usuario=usu.id ORDER BY id DESC");
+      return $query->result_array();
+    }
+
     public function mostrarPostUsuario($id){
       $this->db->select('id, id_usuario, contenido, imagen');
       $this->db->where('id_usuario', $id);
@@ -61,5 +70,23 @@ class UsuarioModel extends CI_Model{
 			}
       return FALSE;
     }
+
+    public function mostrarMgUsu($id){
+      $this->db->select('id_mg_usu');
+      $this->db->where('mg_id_usu', $id);
+      $res=$this->db->count_all_results('me_gusta_usuarios');
+      return $res;
+      
+    }
+
+    public function mostrarNoMgUsu($id){
+      $this->db->select('id_nmg_usu');
+      $this->db->from('no_me_gusta_usuarios');
+      $this->db->where('nmg_id_usu', $id);
+      $res=$this->db->count_all_results();
+      return $res;
+      
+    }
+
     
 }

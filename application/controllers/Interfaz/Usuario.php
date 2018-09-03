@@ -14,7 +14,7 @@ class Usuario extends CI_Controller {
         $contenido2 = array(
             'titulo' => "Portal Usuario", 
             'contenido2' => "usuario",
-            'posteos_usu' => $this->usu->mostrarMuroUsuario() 
+            'posteos_usu' => $this->usu->mostrarMuroUsuario2() 
         );
         $this->load->view('plantilla/plantilla2', $contenido2);
     }
@@ -30,7 +30,7 @@ class Usuario extends CI_Controller {
             ];
             $this->load->library("upload", $config);
 
-            $this->upload->do_upload('uploadimagen');
+            $this->upload->do_upload('uploadimagen'); //método que sube archivos
 
             $imagen = array("upload_imagen" => $this->upload->data());
             $data_insert=array(
@@ -51,6 +51,25 @@ class Usuario extends CI_Controller {
                 }
             }
 
+        }
+    }
+
+    public function meGustaUsu(){
+        if($this->input->is_ajax_request()){
+            $id_usuario=$this->security->xss_clean(strip_tags($this->input->post("id_usuariomg")));
+            $ip = $this->input->ip_address();
+
+            $datos_insert = array(
+                "mg_id_usu" => $id_usuario,
+                "mg_ip_usu" => $ip
+            );
+
+            if($this->usu->insertarMeGusta($datos_insert)){
+                $data=$this->usu->mostrarMgUsu($id_usuario);
+                echo json_encode(array('datos' => $data));
+            }else{
+                echo json_encode(array('res'=>"error"));exit;
+            }
         }
     }
 
