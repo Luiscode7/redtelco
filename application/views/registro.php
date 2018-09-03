@@ -79,16 +79,14 @@ $(function(){
                 contentType : false,
                 success: function (data) {
                   if(data.res == "error"){
-                     $(".btn_registro").attr("disabled", false);
-                      //$("#procesoRegistro input,#procesoRegistro button,#procesoRegistro").prop("disabled", false);
                       $.notify(data.msg, {
                         className:'error',
                         globalPosition: 'top right',
                         autoHideDelay:5000
                       });
+                      $("#correo").focus();
                   }else if(data.res == "ok"){
                     $(".btn_registro").attr("disabled", false);
-                    //$("#procesoRegistro input,#procesoRegistro button,#procesoRegistro").prop("disabled", false);
                     $.notify(data.msg, {
                       className:'success',
                       globalPosition: 'top right',

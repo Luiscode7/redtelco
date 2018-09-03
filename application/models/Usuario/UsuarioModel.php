@@ -15,9 +15,11 @@ class UsuarioModel extends CI_Model{
     }
 
     public function mostrarPostUsuario(){
-      $this->db->select('id, id_usuario, contenido, imagen');
+      $this->db->select('pu.id as id, pu.id_usuario as usuario, pu.contenido as contenido, pu.imagen as imagen');
+      $this->db->from('publicaciones_usuarios as pu');
+      $this->db->join('usuarios as usu', 'usu.id = pu.id_usuario', 'left');
       $this->db->order_by('id', 'DESC');
-      $res=$this->db->get('publicaciones_usuarios');
+      $res=$this->db->get();
       if($res->num_rows()>0){
 				return $res->result_array();
 			}

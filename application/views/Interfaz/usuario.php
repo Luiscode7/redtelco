@@ -23,14 +23,7 @@ $(function(){
                     autoHideDelay:5000
                   });
               }else if(data.res == "ok"){
-                /*html += '<div class="col container-post border-post">'
-                            + '<div class="perfil-post">'
-                            + '<span id="nombreP">'<?php echo $anonimo?>'</span>'
-                            + '</div>'
-                            + '<p id="p-post" class="p-post">'<?php echo $contenido?>'</p>'
-                            + '<img style="width:100%" src="<?php echo base_url();?>assest/imagenes/t5.jpg" alt="">'    
-                            + '</div>';
-                $(".container-principal").append(html);*/
+                
                 $(".btn-post_u").attr("disabled", false);
                 $.notify(data.msg, {
                   className:'success',
@@ -50,6 +43,7 @@ $(function(){
 <div class="container-central col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
     <?php echo form_open_multipart("postUsuario",array("id"=>"postUsuario","class"=>"postUsuario"))?>
     <input type="hidden" name="id_post_usuario" id="id_post_usuario">
+    <input type="hidden" name="id_usuario" id="id_post_usuario">
     <div class="col container-public p-cero">
         <textarea name="contenido_usuario" id="contenido_usuario" class="textarea-post" placeholder="Escriba lo que desee..." cols="30" rows="10"></textarea>
         <button type="submit" name="Comentar" id="Comentar" class="btn btn-primary btn-post_u">Publicar</button>
@@ -59,32 +53,39 @@ $(function(){
         <hr>
     </div> 
     <?php echo form_close();?> 
+
+    <div id="publicarusu"></div>
+
     <div class="col container-post border-post">
         <p class="p-post"></p>
     </div>
 
-    <div class="col container-post border-post">
-        <div class="perfil-post">
-            <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
-            <span>Nombre Usuario</span>
-        </div>
-        <p class="p-post"></p>
-        <img style="width:100%" src="<?php echo base_url();?>assest/imagenes/t5.jpg" alt="">
-        <div class="row">
-            <div class="col-6 container-button-post d-flex justify-content-start">
-                <button type="submit" class="btn btn-secondary form-control">Me gusta</button>
-                <button type="submit" class="btn btn-secondary form-control">No me gusta</button>
-                <button type="submit" class="btn btn-secondary form-control">Comentar</button>
+    <?php if(!empty($posteos_usu)): ?>
+        <?php foreach($posteos_usu as $usu): ?>
+            <div class="col container-post border-post">
+                <div class="perfil-post">
+                    <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
+                    <span>nombre usuario</span>
+                </div>
+                <p class="p-post"><?php echo $usu["contenido"]?></p>
+                <img style="width:100%" src="<?php echo base_url();?>assest/imagenes/t5.jpg" alt="">
+                <div class="row">
+                    <div class="col-6 container-button-post d-flex justify-content-start">
+                        <button type="submit" class="btn btn-secondary form-control">Me gusta</button>
+                        <button type="submit" class="btn btn-secondary form-control">No me gusta</button>
+                        <button type="submit" class="btn btn-secondary form-control">Comentar</button>
+                    </div>
+                    <div class="col-6 d-flex justify-content-end align-items-center">
+                        <a class="pr-2" href=""><i class="far fa-thumbs-up"></i></a>
+                        <span>5</span>
+                        <a class=" pr-2 pl-2" href=""><i class="far fa-thumbs-down"></i></a>
+                        <span>10</span>
+                    </div>
+                </div>
+                
             </div>
-            <div class="col-6 d-flex justify-content-end align-items-center">
-                <a class="pr-2" href=""><i class="far fa-thumbs-up"></i></a>
-                <span>5</span>
-                <a class=" pr-2 pl-2" href=""><i class="far fa-thumbs-down"></i></a>
-                <span>10</span>
-            </div>
-        </div>
-        
-    </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
 
     <div class="container-post border-post">
         <img class="col img-post" src="<?php echo base_url();?>assest/imagenes/t1.jpg" alt="">

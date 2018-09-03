@@ -28,7 +28,7 @@ $(function(){
                   
                   /* ------------------------------------ */
                 for(datito in data.datos){
-                        var puactual4 = '<div class="perfil-post post1" id="post-p p2">'
+                        /*var puactual4 = '<div class="perfil-post post1" id="post-p p2">'
                                     + '<img class="perfil mr-2 mg1" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">'
                                     + '<span id="nom1">'+data.datos[datito].nombre+'</span>'
                                     + '</div>';
@@ -82,9 +82,9 @@ $(function(){
                                                 + '<span id="nmg1"></span>'
                                                 + '</div>'; 
                                 $(dislikes5).append(dislikes6);             
-                                console.log($(dislikes5));
+                                console.log($(dislikes5));*/
                             
-                            /*var html = '<div class="col container-post border-post">'
+                            var html = '<div class="col container-post border-post">'
                                 + '<div class="perfil-post">'
                                 + '<img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">'
                                 + '<span id="nombreP">'+data.datos[datito].nombre+'</span>'
@@ -105,7 +105,7 @@ $(function(){
                                 + '<span></span>'
                                 + '</div>'
                                 + '</div>';
-                            $("#publicar").append(html);*/
+                            $("#publicar").append(html);
 
                   }
                 $("#publicar").show();
@@ -115,7 +115,7 @@ $(function(){
                   globalPosition: 'top right',
                   autoHideDelay:5000
                 });
-                //window.location="anonimo";
+                window.location="anonimo";
                 $('#postAnonimo')[0].reset();
                 $("#id_post").val(""); 
               }
@@ -283,7 +283,7 @@ function limpiarCampo(){
     <?php echo form_close();?>
     
     <div id="publicar">
-        <div class="col container-post border-post">
+        <!--<div class="col container-post border-post">
             <div class="row">
                 <div class="padre col-md-10 col-lg-6 block-comment container-button-post d-flex justify-content-start">
                     <?php echo form_open_multipart("meGusta",array("id"=>"meGusta2","class"=>"meGusta"))?>
@@ -298,7 +298,7 @@ function limpiarCampo(){
                     <?php echo form_close();?>
                 </div>
              </div>
-        </div>
+        </div>-->
     </div>
 
     <?php if(!empty($posteo)): ?>

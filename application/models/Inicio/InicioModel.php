@@ -17,16 +17,25 @@ class InicioModel extends CI_Model{
     }
 
     public function login($user, $pass){
-        $this->db->select('id, nombre, apellidos, correo, contrasehna, foto_perfil');
         $this->db->where('correo', $user);
         $this->db->where('contrasehna', $pass);
         $res = $this->db->get('usuarios');
 
-        if($res->num_rows()==0){
-			return 2;//usuario no existe
+        if($res->num_rows()>0){
+			return $res->row();
 		}else{
-			$row=$res->row_array();
-			$id_usuario=$row["id_usuario"];
+			return FALSE;
+		}
+    }
+
+    public function verificarCuenta($correo){
+        $this->db->where('correo', $correo);
+        $res = $this->db->get('usuarios');
+        
+        if($res->num_rows()>0){
+			return $res->row();
+		}else{
+			return FALSE;
 		}
     }
 }

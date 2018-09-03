@@ -10,6 +10,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['registro'] = "inicio/inicio/registro";
 $route['procesoRegistro'] = "inicio/inicio/procesoRegistro";
 $route['login'] = "inicio/inicio/login";
+$route['procesoLogin'] = "inicio/inicio/procesoLogin";
 
 /* ------- PORTAL ANONIMO ---------- */
 

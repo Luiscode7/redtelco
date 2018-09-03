@@ -61,12 +61,15 @@ class Anonimo extends CI_Controller {
                     "mg_id_publicacion" => $id_publicacion,
                     "mg_ip" => $ip
                 );
-            
-                if($this->an->insertarMeGusta($datos_insert)){
-                    $data=$this->an->mostrarMg($id_publicacion);
-                    echo json_encode(array('datos' => $data));
-                }else{
-                    echo json_encode(array('res'=>"error"));exit;
+                
+                $verip = $this->an->verificarIpmg($ip);
+                if($ip !== $verip){
+                    if($this->an->insertarMeGusta($datos_insert)){
+                        $data=$this->an->mostrarMg($id_publicacion);
+                        echo json_encode(array('datos' => $data));
+                    }else{
+                        echo json_encode(array('res'=>"error"));exit;
+                    }
                 }
             
         }
@@ -82,11 +85,14 @@ class Anonimo extends CI_Controller {
                     "nmg_ip" => $ip
                 );
             
-                if($this->an->insertarNoMeGusta($datos_insert)){
-                    $data=$this->an->mostrarNoMg($id_publicacion);
-                    echo json_encode(array('datos' => $data));
-                }else{
-                    echo json_encode(array('res'=>"error"));exit;
+                $veripnmg = $this->db->verificarIpnmg($ip);
+                if($ip !== $veripnmg){
+                    if($this->an->insertarNoMeGusta($datos_insert)){
+                        $data=$this->an->mostrarNoMg($id_publicacion);
+                        echo json_encode(array('datos' => $data));
+                    }else{
+                        echo json_encode(array('res'=>"error"));exit;
+                    }
                 }
             
         }

@@ -16,10 +16,6 @@ class Inicio extends CI_Controller {
         $this->load->view('login', $datos);
     }
 
-    public function accesoUsuario(){
-		if(!$this->session->userdata("rutUserCPP")){redirect("login");}
-	}
-
     public function registro(){
         $datos = array(
             'titulo' => "Registro"
@@ -28,7 +24,34 @@ class Inicio extends CI_Controller {
     }
 
     public function procesoLogin(){
-        
+        if($this->input->is_ajax_request()){
+            $correo=$this->security->xss_clean(strip_tags($this->input->post("correo")));
+            $pass=$this->security->xss_clean(strip_tags($this->input->post("pass")));
+            $res = $this->in->login($correo, sha1($pass));
+
+            if ($this->form_validation->run("login") == FALSE){
+                echo json_encode(array('res'=>"error", 'msg' => strip_tags(validation_errors())));exit;
+            }else{	
+
+                if(!$res){
+                    echo json_encode(array('res'=>"error", 'msg' => "El usuario o contraseña no existe, intente nuevamente"));exit;
+                }
+                else{
+                    $data = array(
+                        'id' => $res->id,
+                        'nombre'=>$res->nombre,
+                        'apellidos'=>$res->apellidos,
+                        'procesoLogin' => TRUE
+                    );
+                    $dato = $this->session->set_userdata($data);
+                    if($this->session->userdata($dato)){
+                        echo json_encode(array('res'=>"ok"));exit;
+                    }else{
+                        echo json_encode(array('res'=>"error", 'msg' => ERROR_MSG));exit;
+                    }
+                }    
+            }
+        }
     }
 
     public function procesoRegistro(){
@@ -51,12 +74,15 @@ class Inicio extends CI_Controller {
                     "contrasehna"=>$pass2
                 );
 
-                if($id_usuario==""){
+                $check = $this->in->verificarCuenta($correo);
+                if($check == false){
                     if($this->in->insertarUsuario($data_insert)){
                         echo json_encode(array('res'=>"ok", 'msg' => OK_MSG));exit;
                     }else{
                         echo json_encode(array('res'=>"error", 'msg' => ERROR_MSG));exit;
                     }
+                }else{
+                    echo json_encode(array('res'=>"error", 'msg' => "el usuario ya existe"));exit;
                 }    
             }
         }    

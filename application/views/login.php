@@ -8,7 +8,6 @@
     <script src="<?php echo base_url();?>assest/js/popper.min.js"></script>
     <script src="<?php echo base_url();?>assest/js/jquery-3.3.1.min.js"></script>
     <script src="<?php echo base_url();?>assest/js/bootstrap.min.js"></script>
-    <script src="<?php echo base_url();?>assest/js/datatables.min.js"></script>
     <script defer src="<?php echo base_url();?>assest/js/all.js"></script>
     <link rel="stylesheet" href="<?php echo base_url();?>assest/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assest/css/datatables.min.css">
@@ -80,11 +79,46 @@
 
 
 </style>
+
+<script type="text/javascript">
+    $(function(){
+
+        $(document).on('submit', '.procesoLogin', function(event){
+                var url="<?php echo base_url()?>";
+                var post = $(this);
+                var formElement = document.querySelector(".procesoLogin");
+                var formData = new FormData(formElement);
+                    $.ajax({
+                        url: $('.procesoLogin').attr('action')+"?"+$.now(),  
+                        type: 'POST',
+                        data: formData,
+                        cache: false,
+                        processData: false,
+                        dataType: "json",
+                        contentType : false,
+                        success: function (data) {
+                            if(data.res == "error"){
+                                $.notify(data.msg, {
+                                className:'error',
+                                globalPosition: 'top right',
+                                autoHideDelay:5000,
+                                });
+                            $("#correo").focus();
+                            }else if(data.res == "ok"){
+                                window.location="usuario";
+                                $('.procesoLogin')[0].reset();
+                            }
+                        }
+                });
+                return false; 
+            }); 
+    });
+</script>
 </head>
 <body>
     <div class="row hv-100 justify-content-center align-items-center">
-        <?php echo form_open_multipart("procesoLogin",array("id"=>"procesoLogin","class"=>"procesoLogin"))?>
-            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <?php echo form_open_multipart("procesoLogin",array("id"=>"procesoLogin","class"=>"procesoLogin"))?>
                 <div class="container-login">
                     <div class="text-center" style="padding-bottom:30px">
                         <img src="<?php base_url();?>assest/imagenes/login1.png" alt="">
@@ -105,8 +139,14 @@
                         <a class="a-login" href="<?php base_url();?>registro">Registrese</a>
                     </div>
                 </div>
-            </div>
-        <?php echo form_close();?>
+            <?php echo form_close();?>
+        </div>
     </div>
+
+
+    <script src="<?php echo base_url();?>assest/js/popper.min.js"></script>
+    <script src="<?php echo base_url();?>assest/js/jquery-3.3.1.min.js"></script>
+    <script src="<?php echo base_url();?>assest/js/notify.min.js"></script>
+    <script src="<?php echo base_url();?>assest/js/bootstrap.min.js"></script>
 </body>
 </html>

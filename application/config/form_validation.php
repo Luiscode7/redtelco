@@ -50,5 +50,17 @@ $config = array(
                   'field'   => 'contenido_usuario',
                   'rules'   => 'required'
             )
+      ),
+
+      'login' => array(
+            array(
+                  'field'   => 'correo',
+                  'rules'   => 'required|valid_email'
+            ),
+
+            array(
+                  'field'   => 'pass',
+                  'rules'   => 'required'
+            )
       )
 );
