@@ -11,10 +11,14 @@ class Usuario extends CI_Controller {
     
 	public function index()
 	{
+        if(!$this->session->userdata("procesoLogin")){
+            redirect(base_url());
+        }
+        $id = $this->session->userdata("id");
         $contenido2 = array(
             'titulo' => "Portal Usuario", 
             'contenido2' => "usuario",
-            'posteos_usu' => $this->usu->mostrarMuroUsuario2() 
+            'posteos_usu' => $this->usu->mostrarMuroUsuario($id) 
         );
         $this->load->view('plantilla/plantilla2', $contenido2);
     }
@@ -26,11 +30,13 @@ class Usuario extends CI_Controller {
 
             $config = [
                 "upload_path" => "./assest/imagenes/subidas",
-                "allowed_types" => "png|jpg"
+                "allowed_types" => "png|jpg|jpeg|gif"
             ];
             $this->load->library("upload", $config);
 
-            $this->upload->do_upload('uploadimagen'); //método que sube archivos
+            if($this->upload->do_upload('uploadimagen')== false){
+                echo json_encode(array('res'=>"error", 'msg' => "Solo se aceptan imagenes png, jpg, jpeg y gif"));exit;
+            }
 
             $imagen = array("upload_imagen" => $this->upload->data());
             $data_insert=array(
@@ -54,6 +60,43 @@ class Usuario extends CI_Controller {
         }
     }
 
+    public function ComentariosUsu(){
+        if($this->input->is_ajax_request()){
+            $id_comment=$this->security->xss_clean(strip_tags($this->input->post("id_commentusu")));
+            $id_publicacionusu=$this->security->xss_clean(strip_tags($this->input->post("id_publicacionusu")));
+            $comentario=$this->security->xss_clean(strip_tags($this->input->post("comentariousu")));
+
+                $datos_insert = array(
+                    "com_id_usu" => $id_publicacionusu,
+                    "comentario_usu" => $comentario
+                );
+
+                if($this->form_validation->run("ComentariosUsu") == FALSE){
+                    echo json_encode(array('res'=>"error", 'msg' => strip_tags(validation_errors())));exit;
+                }else{
+                    if($data=$this->usu->insertarComentario($datos_insert)){
+                        $datos=$this->usu->mostrarComentarioUsuario($data,$id_publicacionusu);
+                        echo json_encode(array('res' => "ok", 'datos' => $datos));
+                    }else{
+                        echo json_encode(array('res'=>"error"));exit;
+                    }
+                }
+            
+        }
+    }
+
+
+    public function mostrarComPublicadosUsu(){
+        $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacionshowusu")));
+        $data=$this->usu->mostrarComPublicadosUsu($id_publicacion);
+        if($data){
+            echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
+        }else{
+            echo json_encode(array('res'=>"error", 'msg' => ERROR_MSG));exit;
+        }	
+
+}
+
     public function meGustaUsu(){
         if($this->input->is_ajax_request()){
             $id_usuario=$this->security->xss_clean(strip_tags($this->input->post("id_usuariomg")));
@@ -66,6 +109,25 @@ class Usuario extends CI_Controller {
 
             if($this->usu->insertarMeGusta($datos_insert)){
                 $data=$this->usu->mostrarMgUsu($id_usuario);
+                echo json_encode(array('datos' => $data));
+            }else{
+                echo json_encode(array('res'=>"error"));exit;
+            }
+        }
+    }
+
+    public function NomeGustaUsu(){
+        if($this->input->is_ajax_request()){
+            $id_usuario=$this->security->xss_clean(strip_tags($this->input->post("id_usuarionomg")));
+            $ip = $this->input->ip_address();
+
+            $datos_insert = array(
+                "nmg_id_usu" => $id_usuario,
+                "nmg_ip" => $ip
+            );
+
+            if($this->usu->insertarNoMeGusta($datos_insert)){
+                $data=$this->usu->mostrarNoMgUsu($id_usuario);
                 echo json_encode(array('datos' => $data));
             }else{
                 echo json_encode(array('res'=>"error"));exit;

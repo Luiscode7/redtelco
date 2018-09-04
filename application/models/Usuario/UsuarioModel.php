@@ -38,26 +38,12 @@ class UsuarioModel extends CI_Model{
 			return FALSE;
     }
 
-
-    public function mostrarMuroUsuario(){
-      $this->db->select("pu.id as id, pu.id_usuario as usuario,
-       pu.contenido as contenido, pu.imagen as imagen, CONCAT(usu.nombre, ' ' ,usu.apellidos) as 'nombre'");
-      $this->db->from('publicaciones_usuarios as pu');
-      $this->db->join('usuarios as usu', 'usu.id = pu.id_usuario', 'left');
-      $this->db->order_by('id', 'DESC');
-      $res=$this->db->get();
-      if($res->num_rows()>0){
-				return $res->result_array();
-			}
-      return FALSE;
-    }
-
-    public function mostrarMuroUsuario2(){
+    public function mostrarMuroUsuario($id){
       $query=$this->db->query("SELECT p.id as id, p.id_usuario as usuario, p.contenido as contenido,
        p.imagen as imagen, CONCAT(usu.nombre, ' ' ,usu.apellidos) as 'nombre',
        (SELECT COUNT(*) FROM me_gusta_usuarios mg WHERE mg.mg_id_usu = p.id) as mgustas,
        (SELECT COUNT(*) FROM no_me_gusta_usuarios ng WHERE ng.nmg_id_usu = p.id) as nmgustas
-       FROM publicaciones_usuarios as p JOIN usuarios usu ON p.id_usuario=usu.id ORDER BY id DESC");
+       FROM publicaciones_usuarios as p JOIN usuarios usu ON p.id_usuario=usu.id WHERE p.id_usuario = $id ORDER BY id DESC");
       return $query->result_array();
     }
 
@@ -65,6 +51,31 @@ class UsuarioModel extends CI_Model{
       $this->db->select('id, id_usuario, contenido, imagen');
       $this->db->where('id_usuario', $id);
       $res = $this->db->get('publicaciones_usuarios');
+      if($res->num_rows()>0){
+        return $res->result_array();
+			}
+      return FALSE;
+    }
+
+    public function mostrarComentarioUsuario($id, $idpubli){
+      $this->db->select('comentario_usu');
+      $this->db->where('id_com_usu', $id);
+      $this->db->where('com_id_usu', $idpubli);
+      $res = $this->db->get('comentarios_usuarios');
+      if($res->num_rows()>0){
+        return $res->result_array();
+			}
+      return FALSE;
+    }
+
+
+    public function mostrarComPublicadosUsu($id){
+      $this->db->select('com.comentario_usu as comments');
+      $this->db->from('comentarios_usuarios as com');
+      $this->db->join('publicaciones_usuarios as p', 'p.id = com.com_id_usu', 'left');
+      $this->db->where('p.id', $id);
+      $this->db->order_by('comments', 'DESC');
+      $res=$this->db->get();
       if($res->num_rows()>0){
         return $res->result_array();
 			}

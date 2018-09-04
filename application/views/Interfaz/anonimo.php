@@ -238,9 +238,8 @@ $(function(){
                 return false; 
         });
 
-        //mostrarComment();
         ocultarVerMasComments();
-         //limpiarCampo();
+        ocultarMsjNocomment();
         
 });
 
@@ -250,6 +249,17 @@ function ocultarVerMasComments(){
         $("div").remove(".muestra"); //elimina el div de mostrar comentarios
         $("div").remove("#publicar");//elimina el div de publicar comentarios
         $(".btn-showmore").show();//muestra el boton ver comentarios, nuevamente
+    });
+}
+
+/*------ FUNCION QUE ELIMINA EL MENSAJE NO HAY COMENTARIO */
+function ocultarMsjNocomment(){
+    $(".btn-comment1").click(function(){
+        var nocomment = $(this).parent().parent();
+        var nocomment2 = nocomment.children().eq(2);
+        var nocomment3 = nocomment2.children().eq(1);
+        var nocomment4 = nocomment3.children().eq(2);
+        $(nocomment4).remove();
     });
 }
 
@@ -348,8 +358,7 @@ function limpiarCampo(){
                         </div>
                     <?php echo form_close();?>
                 </div>
-        </div>
-        
+        </div>      
     </div>
     <?php
     endforeach;

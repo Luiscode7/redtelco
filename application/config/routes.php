@@ -11,6 +11,7 @@ $route['registro'] = "inicio/inicio/registro";
 $route['procesoRegistro'] = "inicio/inicio/procesoRegistro";
 $route['login'] = "inicio/inicio/login";
 $route['procesoLogin'] = "inicio/inicio/procesoLogin";
+$route['cerrarSesion'] = "inicio/inicio/cerrarSesion";
 
 /* ------- PORTAL ANONIMO ---------- */
 
@@ -27,3 +28,6 @@ $route['mostrarComPublicados'] = "anonimo/mostrarComPublicados";
 $route['usuario'] = 'interfaz/usuario/index';
 $route['postUsuario'] = "interfaz/usuario/postUsuario";
 $route['meGustaUsu'] = "interfaz/usuario/meGustaUsu";
+$route['NomeGustaUsu'] = "interfaz/usuario/NomeGustaUsu";
+$route['mostrarComPublicadosUsu'] = "interfaz/usuario/mostrarComPublicadosUsu";
+$route['ComentariosUsu'] = "interfaz/usuario/ComentariosUsu";

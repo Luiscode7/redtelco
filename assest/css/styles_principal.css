@@ -197,6 +197,31 @@ hr{
     color: #000000;
 }
 
+.link-usuario{
+    text-decoration: none !important;
+}
+
+.btn-cerrar-sesion{
+    background:#DF013A !important;
+    border: #DF013A !important;
+    cursor:pointer;
+}
+
+/*---focus quita borde al button al dar click*/
+.btn-cerrar-sesion:focus{
+    width:0px;height:0px;outline:0px;
+}
+
+.dropdown-menu-session{
+    position:absolute;
+    left:70px;
+    top:46px;
+}
+
+.dropdown-toggle::after {
+   display: none;
+}
+
 
 /*--- Media query menu navbar usuarios---*/
 @media (max-width:992px){

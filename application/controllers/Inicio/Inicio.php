@@ -23,6 +23,10 @@ class Inicio extends CI_Controller {
         $this->load->view('registro', $datos);
     }
 
+    public function cerrarSesion(){
+        $this->session->sess_destroy();
+    }
+
     public function procesoLogin(){
         if($this->input->is_ajax_request()){
             $correo=$this->security->xss_clean(strip_tags($this->input->post("correo")));

@@ -45,6 +45,13 @@ $config = array(
             )
       ),
 
+      'ComentariosUsu' => array(
+            array(
+                  'field'   => 'comentariousu',
+                  'rules'   => 'required'
+            )
+      ),
+
       'postUsuario' => array(
             array(
                   'field'   => 'contenido_usuario',

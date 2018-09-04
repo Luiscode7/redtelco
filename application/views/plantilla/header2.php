@@ -12,6 +12,23 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assest/css/normalize.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assest/css/styles_principal.css">
 </head>
+<script type="text/javascript">
+$(function(){
+
+    $(".sesion").click(function(){
+        var url = "<?php echo base_url();?>";
+        $.ajax({
+          url: "cerrarSesion",
+          type:"POST",
+          data:{},
+          success:function(){
+            window.location.replace("login");
+          }
+        });
+    });
+    return false;
+});
+</script>
 <body>
   <div class="container-fluid">
       <div class="row">
@@ -45,9 +62,18 @@
                     <a class="dropdown-item" href="#">Antiguas</a>
                   </div>
                 </li>-->
-                <li class="nav-item ml-auto col-3" id="perfil-usuario" style="padding-left:0 !important;">
-                  <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
-                  <span><?php echo $this->session->userdata("nombre")." ".$this->session->userdata("apellidos")?></span>
+                <li class="nav-item ml-auto col-3" id="perfil-usuario" style="padding-left:0 !important;padding-right:0 !important;">
+                  <a class="link-usuario" role="button" href="usuario">
+                      <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
+                      <span><?php echo $this->session->userdata("nombre")." ".$this->session->userdata("apellidos")?></span>
+                  </a>
+                  <button type="button" class="btn-cerrar-sesion dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                    <span class="sr-only">Toggle Dropdown</span>
+                    <i class="fas fa-sort-down fa-lg"></i>
+                  </button>
+                  <div class="dropdown-menu-session dropdown-menu" aria-labelledby="dropdownMenuReference">
+                    <a class="dropdown-item sesion" href="#">Cerrar Sesi&oacute;n</a>
+                  </div>
                 </li>
               </ul>
               <!--<div class="col-3 ml-auto" id="perfil" style="color:#fff;padding-left:0 !important;">

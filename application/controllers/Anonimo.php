@@ -134,15 +134,4 @@ class Anonimo extends CI_Controller {
     
     }
 
-    public function agrega_miniatura($width,$height,$nombre){
-		$config["source_image"]='./assets/imagenes/noticias/'.$nombre;
-		$config['new_image'] = "min_".$nombre;
-		$config["width"]=$width;
-		$config["height"]=$height;
-		$config["quality"]='90%';
-		$config["maintain_ratio"]=TRUE;
-		$config["maintain_ratio"]=TRUE;
-		return $config;
-	}
-
 }
