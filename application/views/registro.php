@@ -94,6 +94,7 @@ $(function(){
                     });
                     $('#procesoRegistro')[0].reset();
                     $("#id_usuario").val("");
+                    window.location="login";
                   }
                 }
           });

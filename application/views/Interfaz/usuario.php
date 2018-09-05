@@ -22,7 +22,6 @@ $(function(){
                     autoHideDelay:5000
                   });
               }else if(data.res == "ok"){
-                
                 $.notify(data.msg, {
                   className:'success',
                   globalPosition: 'top right',
@@ -96,9 +95,9 @@ $(function(){
                             var pd = $(formdata);
             
                             for(dato in data.datos){
-                                var coment = pd.append('<div id ="publicarusu" class="col p-0 pt-4"><p id="commentsusu" class="mb-0"><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">'+data.datos[dato].comentario_usu+'</p></div>');
+                                var coment = pd.append('<div id ="publicarusu" class="col p-0 pt-4 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/login1.png" alt=""></div><div><p id="commentsusu" class="mb-0">'+data.datos[dato].comentario_usu+'</p></div></div>');
                             }
-                            $('.ComentariosUsu')[0].reset();
+                            $(formdata)[0].reset();
                         }
                         else
                         if(data.res == 'error'){
@@ -129,7 +128,7 @@ $(function(){
                             console.log($(showmore));
                             for(dato in data.datos){
                                 var comentarios = data.datos[dato].comments;
-                                var showmore2 = showmore.append('<div class="col p-0 pt-1 muestra2"><p id="commentusu"><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">'+comentarios+'</p></div>');
+                                var showmore2 = showmore.append('<div class="col p-0 pt-1 muestra2 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/login1.png" alt=""></div><div><p id="commentusu">'+comentarios+'</p></div></div>');
                             }
                             $(".btn-showmoreusu").hide();
                         }
@@ -147,8 +146,7 @@ $(function(){
                 return false; 
         });
     
-        ocultarVerMasComments();
-        ocultarMsjNocomment();
+        Comments2();
 
 
   /*--- FUNCION PARA UTILIZAR LINK COMO INPUT FILE ---*/
@@ -158,22 +156,35 @@ $(function(){
 
 });
 
-function ocultarVerMasComments(){
+function Comments2(){
     $(".btn-commentusu1").click(function(){
+        var boton = $(this);
+        var mostrarcom2 = boton.parent().parent();
+        var mostrarcom3 = mostrarcom2.children().eq(2);
+        if(mostrarcom3.hasClass("ocultarComment")){
+            $(mostrarcom3).toggle(function(){
+                $(mostrarcom3).addClass("mostrarComment");
+            });
+        }else if(mostrarcom3.hasClass("mostrarComment")){
+            $(mostrarcom3).toggle(function(){
+                $(mostrarcom3).addClass("ocultarComment");
+            });
+        }
+
+        /* ELIMINA EL MENSAJE NO HAY COMENTARIO */
+        var nocomment3 = mostrarcom3.children().eq(1);
+        var nocomment4 = nocomment3.children().eq(2);
+        $(nocomment4).remove();
+
+
         $("div").remove(".muestra2"); //elimina el div de mostrar comentarios
         $("div").remove("#publicarusu");//elimina el div de publicar comentarios
         $(".btn-showmoreusu").show();//muestra el boton ver comentarios, nuevamente
-    });
-}
 
-/*------ FUNCION QUE ELIMINA EL MENSAJE NO HAY COMENTARIO */
-function ocultarMsjNocomment(){
-    $(".btn-commentusu1").click(function(){
-        var nocomment = $(this).parent().parent();
-        var nocomment2 = nocomment.children().eq(2);
-        var nocomment3 = nocomment2.children().eq(1);
-        var nocomment4 = nocomment3.children().eq(2);
-        $(nocomment4).remove();
+        
+        /* DIRIGE EL SCROLL A LA CAJA DE COMENTARIOS */
+        var buscar = $(mostrarcom3).offset().top;
+        $("html").animate({scrollTop:buscar}, 500);
     });
 }
 
@@ -214,7 +225,7 @@ function ocultarMsjNocomment(){
                             <input type="hidden" name="id_usuarionomg" id="id_usuarionomg" value="<?php echo $usu["id"]?>"> 
                             <button type="submit" class="btn btn-secondary form-control">No me gusta</button>
                         <?php echo form_close();?>
-                        <button type="submit" class="btn btn-secondary form-control btn-commentusu1" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Comentar</button>
+                        <button type="submit" class="btn btn-secondary form-control btn-commentusu1">Comentar</button>
                     </div>
                     <div class="col-6 d-flex justify-content-end align-items-center">
                         <a class="pr-2" href=""><i class="far fa-thumbs-up"></i></a>
@@ -222,7 +233,7 @@ function ocultarMsjNocomment(){
                         <a class=" pr-2 pl-2" href=""><i class="far fa-thumbs-down"></i></a>
                         <span><?php echo $usu["nmgustas"]?></span>
                     </div>
-                    <div class="col pt-3 pb-1 collapse" id="collapseExample">
+                    <div class="col pt-3 pb-1 ocultarComment">
                         <?php echo form_open_multipart("ComentariosUsu",array("id"=>"ComentariosUsu","class"=>"ComentariosUsu"))?>
                             <input type="hidden" name="id_commentusu" id="id_commentusu">
                             <input type="hidden" name="id_publicacionusu" value="<?php echo $usu["id"]?>">

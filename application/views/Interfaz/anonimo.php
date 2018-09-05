@@ -1,6 +1,13 @@
 <script type="text/javascript">
 $(function(){
     $("#publicar").hide();
+    var usuarioimagen = "<?php echo $this->session->userdata("procesoLogin")?>";
+    if(usuarioimagen){
+        $("#emojiusu").removeClass("ocultarImagenAn");
+        $("#imagenan").removeClass("ocultarImagenAn");
+        $("#videousu").removeClass("ocultarImagenAn");
+    }
+    
 
     /* ---- FUNCION PUBLICACIONES ----*/
     $(document).on('submit', '#postAnonimo',function(event) {
@@ -115,7 +122,13 @@ $(function(){
                   globalPosition: 'top right',
                   autoHideDelay:5000
                 });
-                window.location="anonimo";
+                var usuario = "<?php echo $this->session->userdata("procesoLogin")?>";
+                if(usuario){
+                    window.location="MuroAnonimo";
+                }else{
+                    window.location="anonimo";
+                }
+                
                 $('#postAnonimo')[0].reset();
                 $("#id_post").val(""); 
               }
@@ -187,9 +200,9 @@ $(function(){
                             var pd = $(formdata);
             
                             for(dato in data.datos){
-                                var coment = pd.append('<div id ="publicar" class="col p-0 pt-4"><p id="comments" class="mb-0"><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">'+data.datos[dato].comentario+'</p></div>');
+                                var coment = pd.append('<div id ="publicar" class="col p-0 pt-4 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/login1.png" alt=""></div><div><p id="comments" class="mb-0">'+data.datos[dato].comentario+'</p></div></div>');
                             }
-                            $('.Comentarios')[0].reset();
+                            $(formdata)[0].reset();
                             console.log(nomostrarmsj3);
                         }
                         else
@@ -220,7 +233,7 @@ $(function(){
                             
                             for(dato in data.datos){
                                 var comentarios = data.datos[dato].comments;
-                                var showmore2 = showmore.append('<div class="col p-0 pt-1 muestra"><p id="comment"><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">'+comentarios+'</p></div>');
+                                var showmore2 = showmore.append('<div class="col p-0 pt-1 muestra d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/login1.png" alt=""></div><div><p id="comment">'+comentarios+'</p></div></div>');
                             }
                             $(".btn-showmore").hide();
                         }
@@ -238,43 +251,43 @@ $(function(){
                 return false; 
         });
 
-        ocultarVerMasComments();
-        ocultarMsjNocomment();
+        /*--- FUNCION PARA UTILIZAR LINK COMO INPUT FILE ---*/
+        $("#imagenan").click(function(){
+            $("#uploadimagenan").trigger("click");
+        });
+
+        Comments();
         
 });
 
 /*---- OCULTA LOS COMENTARIOS ----*/
-function ocultarVerMasComments(){
+function Comments(){
     $(".btn-comment1").click(function(){
+        var boton = $(this);
+        var mostrarcom2 = boton.parent().parent();
+        var mostrarcom3 = mostrarcom2.children().eq(2);
+        if(mostrarcom3.hasClass("ocultarComment")){
+            $(mostrarcom3).toggle(function(){
+                $(mostrarcom3).addClass("mostrarComment");
+            });
+        }else if(mostrarcom3.hasClass("mostrarComment")){
+            $(mostrarcom3).toggle(function(){
+                $(mostrarcom3).addClass("ocultarComment");
+            });
+        }
+
+        /* ELIMINA EL MENSAJE NO HAY COMENTARIO */
+        var nocomment3 = mostrarcom3.children().eq(1);
+        var nocomment4 = nocomment3.children().eq(2);
+        $(nocomment4).remove();
+
         $("div").remove(".muestra"); //elimina el div de mostrar comentarios
         $("div").remove("#publicar");//elimina el div de publicar comentarios
         $(".btn-showmore").show();//muestra el boton ver comentarios, nuevamente
-    });
-}
 
-/*------ FUNCION QUE ELIMINA EL MENSAJE NO HAY COMENTARIO */
-function ocultarMsjNocomment(){
-    $(".btn-comment1").click(function(){
-        var nocomment = $(this).parent().parent();
-        var nocomment2 = nocomment.children().eq(2);
-        var nocomment3 = nocomment2.children().eq(1);
-        var nocomment4 = nocomment3.children().eq(2);
-        $(nocomment4).remove();
-    });
-}
-
-function mostrarComment(){
-    $(".btn-comment1").click(function(){
-        var mostrarcom = $(this);
-        var mostrarcom2 = mostrarcom.parent().parent();
-        var mostrarcom3 = mostrarcom2.children().eq(2);
-        $(mostrarcom3);
-    });
-}
-
-function limpiarCampo(){
-    $(".textarea-comment").blur(function(){
-        $(this).val("").delay(2000);
+        /* DIRIGE EL SCROLL A LA CAJA DE COMENTARIOS */
+        var buscar = $(mostrarcom3).offset().top;
+        $("html").animate({scrollTop:buscar}, 500);
     });
 }
 
@@ -288,6 +301,10 @@ function limpiarCampo(){
         <input type="text" class="form-control form-control-sm mb-3" style="text-indent:15px" autofocus placeholder="Ingrese un nombre si lo desea | es opcional" name="nombre" id="nombre" autocomplete="off">
         <textarea name="contenido" id="contenido" class="textarea-post" placeholder="Escriba lo que desee..." cols="30" rows="10"></textarea>
         <button type="submit" name="Comentar" id="Comentar" class="btn btn-primary btn-post">Publicar</button>
+        <input type="file" name="uploadimagenan" id="uploadimagenan" style="display:none">
+        <a href="#" id="emojiusu" class="ocultarImagenAn"><i class="fas fa-smile ml-4 mr-4"></i></a>
+        <a id="imagenan" href="#" class="ocultarImagenAn"><i class="far fa-image mr-4"></i></a>
+        <a href="#" id="videousu" class="ocultarImagenAn"><i class="fas fa-video"></i></a>
         <hr>
     </div> 
     <?php echo form_close();?>
@@ -331,7 +348,7 @@ function limpiarCampo(){
                         <input type="hidden" id="id_publicacionomg" name="id_publicacionomg" value="<?php echo $post["id_publi"]?>">
                         <button type="submit" name="no_me_gusta" class="btn btn-secondary form-control">No me gusta</button>
                     <?php echo form_close();?>
-                    <button type="button" class="btn btn-secondary form-control btn-comment1" value="<?php echo $post["id_publi"]?>" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Comentar</button>
+                    <button type="button" id="btn-comment1" class="btn btn-secondary form-control btn-comment1" value="<?php echo $post["id_publi"]?>">Comentar</button>
                 </div>
                 <div class="block-likes col-md-2 col-lg-6 d-flex justify-content-end align-items-center">
                     <div>
@@ -344,7 +361,7 @@ function limpiarCampo(){
                     </div>
                 </div>
     
-                <div class="col pt-3 pb-1 collapse" id="collapseExample">
+                <div class="col pt-3 pb-1 ocultarComment" id="blockcomments">
                     <?php echo form_open_multipart("Comentarios",array("id"=>"Comentarios","class"=>"Comentarios"))?>
                         <input type="hidden" name="id_comment" id="id_comment">
                         <input type="hidden" name="id_publicacionc" value="<?php echo $post["id_publi"]?>">

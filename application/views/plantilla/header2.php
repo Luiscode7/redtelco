@@ -22,11 +22,25 @@ $(function(){
           type:"POST",
           data:{},
           success:function(){
-            window.location.replace("login");
+            window.location.replace("anonimo");
           }
         });
+        return false;
     });
-    return false;
+
+    $(".iniciousu").click(function(){
+        var url = "<?php echo base_url();?>";
+        $.ajax({
+          url: "MuroAnonimo",
+          type:"POST",
+          data:{},
+          success:function(){
+            window.location="MuroAnonimo";
+          }
+        });
+        return false;
+    });
+    
 });
 </script>
 <body>
@@ -40,7 +54,7 @@ $(function(){
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent2">
               <ul class="navbar-nav d-flex align-items-center w-100">
-                <li class="nav-item active">
+                <li class="nav-item active iniciousu">
                   <a class="nav-link" href="#"><i class="fas fa-home mr-2 align-baseline"></i>Inicio</a>
                 </li>
                 <li class="nav-item active">

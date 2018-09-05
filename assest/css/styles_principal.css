@@ -222,6 +222,20 @@ hr{
    display: none;
 }
 
+/* para toggle comentarios*/
+.ocultarComment{
+    display:none;
+}
+
+/* para toggle comentarios*/
+.mostrarComment{
+    display:block;
+}
+
+.ocultarImagenAn{
+    display:none;
+}
+
 
 /*--- Media query menu navbar usuarios---*/
 @media (max-width:992px){

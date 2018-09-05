@@ -30,9 +30,23 @@ class Anonimo extends CI_Controller {
             $nombre=$this->security->xss_clean(strip_tags($this->input->post("nombre")));
             $contenido=$this->security->xss_clean(strip_tags($this->input->post("contenido")));
 
+            $config = [
+                "upload_path" => "./assest/imagenes/subidas",
+                "allowed_types" => "png|jpg|jpeg|gif"
+            ];
+            $this->load->library("upload", $config);
+
+            $this->upload->do_upload('uploadimagenan');
+
+            if(!$config["allowed_types"]){
+                echo json_encode(array('res'=>"error", 'msg' => "Solo se aceptan imagenes png, jpg, jpeg y gif"));exit;
+            }
+
+            $imagen = array("upload_imagenan" => $this->upload->data());
             $data_insert=array(
                 "nombre"=>$nombre,
-                "contenido"=>$contenido
+                "contenido"=>$contenido,
+                "imagenAnonimo"=>$imagen['upload_imagenan']['file_name']
             );
 
             if($this->form_validation->run("postAnonimo") == FALSE){
@@ -85,7 +99,7 @@ class Anonimo extends CI_Controller {
                     "nmg_ip" => $ip
                 );
             
-                $veripnmg = $this->db->verificarIpnmg($ip);
+                $veripnmg = $this->an->verificarIpnmg($ip);
                 if($ip !== $veripnmg){
                     if($this->an->insertarNoMeGusta($datos_insert)){
                         $data=$this->an->mostrarNoMg($id_publicacion);

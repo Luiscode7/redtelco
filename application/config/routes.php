@@ -31,3 +31,4 @@ $route['meGustaUsu'] = "interfaz/usuario/meGustaUsu";
 $route['NomeGustaUsu'] = "interfaz/usuario/NomeGustaUsu";
 $route['mostrarComPublicadosUsu'] = "interfaz/usuario/mostrarComPublicadosUsu";
 $route['ComentariosUsu'] = "interfaz/usuario/ComentariosUsu";
+$route['MuroAnonimo'] = "interfaz/usuario/MuroAnonimo";

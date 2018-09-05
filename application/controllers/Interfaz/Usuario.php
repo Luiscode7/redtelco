@@ -7,6 +7,7 @@ class Usuario extends CI_Controller {
 		parent::__construct();
         
         $this->load->model("Usuario/UsuarioModel", "usu");
+        $this->load->model("Anonimo/AnonimoModel");
     }
     
 	public function index()
@@ -23,8 +24,18 @@ class Usuario extends CI_Controller {
         $this->load->view('plantilla/plantilla2', $contenido2);
     }
 
+    public function MuroAnonimo(){
+        $contenido3 = array(
+            'titulo' => "Portal General", 
+            'contenido3' => "anonimo",
+            'posteo'=> $this->AnonimoModel->mostrarMuroAnonimo()
+        );
+        $this->load->view('plantilla/plantilla3', $contenido3);
+    }
+
     public function postUsuario(){
         if($this->input->is_ajax_request()){
+            $id_post_usu=$this->security->xss_clean(strip_tags($this->input->post("id_post_usuario")));
             $usuario=$this->security->xss_clean(strip_tags($this->input->post("id_usuario")));
             $contenido_usuario=$this->security->xss_clean(strip_tags($this->input->post("contenido_usuario")));
 
@@ -34,7 +45,9 @@ class Usuario extends CI_Controller {
             ];
             $this->load->library("upload", $config);
 
-            if($this->upload->do_upload('uploadimagen')== false){
+            $this->upload->do_upload('uploadimagen');
+
+            if(!$config["allowed_types"]){
                 echo json_encode(array('res'=>"error", 'msg' => "Solo se aceptan imagenes png, jpg, jpeg y gif"));exit;
             }
 
@@ -48,7 +61,7 @@ class Usuario extends CI_Controller {
             if($this->form_validation->run("postUsuario") == FALSE){
                 echo json_encode(array('res'=>"error", 'msg' => strip_tags(validation_errors())));exit;
             }else{
-                if($id_post_usuario ==""){
+                if($id_post_usu ==""){
                     if($this->usu->InsertarPostUsuario($data_insert)){
                         echo json_encode(array('res'=>"ok", 'msg' => "publicacion realizada con éxito"));exit;
                     }else{
