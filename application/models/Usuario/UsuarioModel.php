@@ -38,9 +38,20 @@ class UsuarioModel extends CI_Model{
 			return FALSE;
     }
 
+    public function actualizarUsuario($id,$datos){
+      $this->db->select('nombre, apellidos, foto_perfil');
+      $this->db->where('id', $id);
+      $this->db->update('usuarios', $datos);
+      if($this->db->affected_rows()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
     public function mostrarMuroUsuario($id){
       $query=$this->db->query("SELECT p.id as id, p.id_usuario as usuario, p.contenido as contenido,
-       p.imagen as imagen, CONCAT(usu.nombre, ' ' ,usu.apellidos) as 'nombre',
+       p.imagen as imagen, CONCAT(usu.nombre, ' ' ,usu.apellidos) as 'nombre', usu.foto_perfil as foto,
        (SELECT COUNT(*) FROM me_gusta_usuarios mg WHERE mg.mg_id_usu = p.id) as mgustas,
        (SELECT COUNT(*) FROM no_me_gusta_usuarios ng WHERE ng.nmg_id_usu = p.id) as nmgustas
        FROM publicaciones_usuarios as p JOIN usuarios usu ON p.id_usuario=usu.id WHERE p.id_usuario = $id ORDER BY id DESC");
@@ -99,5 +110,13 @@ class UsuarioModel extends CI_Model{
       
     }
 
+    public function mostrarUsuario($id){
+      $this->db->where('id', $id);
+      $res=$this->db->get('usuarios');
+      if($res->num_rows()>0){
+        return $res->result_array();
+			}
+      return FALSE;
+    }
     
 }

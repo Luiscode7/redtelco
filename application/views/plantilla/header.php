@@ -12,6 +12,25 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assest/css/normalize.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assest/css/styles_principal.css">
 </head>
+<script type="text/javascript">
+$(function(){
+
+    /* --- BLOQUEA EL USO DE SCRIPT DESDE CONSOLA --- */
+    var _z = console;
+    Object.defineProperty( window, "console", {
+        get : function(){
+            if( _z._commandLineAPI ){
+            throw "Lo siento, no está permitido ejecutar scripts!";
+                }
+            return _z; 
+        },
+        set : function(val){
+            _z = val;
+        }
+    });
+    
+});
+</script>
 <body>
 <div class="container-fluid">
   <div class="row">

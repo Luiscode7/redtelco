@@ -64,7 +64,7 @@ class AnonimoModel extends CI_Model{
     }
 
     public function mostrarMuroAnonimo(){
-      $query=$this->db->query('SELECT p.id as id_publi, p.nombre as nombre, p.contenido as contenido,
+      $query=$this->db->query('SELECT p.id as id_publi, p.nombre as nombre, p.contenido as contenido, p.imagenAnonimo as imagen,
        (SELECT COUNT(*) FROM me_gusta_anonimos mg WHERE mg.mg_id_publicacion = p.id) as mgustas,
        (SELECT COUNT(*) FROM no_me_gusta_anonimos ng WHERE ng.nmg_id_publicacion = p.id) as nmgustas
        FROM publicaciones_anonimos as p ORDER BY id_publi DESC');

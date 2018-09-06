@@ -5,8 +5,21 @@ $(function(){
     if(usuarioimagen){
         $("#emojiusu").removeClass("ocultarImagenAn");
         $("#imagenan").removeClass("ocultarImagenAn");
-        $("#videousu").removeClass("ocultarImagenAn");
     }
+
+    /* --- BLOQUEA EL USO DE SCRIPT DESDE CONSOLA --- */
+    var _z = console;
+    Object.defineProperty( window, "console", {
+        get : function(){
+            if( _z._commandLineAPI ){
+            throw "Lo siento, no está permitido ejecutar scripts!";
+                }
+            return _z; 
+        },
+        set : function(val){
+            _z = val;
+        }
+    });
     
 
     /* ---- FUNCION PUBLICACIONES ----*/
@@ -304,7 +317,7 @@ function Comments(){
         <input type="file" name="uploadimagenan" id="uploadimagenan" style="display:none">
         <a href="#" id="emojiusu" class="ocultarImagenAn"><i class="fas fa-smile ml-4 mr-4"></i></a>
         <a id="imagenan" href="#" class="ocultarImagenAn"><i class="far fa-image mr-4"></i></a>
-        <a href="#" id="videousu" class="ocultarImagenAn"><i class="fas fa-video"></i></a>
+        <!--<a href="#" id="videousu" class="ocultarImagenAn"><i class="fas fa-video"></i></a>-->
         <hr>
     </div> 
     <?php echo form_close();?>
@@ -338,17 +351,21 @@ function Comments(){
             <span id="nombreP"><?php echo $post["nombre"]?></span>
         </div>
         <p id="p-post" class="p-post"><?php echo $post["contenido"]?></p>
+        <img style="width:100%" src="<?php echo base_url();?>assest/imagenes/subidas/<?php echo $post["imagen"]?>" alt="">
         <div class="row">
                 <div class="padre col-md-10 col-lg-6 block-comment container-button-post d-flex justify-content-start">
                     <?php echo form_open_multipart("meGusta",array("id"=>"meGusta","class"=>"meGusta"))?>
-                        <input type="hidden" id="id_publicacionmg" name="id_publicacionmg" value="<?php echo $post["id_publi"]?>">
+                        <?php $id_publi=$post["id_publi"]; $clave = $this->encryption->encrypt($id_publi);?>
+                        <input type="hidden" id="id_publicacionmg" name="id_publicacionmg" value="<?php echo $clave?>">
                         <button type="submit" name="publicacion" id="publicacion" class="btn btn-secondary form-control btn-megusta" value="<?php echo $post["id_publi"]?>">Me gusta</button>
                     <?php echo form_close();?>
                     <?php echo form_open_multipart("nomeGusta",array("id"=>"nomeGusta","class"=>"nomeGusta"))?>
-                        <input type="hidden" id="id_publicacionomg" name="id_publicacionomg" value="<?php echo $post["id_publi"]?>">
+                        <?php $id_publi=$post["id_publi"]; $clave = $this->encryption->encrypt($id_publi);?>
+                        <input type="hidden" id="id_publicacionomg" name="id_publicacionomg" value="<?php echo $clave?>">
                         <button type="submit" name="no_me_gusta" class="btn btn-secondary form-control">No me gusta</button>
                     <?php echo form_close();?>
-                    <button type="button" id="btn-comment1" class="btn btn-secondary form-control btn-comment1" value="<?php echo $post["id_publi"]?>">Comentar</button>
+                    <?php $id_publi=$post["id_publi"]; $clave = $this->encryption->encrypt($id_publi);?>
+                    <button type="button" id="btn-comment1" class="btn btn-secondary form-control btn-comment1" value="<?php echo $clave?>">Comentar</button>
                 </div>
                 <div class="block-likes col-md-2 col-lg-6 d-flex justify-content-end align-items-center">
                     <div>
@@ -363,13 +380,15 @@ function Comments(){
     
                 <div class="col pt-3 pb-1 ocultarComment" id="blockcomments">
                     <?php echo form_open_multipart("Comentarios",array("id"=>"Comentarios","class"=>"Comentarios"))?>
+                        <?php $id_publi=$post["id_publi"]; $clave = $this->encryption->encrypt($id_publi);?>
                         <input type="hidden" name="id_comment" id="id_comment">
-                        <input type="hidden" name="id_publicacionc" value="<?php echo $post["id_publi"]?>">
+                        <input type="hidden" name="id_publicacionc" value="<?php echo $clave?>">
                         <textarea name="comentario" class="textarea-comment" placeholder="Comentario..." cols="30" rows="10"></textarea>
                         <button type="submit" class="btn btn-primary btn-comment2">Comentar</button>
                     <?php echo form_close();?>
                     <?php echo form_open_multipart("mostrarComPublicados",array("id"=>"mostrarComPublicados","class"=>"mostrarComPublicados"))?>
-                        <input type="hidden" name="id_publicacionshow" value="<?php echo $post["id_publi"]?>">
+                        <?php $id_publi=$post["id_publi"]; $clave = $this->encryption->encrypt($id_publi);?>
+                        <input type="hidden" name="id_publicacionshow" value="<?php echo $clave?>">
                         <div class="d-flex justify-content-center mb-3">
                             <button class="btn btn-primary btn-showmore" type="submit" id="showmore" name="showmore">ver comentarios</button>
                         </div>

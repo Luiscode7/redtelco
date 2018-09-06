@@ -15,6 +15,20 @@
 <script type="text/javascript">
 $(function(){
 
+    /* --- BLOQUEA EL USO DE SCRIPT DESDE CONSOLA --- */
+    var _z = console;
+    Object.defineProperty( window, "console", {
+        get : function(){
+            if( _z._commandLineAPI ){
+            throw "Lo siento, no está permitido ejecutar scripts!";
+                }
+            return _z; 
+        },
+        set : function(val){
+            _z = val;
+        }
+    });
+
     $(".sesion").click(function(){
         var url = "<?php echo base_url();?>";
         $.ajax({
@@ -36,6 +50,19 @@ $(function(){
           data:{},
           success:function(){
             window.location="MuroAnonimo";
+          }
+        });
+        return false;
+    });
+
+     $(".edit-perfil").click(function(){
+        var url = "<?php echo base_url();?>";
+        $.ajax({
+          url: "redirectEditarPerfil",
+          type:"POST",
+          data:{},
+          success:function(){
+            window.location="redirectEditarPerfil";
           }
         });
         return false;
@@ -87,6 +114,7 @@ $(function(){
                   </button>
                   <div class="dropdown-menu-session dropdown-menu" aria-labelledby="dropdownMenuReference">
                     <a class="dropdown-item sesion" href="#">Cerrar Sesi&oacute;n</a>
+                    <a class="dropdown-item edit-perfil" href="#">Editar Perfil</a>
                   </div>
                 </li>
               </ul>

@@ -118,7 +118,8 @@ $(function(){
                     <input type="text" name="nombre" id="nombre" autocomplete="off" placeholder="Ingrese su nombre" class="form-control form-control-sm input-indent">
                 </div>
                 <div class="form-group">
-                    <input type="text" name="apellidos" id="apellidos" autocomplete="off" placeholder="Ingrese apellidos" class="form-control form-control-sm input-indent">                 </div>
+                    <input type="text" name="apellidos" id="apellidos" autocomplete="off" placeholder="Ingrese apellidos" class="form-control form-control-sm input-indent">                 
+                </div>
                 <div class="form-group">
                     <input type="email" name="correo" id="correo" autocomplete="off" placeholder="Ingrese su correo" class="form-control form-control-sm input-indent">
                 </div>

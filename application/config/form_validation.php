@@ -69,5 +69,17 @@ $config = array(
                   'field'   => 'pass',
                   'rules'   => 'required'
             )
+      ),
+
+      'EditarPerfil' => array(
+            array(
+                  'field'   => 'nombre',
+                  'rules'   => 'required'
+            ),
+
+            array(
+                  'field'   => 'apellidos',
+                  'rules'   => 'required'
+            )
       )
 );

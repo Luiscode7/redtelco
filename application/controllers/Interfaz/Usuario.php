@@ -37,6 +37,7 @@ class Usuario extends CI_Controller {
         if($this->input->is_ajax_request()){
             $id_post_usu=$this->security->xss_clean(strip_tags($this->input->post("id_post_usuario")));
             $usuario=$this->security->xss_clean(strip_tags($this->input->post("id_usuario")));
+            $id_usu=$this->encryption->decrypt($usuario);
             $contenido_usuario=$this->security->xss_clean(strip_tags($this->input->post("contenido_usuario")));
 
             $config = [
@@ -53,7 +54,7 @@ class Usuario extends CI_Controller {
 
             $imagen = array("upload_imagen" => $this->upload->data());
             $data_insert=array(
-                "id_usuario"=>$usuario,
+                "id_usuario"=>$id_usu,
                 "contenido"=>$contenido_usuario,
                 "imagen"=>$imagen['upload_imagen']['file_name']
             );
@@ -73,14 +74,19 @@ class Usuario extends CI_Controller {
         }
     }
 
+    public function imagenUpload(){
+
+    }
+
     public function ComentariosUsu(){
         if($this->input->is_ajax_request()){
             $id_comment=$this->security->xss_clean(strip_tags($this->input->post("id_commentusu")));
             $id_publicacionusu=$this->security->xss_clean(strip_tags($this->input->post("id_publicacionusu")));
+            $id_pusu=$this->encryption->decrypt($id_publicacionusu);
             $comentario=$this->security->xss_clean(strip_tags($this->input->post("comentariousu")));
 
                 $datos_insert = array(
-                    "com_id_usu" => $id_publicacionusu,
+                    "com_id_usu" => $id_pusu,
                     "comentario_usu" => $comentario
                 );
 
@@ -88,7 +94,7 @@ class Usuario extends CI_Controller {
                     echo json_encode(array('res'=>"error", 'msg' => strip_tags(validation_errors())));exit;
                 }else{
                     if($data=$this->usu->insertarComentario($datos_insert)){
-                        $datos=$this->usu->mostrarComentarioUsuario($data,$id_publicacionusu);
+                        $datos=$this->usu->mostrarComentarioUsuario($data,$id_pusu);
                         echo json_encode(array('res' => "ok", 'datos' => $datos));
                     }else{
                         echo json_encode(array('res'=>"error"));exit;
@@ -101,7 +107,8 @@ class Usuario extends CI_Controller {
 
     public function mostrarComPublicadosUsu(){
         $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacionshowusu")));
-        $data=$this->usu->mostrarComPublicadosUsu($id_publicacion);
+        $id_pu=$this->encryption->decrypt($id_publicacion);
+        $data=$this->usu->mostrarComPublicadosUsu($id_pu);
         if($data){
             echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
         }else{
@@ -113,15 +120,16 @@ class Usuario extends CI_Controller {
     public function meGustaUsu(){
         if($this->input->is_ajax_request()){
             $id_usuario=$this->security->xss_clean(strip_tags($this->input->post("id_usuariomg")));
+            $id_usu=$this->encryption->decrypt($id_usuario);
             $ip = $this->input->ip_address();
 
             $datos_insert = array(
-                "mg_id_usu" => $id_usuario,
+                "mg_id_usu" => $id_usu,
                 "mg_ip_usu" => $ip
             );
 
             if($this->usu->insertarMeGusta($datos_insert)){
-                $data=$this->usu->mostrarMgUsu($id_usuario);
+                $data=$this->usu->mostrarMgUsu($id_usu);
                 echo json_encode(array('datos' => $data));
             }else{
                 echo json_encode(array('res'=>"error"));exit;
@@ -132,18 +140,67 @@ class Usuario extends CI_Controller {
     public function NomeGustaUsu(){
         if($this->input->is_ajax_request()){
             $id_usuario=$this->security->xss_clean(strip_tags($this->input->post("id_usuarionomg")));
+            $id_usu=$this->encryption->decrypt($id_usuario);
             $ip = $this->input->ip_address();
 
             $datos_insert = array(
-                "nmg_id_usu" => $id_usuario,
+                "nmg_id_usu" => $id_usu,
                 "nmg_ip" => $ip
             );
 
             if($this->usu->insertarNoMeGusta($datos_insert)){
-                $data=$this->usu->mostrarNoMgUsu($id_usuario);
+                $data=$this->usu->mostrarNoMgUsu($id_usu);
                 echo json_encode(array('datos' => $data));
             }else{
                 echo json_encode(array('res'=>"error"));exit;
+            }
+        }
+    }
+
+    public function redirectEditarPerfil(){
+        $contenido4 = array(
+            'contenido4' => "editarUsuario",
+            //'usuario' => $this->session->userdata("procesoLogin");
+        );
+        $this->load->view("plantilla/plantilla4", $contenido4);
+    }
+
+    public function editarPerfil(){
+        if($this->input->is_ajax_request()){
+            $id_usuario=$this->security->xss_clean(strip_tags($this->input->post("id_usuario")));
+            $nombre=$this->security->xss_clean(strip_tags($this->input->post("nombre")));
+            $apellidos=$this->security->xss_clean(strip_tags($this->input->post("apellidos")));
+
+            $config = [
+                "upload_path" => "./assest/imagenes/perfil",
+                "allowed_types" => "png|jpg|jpeg"
+            ];
+            $this->load->library("upload", $config);
+
+            $this->upload->do_upload('imagenGrande');
+
+            if(!$config["allowed_types"]){
+                echo json_encode(array('res'=>"error", 'msg' => "Solo se aceptan imagenes png, jpg y jpeg"));exit;
+            }
+
+            $imagen = array("imagenGrande" => $this->upload->data());
+
+            $data_insert=array(
+                "nombre"=>$nombre,
+                "apellidos"=>$apellidos,
+                "foto_perfil"=>$imagen['imagenGrande']['file_name']
+            );
+
+            if($this->form_validation->run("EditarPerfil") == FALSE){
+                echo json_encode(array('res'=>"error", 'msg' => ERROR_MSG));exit;
+            }else{
+                if($this->usu->actualizarUsuario($id_usuario, $data_insert)){
+                    $nuevo=$this->usu->mostrarUsuario($id_usuario);
+                    echo json_encode(array('res'=>"ok", 'datos' => $nuevo));exit;
+                }else{
+                    echo json_encode(array('res'=>"error", 'msg' => ERROR_MSG));exit;
+                }
+                
             }
         }
     }

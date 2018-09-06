@@ -69,17 +69,18 @@ class Anonimo extends CI_Controller {
     public function meGusta(){
         if($this->input->is_ajax_request()){
             $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacionmg")));
+            $id_pu=$this->encryption->decrypt($id_publicacion);
             $ip=$this->input->ip_address();
 
                 $datos_insert = array(
-                    "mg_id_publicacion" => $id_publicacion,
+                    "mg_id_publicacion" => $id_pu,
                     "mg_ip" => $ip
                 );
                 
                 $verip = $this->an->verificarIpmg($ip);
                 if($ip !== $verip){
                     if($this->an->insertarMeGusta($datos_insert)){
-                        $data=$this->an->mostrarMg($id_publicacion);
+                        $data=$this->an->mostrarMg($id_pu);
                         echo json_encode(array('datos' => $data));
                     }else{
                         echo json_encode(array('res'=>"error"));exit;
@@ -92,17 +93,18 @@ class Anonimo extends CI_Controller {
     public function nomeGusta(){
         if($this->input->is_ajax_request()){
             $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacionomg")));
+            $id_pu=$this->encryption->decrypt($id_publicacion);
             $ip=$this->input->ip_address();
 
                 $datos_insert = array(
-                    "nmg_id_publicacion" => $id_publicacion,
+                    "nmg_id_publicacion" => $id_pu,
                     "nmg_ip" => $ip
                 );
             
                 $veripnmg = $this->an->verificarIpnmg($ip);
                 if($ip !== $veripnmg){
                     if($this->an->insertarNoMeGusta($datos_insert)){
-                        $data=$this->an->mostrarNoMg($id_publicacion);
+                        $data=$this->an->mostrarNoMg($id_pu);
                         echo json_encode(array('datos' => $data));
                     }else{
                         echo json_encode(array('res'=>"error"));exit;
@@ -116,10 +118,11 @@ class Anonimo extends CI_Controller {
         if($this->input->is_ajax_request()){
             $id_comment=$this->security->xss_clean(strip_tags($this->input->post("id_comment")));
             $id_publicacionc=$this->security->xss_clean(strip_tags($this->input->post("id_publicacionc")));
+            $id_pu=$this->encryption->decrypt($id_publicacionc);
             $comentario=$this->security->xss_clean(strip_tags($this->input->post("comentario")));
 
                 $datos_insert = array(
-                    "com_id_publicacion" => $id_publicacionc,
+                    "com_id_publicacion" => $id_pu,
                     "comentario" => $comentario
                 );
 
@@ -127,7 +130,7 @@ class Anonimo extends CI_Controller {
                     echo json_encode(array('res'=>"error", 'msg' => strip_tags(validation_errors())));exit;
                 }else{
                     if($data=$this->an->insertarComentario($datos_insert)){
-                        $datos=$this->an->mostrarComentarioAnonimo($data,$id_publicacionc);
+                        $datos=$this->an->mostrarComentarioAnonimo($data,$id_pu);
                         echo json_encode(array('res' => "ok", 'datos' => $datos));
                     }else{
                         echo json_encode(array('res'=>"error"));exit;
@@ -139,7 +142,8 @@ class Anonimo extends CI_Controller {
 
     public function mostrarComPublicados(){
             $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacionshow")));
-            $data=$this->an->mostrarComPublicados($id_publicacion);
+            $id_pu=$this->encryption->decrypt($id_publicacion);
+            $data=$this->an->mostrarComPublicados($id_pu);
             if($data){
                 echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
             }else{
