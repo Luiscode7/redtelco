@@ -1,6 +1,7 @@
 *{
     margin:0;
     padding:0;
+    box-sizing: border-box;
 }
 
 body{
@@ -68,12 +69,14 @@ a:hover{
 
 .textarea-post{
     width: 100%;
-    border-color: #A4A4A4;
+    border-color: #D8D8D8;
     border-radius:3px;
     height:100px;
     resize: none;
     text-indent: 10px;
     padding: 10px;
+    overflow-x:hidden;
+    margin-bottom:6px;
 }
 
 .textarea-comment{
@@ -209,7 +212,7 @@ hr{
 
 /*---focus quita borde al button al dar click*/
 .btn-cerrar-sesion:focus{
-    width:0px;height:0px;outline:0px;
+    outline:none;
 }
 
 .dropdown-menu-session{
@@ -241,6 +244,17 @@ hr{
     height: 200px;
     padding: 0 15px 0 15px;
     margin-bottom:20px;
+}
+
+.img-mostrarper{
+    width:70px;
+    height:70px;
+}
+
+.container-mostrarper{
+    background: #fff;
+    margin-bottom:20px;
+    border: 0.5px solid #BDBDBD;
 }
 
 

@@ -126,5 +126,14 @@ class UsuarioModel extends CI_Model{
       return $row["foto_perfil"];
 		
     }
+
+    public function mostrarUsuarios(){
+      $this->db->select("CONCAT(nombre, ' ' , apellidos) as 'nombre', foto_perfil as foto");
+      $res=$this->db->get('usuarios');
+      if($res->num_rows()>0){
+        return $res->result_array();
+			}
+      return FALSE;
+    }
     
 }

@@ -1,5 +1,4 @@
 </div>
-<script src="<?php echo base_url();?>assest/js/popper.min.js"></script>
 <script src="<?php echo base_url();?>assest/js/jquery-3.3.1.min.js"></script>
 <script src="<?php echo base_url();?>assest/js/notify.min.js"></script>
 <script src="<?php echo base_url();?>assest/js/bootstrap.min.js"></script>

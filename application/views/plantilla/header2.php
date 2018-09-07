@@ -15,20 +15,6 @@
 <script type="text/javascript">
 $(function(){
 
-    /* --- BLOQUEA EL USO DE SCRIPT DESDE CONSOLA --- */
-    var _z = console;
-    Object.defineProperty( window, "console", {
-        get : function(){
-            if( _z._commandLineAPI ){
-            throw "Lo siento, no está permitido ejecutar scripts!";
-                }
-            return _z; 
-        },
-        set : function(val){
-            _z = val;
-        }
-    });
-
     $(".sesion").click(function(){
         var url = "<?php echo base_url();?>";
         $.ajax({
@@ -67,6 +53,19 @@ $(function(){
         });
         return false;
     });
+
+    $(".personas").click(function(){
+        var url = "<?php echo base_url();?>";
+        $.ajax({
+          url: "mostrarUsuarios",
+          type:"POST",
+          data:{},
+          success:function(){
+            window.location="mostrarUsuarios";
+          }
+        });
+        return false;
+    });
     
 });
 </script>
@@ -84,8 +83,8 @@ $(function(){
                 <li class="nav-item active iniciousu">
                   <a class="nav-link" href="#"><i class="fas fa-home mr-2 align-baseline"></i>Inicio</a>
                 </li>
-                <li class="nav-item active">
-                  <a class="nav-link" href="#"><i class="fas fa-info-circle mr-2 align-baseline"></i>Acerca De</a>
+                <li class="nav-item active personas">
+                  <a class="nav-link" href="#"><i class="fas fa-users mr-2 align-baseline"></i>Personas</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#"><i class="fas fa-envelope mr-2 align-baseline"></i>Mensajes</a>
@@ -106,7 +105,7 @@ $(function(){
                 <li class="nav-item ml-auto col-3" id="perfil-usuario" style="padding-left:0 !important;padding-right:0 !important;">
                   <a class="link-usuario" role="button" href="usuario">
                       <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $fotoperfil;?>" alt="">
-                      <span><?php echo $this->session->userdata("nombre")." ".$this->session->userdata("apellidos")?></span>
+                      <span><?php echo $this->session->userdata("nombre")?></span>
                   </a>
                   <button type="button" class="btn-cerrar-sesion dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
                     <span class="sr-only">Toggle Dropdown</span>

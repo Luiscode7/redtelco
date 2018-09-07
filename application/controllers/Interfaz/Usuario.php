@@ -26,10 +26,12 @@ class Usuario extends CI_Controller {
     }
 
     public function MuroAnonimo(){
+        $id = $this->session->userdata("id");
         $contenido3 = array(
             'titulo' => "Portal General", 
             'contenido3' => "anonimo",
-            'posteo'=> $this->AnonimoModel->mostrarMuroAnonimo()
+            'posteo'=> $this->AnonimoModel->mostrarMuroAnonimo(),
+            'fotoperfil' => $this->usu->ImagenPerfil($id)
         );
         $this->load->view('plantilla/plantilla3', $contenido3);
     }
@@ -161,6 +163,7 @@ class Usuario extends CI_Controller {
     public function redirectEditarPerfil(){
         $id = $this->session->userdata("id");
         $contenido4 = array(
+            'titulo' => "Edición de Perfil",
             'contenido4' => "editarUsuario",
             'fotoperfil' => $this->usu->ImagenPerfil($id)
             //'usuario' => $this->session->userdata("procesoLogin");
@@ -205,6 +208,30 @@ class Usuario extends CI_Controller {
                 }
                 
             }
+        }
+    }
+
+    public function mostrarUsuarios(){
+        $id = $this->session->userdata("id");
+        $contenido5 = array(
+            'titulo' => "Usuarios",
+            'contenido5' => "personas",
+            'fotoperfil' => $this->usu->ImagenPerfil($id),
+            'usuarios' => $this->usu->mostrarUsuarios()
+        );
+        $this->load->view("plantilla/plantilla5", $contenido5);
+    }
+
+    public function agregarAmigo(){
+        if($this->input->is_ajax_request()){
+            $id_agreamigo=$this->security->xss_clean(strip_tags($this->input->post("id_seramigo")));
+            $id_usu=$this->encryption->decrypt($id_agreamigo);
+            //$usuamigo = $this->usu->mostrarUsuario($id_usu);
+
+            $datos_insert= array(
+                "envia_solicitud" => $this->session->userdata("id"),
+                "recibe_solicitud" => $id_usu
+            );
         }
     }
 

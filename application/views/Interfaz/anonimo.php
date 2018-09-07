@@ -6,20 +6,6 @@ $(function(){
         $("#emojiusu").removeClass("ocultarImagenAn");
         $("#imagenan").removeClass("ocultarImagenAn");
     }
-
-    /* --- BLOQUEA EL USO DE SCRIPT DESDE CONSOLA --- */
-    var _z = console;
-    Object.defineProperty( window, "console", {
-        get : function(){
-            if( _z._commandLineAPI ){
-            throw "Lo siento, no está permitido ejecutar scripts!";
-                }
-            return _z; 
-        },
-        set : function(val){
-            _z = val;
-        }
-    });
     
 
     /* ---- FUNCION PUBLICACIONES ----*/
@@ -130,11 +116,6 @@ $(function(){
                   }
                 $("#publicar").show();
                 $(".btn-post").attr("disabled", false);
-                $.notify(data.msg, {
-                  className:'success',
-                  globalPosition: 'top right',
-                  autoHideDelay:5000
-                });
                 var usuario = "<?php echo $this->session->userdata("procesoLogin")?>";
                 if(usuario){
                     window.location="MuroAnonimo";

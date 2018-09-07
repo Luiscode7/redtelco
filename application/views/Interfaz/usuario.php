@@ -1,20 +1,6 @@
 <script type="text/javascript">
 $(function(){
 
-    /* --- BLOQUEA EL USO DE SCRIPT DESDE CONSOLA --- */
-    var _z = console;
-    Object.defineProperty( window, "console", {
-        get : function(){
-            if( _z._commandLineAPI ){
-            throw "Lo siento, no está permitido ejecutar scripts!";
-                }
-            return _z; 
-        },
-        set : function(val){
-            _z = val;
-        }
-    });
-
     /* ---- Creacion de publicacion con AJAX ----*/
     $(document).on('submit', '#postUsuario',function(event) {
       var url="<?php echo base_url()?>";
@@ -36,11 +22,6 @@ $(function(){
                     autoHideDelay:5000
                   });
               }else if(data.res == "ok"){
-                $.notify(data.msg, {
-                  className:'success',
-                  globalPosition: 'top right',
-                  autoHideDelay:5000
-                });
                 window.location="usuario";
                 $('#postUsuario')[0].reset();
               }
@@ -82,9 +63,9 @@ $(function(){
                     data: form2.serialize(),
                     processData:false,
                     success: function (data) {
-                        var padre = $(form2).parent().parent();
-                        var secondhijo = padre.children().eq(1);
-                        var twosecondthijo = secondhijo.children().eq(3).html(data.datos);
+                        var padre2 = $(form2).parent().parent();
+                        var secondhijo2 = padre2.children().eq(1);
+                        var twosecondthijo = secondhijo2.children().eq(3).html(data.datos);
                     }
                 });
                 return false; 
@@ -214,7 +195,6 @@ function Comments2(){
         <input type="file" name="uploadimagen" id="uploadimagen" style="display:none">
         <a href="#"><i class="fas fa-smile ml-4 mr-4"></i></a>
         <a id="imagen" href="#"><i class="far fa-image mr-4"></i></a>
-        <!--<a href="#"><i class="fas fa-video"></i></a>-->
         <hr>
     </div> 
     <?php echo form_close();?> 
