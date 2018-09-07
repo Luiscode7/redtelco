@@ -105,7 +105,7 @@ $(function(){
                 </li>-->
                 <li class="nav-item ml-auto col-3" id="perfil-usuario" style="padding-left:0 !important;padding-right:0 !important;">
                   <a class="link-usuario" role="button" href="usuario">
-                      <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
+                      <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $fotoperfil;?>" alt="">
                       <span><?php echo $this->session->userdata("nombre")." ".$this->session->userdata("apellidos")?></span>
                   </a>
                   <button type="button" class="btn-cerrar-sesion dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">

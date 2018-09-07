@@ -15,7 +15,7 @@ $(function(){
                     contentType : false,
                     success: function (data) {
                         if(data.res == 'ok'){
-                            var fotogrande = $(formdata2);
+                            /*var fotogrande = $(formdata2);
                             var fotogrande2 = fotogrande.parent().parent().parent();
                             var fotogrande3 = fotogrande2.children().eq(0);
                             var fotogrande4 = fotogrande3.children().children().children().eq(2);
@@ -25,7 +25,8 @@ $(function(){
                                 var fotogrande7 = '<img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/perfil/'+data.datos[dato].foto_perfil+'" alt="">';
                                             $(fotogrande6).html(fotogrande7);
                             }
-                            console.log($(fotogrande6));
+                            console.log($(fotogrande6));*/
+                            window.location="usuario";
                         }
                         else
                         if(data.res == 'error'){

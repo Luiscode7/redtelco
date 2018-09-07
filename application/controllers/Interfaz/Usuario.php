@@ -19,7 +19,8 @@ class Usuario extends CI_Controller {
         $contenido2 = array(
             'titulo' => "Portal Usuario", 
             'contenido2' => "usuario",
-            'posteos_usu' => $this->usu->mostrarMuroUsuario($id) 
+            'posteos_usu' => $this->usu->mostrarMuroUsuario($id),
+            'fotoperfil' => $this->usu->ImagenPerfil($id) 
         );
         $this->load->view('plantilla/plantilla2', $contenido2);
     }
@@ -158,8 +159,10 @@ class Usuario extends CI_Controller {
     }
 
     public function redirectEditarPerfil(){
+        $id = $this->session->userdata("id");
         $contenido4 = array(
             'contenido4' => "editarUsuario",
+            'fotoperfil' => $this->usu->ImagenPerfil($id)
             //'usuario' => $this->session->userdata("procesoLogin");
         );
         $this->load->view("plantilla/plantilla4", $contenido4);

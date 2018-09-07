@@ -2,7 +2,7 @@
     <div class="col-lg-3 col-xl-3">
         <div class="aside-1 position-fixed">
             <div class="col">
-                <img class="img-perfil-grande" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
+                <img class="img-perfil-grande" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $fotoperfil;?>" alt="">
             </div>
             <div class="col">
                 <h5 class="h5-usuario">Multimedia</h5>

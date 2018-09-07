@@ -118,5 +118,13 @@ class UsuarioModel extends CI_Model{
 			}
       return FALSE;
     }
+
+    public function ImagenPerfil($id){
+      $this->db->where('id', $id);
+      $res=$this->db->get('usuarios');
+      $row=$res->row_array();
+      return $row["foto_perfil"];
+		
+    }
     
 }
