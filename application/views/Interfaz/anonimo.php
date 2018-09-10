@@ -245,6 +245,7 @@ $(function(){
                 return false; 
         });
 
+
         /*--- FUNCION PARA UTILIZAR LINK COMO INPUT FILE ---*/
         $("#imagenan").click(function(){
             $("#uploadimagenan").trigger("click");
@@ -298,29 +299,10 @@ function Comments(){
         <input type="file" name="uploadimagenan" id="uploadimagenan" style="display:none">
         <a href="#" id="emojiusu" class="ocultarImagenAn"><i class="fas fa-smile ml-4 mr-4"></i></a>
         <a id="imagenan" href="#" class="ocultarImagenAn"><i class="far fa-image mr-4"></i></a>
-        <!--<a href="#" id="videousu" class="ocultarImagenAn"><i class="fas fa-video"></i></a>-->
         <hr>
     </div> 
     <?php echo form_close();?>
     
-    <div id="publicar">
-        <!--<div class="col container-post border-post">
-            <div class="row">
-                <div class="padre col-md-10 col-lg-6 block-comment container-button-post d-flex justify-content-start">
-                    <?php echo form_open_multipart("meGusta",array("id"=>"meGusta2","class"=>"meGusta"))?>
-                    <?php echo form_close();?>
-                    <?php echo form_open_multipart("nomeGusta",array("id"=>"nomeGusta1","class"=>"nomeGusta"))?>
-                    <?php echo form_close();?>
-                </div>
-                <div class="block-likes col-md-2 col-lg-6 d-flex justify-content-end align-items-center">
-                </div>
-                <div class="col pt-3 pb-1 collapse" id="collapseExample">
-                    <?php echo form_open_multipart("Comentarios",array("id"=>"Comentarios","class"=>"Comentarios"))?>
-                    <?php echo form_close();?>
-                </div>
-             </div>
-        </div>-->
-    </div>
 
     <?php if(!empty($posteo)): ?>
     <?php

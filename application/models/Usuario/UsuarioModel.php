@@ -38,6 +38,22 @@ class UsuarioModel extends CI_Model{
 			return FALSE;
     }
 
+    public function insertarEncuesta($datos){
+      if($this->db->insert('encuesta',$datos)){
+        $insert_id = $this->db->insert_id();
+				return $insert_id;
+			}
+			return FALSE;
+    }
+
+    public function insertarOpcionesEncu($datos){
+      if($this->db->insert('opciones_encuesta',$datos)){
+        $insert_id = $this->db->insert_id();
+				return $insert_id;
+			}
+			return FALSE;
+    }
+
     public function actualizarUsuario($id,$datos){
       $this->db->select('nombre, apellidos, foto_perfil');
       $this->db->where('id', $id);
@@ -119,6 +135,18 @@ class UsuarioModel extends CI_Model{
       return FALSE;
     }
 
+    public function mostrarIdEncu($id){
+      $this->db->select('en.id_encu as encuesta, en.pregunta');
+      $this->db->from('encuesta as en');
+      $this->db->join('opciones_encuesta as op', 'en.id_encu = op.encu_id', 'left');
+      $this->db->where('op.encu_id', $id);
+      $res=$this->db->get();
+      if($res->num_rows()>0){
+        return $res->result_array();
+			}
+      return FALSE;
+    }
+
     public function ImagenPerfil($id){
       $this->db->where('id', $id);
       $res=$this->db->get('usuarios');
@@ -135,5 +163,5 @@ class UsuarioModel extends CI_Model{
 			}
       return FALSE;
     }
-    
+
 }

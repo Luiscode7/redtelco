@@ -48,15 +48,6 @@ $(function(){
             <li class="nav-item">
               <a class="nav-link" href="#"><i class="fas fa-users mr-2 align-baseline"></i>Personas</a>
             </li>
-            <!--<li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-calendar-alt mr-2 align-baseline"></i>Publicaciones</a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Recientes</a>
-                <a class="dropdown-item" href="#">M&aacute;s Populares</a>
-                <a class="dropdown-item" href="#">Antiguas</a>
-              </div>
-            </li>-->
             <li class="nav-item">
               <a class="nav-link" href="anonimo"><i class="fas fa-home mr-2 align-baseline"></i>Inicio</a>
             </li>

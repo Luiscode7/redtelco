@@ -1,27 +1,28 @@
 <div class="col-lg-3 col-xl-3">
         <div class="aside-2 position-fixed">
+        <div class="col">
+                <h5 class="h5-usuario mt-3">Estadisticas</h5>
+            </div>
             <div class="col">
-                <h5 class="mb-4">Seguidores</h5>
+                <ul class="list-group" style="padding-left:15px">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Cantidad de publicaciones
+                        <span class="badge badge-primary badge-pill">14</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Cantidad de comentarios
+                        <span class="badge badge-primary badge-pill">2</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Cantidad de me gusta
+                        <span class="badge badge-primary badge-pill">1</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Cantidad de no me gusta
+                        <span class="badge badge-primary badge-pill">1</span>
+                    </li>
+                </ul>
             </div>
-            <div class="col" style="margin:0">
-                <img class="perfil mr-2 mt-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
-                <img class="perfil mr-2 mt-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
-                <img class="perfil mr-2 mt-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
-                <img class="perfil mr-2 mt-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
-                <img class="perfil mr-2 mt-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
-                <img class="perfil mr-2 mt-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
-                <img class="perfil mr-2 mt-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
-                <img class="perfil mr-2 mt-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
-            </div>
-            <div class="col mt-3">
-                <a class="mr-auto mt-4" href="#">Ver todos</a>
-            </div> <br><br>
-    
-            <div class="col">
-                <h5 class="mb-4">Encuesta</h5>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Ir a Encuesta</button>
-            </div>
-
         </div>
     </div>
 </div>

@@ -222,16 +222,18 @@ class Usuario extends CI_Controller {
         $this->load->view("plantilla/plantilla5", $contenido5);
     }
 
-    public function agregarAmigo(){
+    public function encuesta(){
         if($this->input->is_ajax_request()){
-            $id_agreamigo=$this->security->xss_clean(strip_tags($this->input->post("id_seramigo")));
-            $id_usu=$this->encryption->decrypt($id_agreamigo);
-            //$usuamigo = $this->usu->mostrarUsuario($id_usu);
+            $pregunta=$this->security->xss_clean(strip_tags($this->input->post("pregunta")));
 
-            $datos_insert= array(
-                "envia_solicitud" => $this->session->userdata("id"),
-                "recibe_solicitud" => $id_usu
+            $data_insert = array(
+                "pregunta" => $pregunta
             );
+            if($encu=$this->an->insertarEncuesta($data_insert)){
+                $dato=$this->an->mostrarIdEncu($encu);
+            }else{
+
+            }
         }
     }
 

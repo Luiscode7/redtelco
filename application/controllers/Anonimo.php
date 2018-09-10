@@ -18,7 +18,7 @@ class Anonimo extends CI_Controller {
             'publicaciones' => $this->an->countPublicaciones(),
             'countMg' => $this->an->cantidadMg(),
             'countNoMg' => $this->an->cantidadNoMg(),
-            'countComentarios' => $this->an->cantidadComentarios(),
+            'countComentarios' => $this->an->cantidadComentarios()
         );
         $this->load->view('plantilla/plantilla', $contenido);
     }

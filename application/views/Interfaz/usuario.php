@@ -140,6 +140,40 @@ $(function(){
                 });
                 return false; 
         });
+
+        $(document).on('submit', '.encuesta', function(event){
+            var url="<?php echo base_url()?>";
+            var formdata2=$(this);
+                $.ajax({
+                    url: $('.encuesta').attr('action')+"?"+$.now(), 
+                    type: 'POST',
+                    dataType: "json",
+                    data: formData,
+                    processData:false,
+                    success: function (data) {
+                        /*if(data.res == 'ok'){
+                          
+                        }
+                        else
+                        if(data.res == 'error'){
+                           
+                        }*/
+                        
+                    }
+                        
+                });
+                return false; 
+        });
+
+        $(".nuevoitem").click(function(){
+            var data =$(this);
+            var item = data.parent().parent().children().eq(0);
+            var nuevo = '<div>'
+                    + '<input type="radio" class="opcion1 mr-1" name="opcion1">'
+                    + '<input type="text" class="texto1" name="texto1">'
+                    + '</div>';
+            $(item).append(nuevo);
+        });
     
         Comments2();
 
@@ -192,6 +226,7 @@ function Comments2(){
     <div class="col container-public p-cero">
         <textarea name="contenido_usuario" id="contenido_usuario" class="textarea-post" placeholder="Escriba lo que desee..." cols="30" rows="10"></textarea>
         <button type="submit" name="Comentar" id="Comentar" class="btn btn-primary btn-post_u">Publicar</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Crear Encuesta</button>
         <input type="file" name="uploadimagen" id="uploadimagen" style="display:none">
         <a href="#"><i class="fas fa-smile ml-4 mr-4"></i></a>
         <a id="imagen" href="#"><i class="far fa-image mr-4"></i></a>
@@ -245,6 +280,45 @@ function Comments2(){
                                 <button class="btn btn-primary btn-showmoreusu" type="submit" id="showmoreusu" name="showmoreusu">ver comentarios</button>
                             </div>
                         <?php echo form_close();?>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCenterTitle">Encuesta</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <?php echo form_open_multipart("encuesta",array("id"=>"encuesta","class"=>"encuesta"))?>
+                            <div class="modal-body">
+                                <div>
+                                    <textarea class="textarea-encuesta" name="pregunta" id="pregunta" cols="30" rows="10"></textarea>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div>
+                                            <input type="radio" class="opcion1" name="opcion1">
+                                            <input type="text" class="texto1" name="texto1">
+                                        </div>
+                                        <!--<div>
+                                            <input type="radio" name="opcion2" id="opcion2">
+                                            <input type="text" name="texto2" id="texto2">
+                                        </div>-->
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <a class="nuevoitem" href="#">agregar item</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Publicar</button>
+                            </div>
+                            <?php echo form_close();?>
+                            </div>
+                        </div>
                     </div>
                 </div>    
             </div>
