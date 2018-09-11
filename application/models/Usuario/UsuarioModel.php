@@ -39,15 +39,7 @@ class UsuarioModel extends CI_Model{
     }
 
     public function insertarEncuesta($datos){
-      if($this->db->insert('encuesta',$datos)){
-        $insert_id = $this->db->insert_id();
-				return $insert_id;
-			}
-			return FALSE;
-    }
-
-    public function insertarOpcionesEncu($datos){
-      if($this->db->insert('opciones_encuesta',$datos)){
+      if($this->db->insert_batch('encuesta',$datos)){
         $insert_id = $this->db->insert_id();
 				return $insert_id;
 			}
@@ -135,18 +127,6 @@ class UsuarioModel extends CI_Model{
       return FALSE;
     }
 
-    public function mostrarIdEncu($id){
-      $this->db->select('en.id_encu as encuesta, en.pregunta');
-      $this->db->from('encuesta as en');
-      $this->db->join('opciones_encuesta as op', 'en.id_encu = op.encu_id', 'left');
-      $this->db->where('op.encu_id', $id);
-      $res=$this->db->get();
-      if($res->num_rows()>0){
-        return $res->result_array();
-			}
-      return FALSE;
-    }
-
     public function ImagenPerfil($id){
       $this->db->where('id', $id);
       $res=$this->db->get('usuarios');
@@ -158,6 +138,19 @@ class UsuarioModel extends CI_Model{
     public function mostrarUsuarios(){
       $this->db->select("id, CONCAT(nombre, ' ' , apellidos) as 'nombre', foto_perfil as foto");
       $res=$this->db->get('usuarios');
+      if($res->num_rows()>0){
+        return $res->result_array();
+			}
+      return FALSE;
+    }
+
+    public function mostrarEncuesta($id){
+      $this->db->select('en.pregunta, op.opciones');
+      $this->db->from('usuarios as usu');
+      $this->db->join('encuesta as en', 'usu.id = en.usu_id', 'left');
+      $this->db->join('opciones_encuesta as op', 'en.id_encu = op.encu_id', 'left');
+      $this->db->where('usu.id', $id);
+      $res=$this->db->get();
       if($res->num_rows()>0){
         return $res->result_array();
 			}

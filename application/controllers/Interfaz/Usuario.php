@@ -42,6 +42,7 @@ class Usuario extends CI_Controller {
             $usuario=$this->security->xss_clean(strip_tags($this->input->post("id_usuario")));
             $id_usu=$this->encryption->decrypt($usuario);
             $contenido_usuario=$this->security->xss_clean(strip_tags($this->input->post("contenido_usuario")));
+            $encuesta=$this->security->xss_clean($this->input->post("texto1[]"));
 
             $config = [
                 "upload_path" => "./assest/imagenes/subidas",
@@ -66,8 +67,24 @@ class Usuario extends CI_Controller {
                 echo json_encode(array('res'=>"error", 'msg' => strip_tags(validation_errors())));exit;
             }else{
                 if($id_post_usu ==""){
-                    if($this->usu->InsertarPostUsuario($data_insert)){
-                        echo json_encode(array('res'=>"ok", 'msg' => "publicacion realizada con éxito"));exit;
+                    if($id_pu=$this->usu->InsertarPostUsuario($data_insert)){
+                        echo json_encode(array('res'=>"ok", 'msg' => "publicacion realizada con éxito"));
+
+                        $valorop = array();
+                        foreach($encuesta as $en){
+                            array_push($valorop, array(
+                                "id_publi_usu" => $id_pu,
+                                "opciones" => $en
+                            ));
+                        }
+
+                        if($this->usu->insertarEncuesta($valorop)){
+                            echo json_encode(array('res' => "ok", 'datos' => $valorop));    
+                        }
+                        else{
+                            echo json_encode(array('res' => "error", 'datos' => $valorop));
+                        }
+
                     }else{
                         echo json_encode(array('res'=>"error", 'msg' => "No se ha podido publicar"));exit;
                     }
@@ -222,19 +239,38 @@ class Usuario extends CI_Controller {
         $this->load->view("plantilla/plantilla5", $contenido5);
     }
 
-    public function encuesta(){
+    /*public function encuesta(){
         if($this->input->is_ajax_request()){
-            $pregunta=$this->security->xss_clean(strip_tags($this->input->post("pregunta")));
+            $id_public=$this->security->xss_clean(strip_tags($this->input->post("id_public_usu")));
+            $id_pu=$this->encryption->decrypt($id_public);
+            $opcion=$this->security->xss_clean($this->input->post("texto1[]"));
 
             $data_insert = array(
-                "pregunta" => $pregunta
+                "id_public_usu" => $id_pu,
+                "opciones" => $id_usu
             );
-            if($encu=$this->an->insertarEncuesta($data_insert)){
-                $dato=$this->an->mostrarIdEncu($encu);
+
+            if($encu=$this->usu->insertarEncuesta($data_insert)){
+               
+                $valorop = array();
+                foreach($opcion as $op){
+                    array_push($valorop, array(
+                        "encu_id" => $encu,
+                        "opciones" => $op
+                    ));
+                }
+    
+                if($this->usu->insertarOpcionesEncu($valorop)){
+                    echo json_encode(array('res' => "ok", 'datos' => $valorop));    
+                }
+                else{
+                    echo json_encode(array('res' => "error", 'datos' => $valorop));
+                }
+
             }else{
 
             }
         }
-    }
+    }*/
 
 }

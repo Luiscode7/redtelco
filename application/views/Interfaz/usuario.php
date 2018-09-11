@@ -148,16 +148,16 @@ $(function(){
                     url: $('.encuesta').attr('action')+"?"+$.now(), 
                     type: 'POST',
                     dataType: "json",
-                    data: formData,
+                    data: formdata2.serialize(),
                     processData:false,
                     success: function (data) {
-                        /*if(data.res == 'ok'){
-                          
+                        if(data.res == 'ok'){
+                         $("#exampleModalCenter").modal("toggle");
                         }
                         else
                         if(data.res == 'error'){
-                           
-                        }*/
+                            console.log(data.datos);
+                        }
                         
                     }
                         
@@ -168,9 +168,8 @@ $(function(){
         $(".nuevoitem").click(function(){
             var data =$(this);
             var item = data.parent().parent().children().eq(0);
-            var nuevo = '<div>'
-                    + '<input type="radio" class="opcion1 mr-1" name="opcion1">'
-                    + '<input type="text" class="texto1" name="texto1">'
+            var nuevo = '<div class="row justify-content-end mb-1">'
+                    + '<input type="text" class="form-control form-control-sm texto1 col-11" name="texto1[]">'
                     + '</div>';
             $(item).append(nuevo);
         });
@@ -226,15 +225,28 @@ function Comments2(){
     <div class="col container-public p-cero">
         <textarea name="contenido_usuario" id="contenido_usuario" class="textarea-post" placeholder="Escriba lo que desee..." cols="30" rows="10"></textarea>
         <button type="submit" name="Comentar" id="Comentar" class="btn btn-primary btn-post_u">Publicar</button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Crear Encuesta</button>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Encuesta
+        </button>
         <input type="file" name="uploadimagen" id="uploadimagen" style="display:none">
         <a href="#"><i class="fas fa-smile ml-4 mr-4"></i></a>
         <a id="imagen" href="#"><i class="far fa-image mr-4"></i></a>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body mt-1" style="width:100%">
+                <div class="row">
+                    <div class="col-6"></div>
+                    <div class="col-6 d-flex justify-content-end">
+                        <a class="nuevoitem" href="#">agregar item</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <hr>
     </div> 
     <?php echo form_close();?> 
 
-    <div id="publicarusu"></div>
+    <div id="publicarusu">
+    </div>
 
     <?php if(!empty($posteos_usu)): ?>
         <?php foreach($posteos_usu as $usu): ?>
@@ -281,8 +293,15 @@ function Comments2(){
                             </div>
                         <?php echo form_close();?>
                     </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                </div>
+                   
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?> 
+    
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                             <div class="modal-header">
@@ -293,19 +312,13 @@ function Comments2(){
                             </div>
                             <?php echo form_open_multipart("encuesta",array("id"=>"encuesta","class"=>"encuesta"))?>
                             <div class="modal-body">
+                                <?php $id_usuario=$this->session->userdata("id"); $clave = $this->encryption->encrypt($id_usuario);?>
+                                <input type="hidden" name="id_usuencuesta" value="<?php echo $clave;?>">
                                 <div>
                                     <textarea class="textarea-encuesta" name="pregunta" id="pregunta" cols="30" rows="10"></textarea>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <div>
-                                            <input type="radio" class="opcion1" name="opcion1">
-                                            <input type="text" class="texto1" name="texto1">
-                                        </div>
-                                        <!--<div>
-                                            <input type="radio" name="opcion2" id="opcion2">
-                                            <input type="text" name="texto2" id="texto2">
-                                        </div>-->
                                     </div>
                                     <div class="col-6 d-flex justify-content-end">
                                         <a class="nuevoitem" href="#">agregar item</a>
@@ -319,10 +332,6 @@ function Comments2(){
                             <?php echo form_close();?>
                             </div>
                         </div>
-                    </div>
-                </div>    
-            </div>
-        <?php endforeach; ?>
-    <?php endif; ?>    
+                </div> 
 </div>
 
