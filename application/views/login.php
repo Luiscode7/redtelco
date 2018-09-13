@@ -105,8 +105,8 @@
                                 });
                             $("#correo").focus();
                             }else if(data.res == "ok"){
-                                window.location="usuario";
                                 $('.procesoLogin')[0].reset();
+                                window.location="usuario";
                             }
                         }
                 });

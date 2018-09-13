@@ -153,11 +153,11 @@ $(function(){
                     success: function (data) {
                         if(data.res == 'ok'){
                         $("#exampleModalCenter").modal("toggle");
-                        var encu = $("#publicarusu").children();
-                         for(dato in data.datose){
+                        //var encu = $("#publicarusu").children();
+                         /*for(dato in data.datose){
                             var html = '<p class="mb-2">'+data.datose[dato].opciones+'</p>';
                             $(encu).append(html);
-                         }
+                         }*/
                          
                         }
                         else
@@ -242,21 +242,20 @@ function Comments2(){
     </div> 
     <?php echo form_close();?> 
 
-    <div id="publicarusu">
-        <!--<div class="col container-post border-post">
-            <div class="perfil-post">
+    
+    <div id="publicausu">
+    <?php foreach($encuesta as $en): ?>
+        <div class="col container-post border-post">
+            <!--<div class="perfil-post">
                 <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $en["foto"]?>" alt="">
                 <span><?php echo $en["nombre"]?></span>
-            </div>
+            </div>-->
             <p class="p-post"><?php echo $en["titulo"]?></p>
-            <?php foreach($encuesta as $en): ?>
-                <p class="mb-3"><?php echo $en["opciones"]?></p>
-            <?php endforeach; ?>
-        </div>-->
-    
-        <!--<div class="col container-post border-post">
-        </div>-->
+            <p class="mb-3"><?php echo $en["opciones"]?></p>  
+        </div>
+    <?php endforeach; ?>
     </div>
+   
     
 
     <?php if(!empty($posteos_usu)): ?>

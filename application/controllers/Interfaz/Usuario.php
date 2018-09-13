@@ -6,8 +6,8 @@ class Usuario extends CI_Controller {
     public function __construct(){
 		parent::__construct();
         
-        $this->load->model("Usuario/UsuarioModel", "usu");
-        $this->load->model("Anonimo/AnonimoModel");
+        $this->load->model("usuario/usuariomodel", "usu");
+        $this->load->model("anonimo/anonimomodel");
     }
     
 	public function index()
@@ -16,13 +16,14 @@ class Usuario extends CI_Controller {
             redirect(base_url());
         }
         $id = $this->session->userdata("id");
+        //$encuesta = $this->session->userdata("id_encue");
         $contenido2 = array(
             'titulo' => "Portal Usuario", 
             'contenido2' => "usuario",
             'posteos_usu' => $this->usu->mostrarMuroUsuario($id),
             'fotoperfil' => $this->usu->ImagenPerfil($id),
-            //'encuesta' => $this->usu->mostrarEncuesta($id)
-            'encuesta' => $this->usu->mostrarOpciones($id)
+            //'tituloencu' => $this->usu->tituloEncuesta($id)
+            'encuesta' => $this->usu->mostrarEncuesta($id),
         );
         $this->load->view('plantilla/plantilla2', $contenido2);
     }
@@ -246,6 +247,13 @@ class Usuario extends CI_Controller {
                         "opciones" => $op
                     ));
                 }
+
+                /*$id_encu = array(
+                    "id_encue" => $encu
+                );
+
+                $encuesta=$this->session->set_userdata($id_encu);
+                $this->session->userdata($encuesta);*/
     
                 if($this->usu->insertarOpcionesEncu($valorop)){
                     //echo json_encode(array('res' => "ok", 'datoso' => $valorop));    

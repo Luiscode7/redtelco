@@ -165,13 +165,36 @@ class UsuarioModel extends CI_Model{
       return FALSE;
     }*/
     
-    public function mostrarOpciones($id){
+    /*public function mostrarOpciones($id){
       $this->db->where('encu_id', $id);
       $res=$this->db->get('opciones_encuesta');
       if($res->num_rows()>0){
         return $res->result_array();
 			}
       return FALSE;
+    }*/
+
+    public function mostrarEncuesta($id){
+     $this->db->select('en.titulo as titulo, op.opciones as opciones');
+     $this->db->from('usuarios as usu');
+     $this->db->join('encuesta as en', 'en.id_usu_encu = usu.id');
+     $this->db->join('opciones_encuesta as op', 'op.encu_id = en.id_encu', 'inner');
+     $this->db->where('en.id_usu_encu', $id);
+     $res=$this->db->get();
+      if($res->num_rows()>0){
+        return $res->result_array();
+			}
+      return FALSE;
+		
     }
+
+    /*public function tituloEncuesta($id){
+      $this->db->where('id_usu_encu', $id);
+      $res=$this->db->get();
+      if($res->num_rows()>0){
+        return $res->result_array();
+			}
+      return FALSE;
+    }*/
 
 }

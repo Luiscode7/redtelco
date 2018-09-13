@@ -6,7 +6,7 @@ class Anonimo extends CI_Controller {
     public function __construct(){
 		parent::__construct();
         
-        $this->load->model("Anonimo/AnonimoModel", "an");
+        $this->load->model("anonimo/anonimomodel", "an");
     }
     
 	public function index()
