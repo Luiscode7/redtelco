@@ -2,7 +2,11 @@
     <div class="col-lg-3 col-xl-3">
         <div class="aside-1 position-fixed">
             <div class="col">
+            <?php if(empty($fotoperfil)):?>
+                <img class="img-perfil-grande" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
+            <?php else:?>
                 <img class="img-perfil-grande" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $fotoperfil;?>" alt="">
+            <?php endif?>
             </div>
             <div class="col">
                 <h5 class="h5-usuario">Multimedia</h5>

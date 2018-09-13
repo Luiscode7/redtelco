@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-09-2018 a las 15:44:12
+-- Tiempo de generación: 13-09-2018 a las 14:38:24
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 5.6.36
 
@@ -50,6 +50,18 @@ CREATE TABLE `comentarios_usuarios` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `encuesta`
+--
+
+CREATE TABLE `encuesta` (
+  `id_encu` int(11) NOT NULL,
+  `id_usu_encu` int(11) NOT NULL,
+  `titulo` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `me_gusta_anonimos`
 --
 
@@ -69,20 +81,6 @@ CREATE TABLE `me_gusta_usuarios` (
   `id_mg_usu` int(11) NOT NULL,
   `mg_id_usu` int(11) NOT NULL,
   `mg_ip_usu` varchar(50) COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `notificaciones`
---
-
-CREATE TABLE `notificaciones` (
-  `id_noti` int(11) NOT NULL,
-  `accion` int(11) NOT NULL,
-  `visto` int(11) NOT NULL,
-  `id_public_noti` int(11) NOT NULL,
-  `id_usu_noti` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -112,13 +110,26 @@ CREATE TABLE `no_me_gusta_usuarios` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `opciones_encuesta`
+--
+
+CREATE TABLE `opciones_encuesta` (
+  `id_op` int(11) NOT NULL,
+  `encu_id` int(11) NOT NULL,
+  `opciones` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `publicaciones_anonimos`
 --
 
 CREATE TABLE `publicaciones_anonimos` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `contenido` varchar(20000) COLLATE utf8_spanish_ci NOT NULL
+  `contenido` varchar(20000) COLLATE utf8_spanish_ci NOT NULL,
+  `imagenAnonimo` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -132,20 +143,6 @@ CREATE TABLE `publicaciones_usuarios` (
   `id_usuario` int(11) NOT NULL,
   `contenido` varchar(20000) COLLATE utf8_spanish_ci NOT NULL,
   `imagen` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `seguidores`
---
-
-CREATE TABLE `seguidores` (
-  `id_segui` int(11) NOT NULL,
-  `envia_solicitud` int(11) NOT NULL,
-  `recibe_solicitud` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
-  `solicitud` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -182,6 +179,13 @@ ALTER TABLE `comentarios_usuarios`
   ADD KEY `com_id_usu` (`com_id_usu`);
 
 --
+-- Indices de la tabla `encuesta`
+--
+ALTER TABLE `encuesta`
+  ADD PRIMARY KEY (`id_encu`),
+  ADD KEY `id_usu_encu` (`id_usu_encu`);
+
+--
 -- Indices de la tabla `me_gusta_anonimos`
 --
 ALTER TABLE `me_gusta_anonimos`
@@ -194,14 +198,6 @@ ALTER TABLE `me_gusta_anonimos`
 ALTER TABLE `me_gusta_usuarios`
   ADD PRIMARY KEY (`id_mg_usu`),
   ADD KEY `mg_id_usu` (`mg_id_usu`);
-
---
--- Indices de la tabla `notificaciones`
---
-ALTER TABLE `notificaciones`
-  ADD PRIMARY KEY (`id_noti`),
-  ADD KEY `id_public_noti` (`id_public_noti`),
-  ADD KEY `id_usu_noti` (`id_usu_noti`);
 
 --
 -- Indices de la tabla `no_me_gusta_anonimos`
@@ -218,6 +214,13 @@ ALTER TABLE `no_me_gusta_usuarios`
   ADD KEY `nmg_id_usu` (`nmg_id_usu`);
 
 --
+-- Indices de la tabla `opciones_encuesta`
+--
+ALTER TABLE `opciones_encuesta`
+  ADD PRIMARY KEY (`id_op`),
+  ADD KEY `encu_id` (`encu_id`);
+
+--
 -- Indices de la tabla `publicaciones_anonimos`
 --
 ALTER TABLE `publicaciones_anonimos`
@@ -229,14 +232,6 @@ ALTER TABLE `publicaciones_anonimos`
 ALTER TABLE `publicaciones_usuarios`
   ADD PRIMARY KEY (`id`),
   ADD KEY `publicaciones_usuarios_ibfk_1` (`id_usuario`);
-
---
--- Indices de la tabla `seguidores`
---
-ALTER TABLE `seguidores`
-  ADD PRIMARY KEY (`id_segui`),
-  ADD KEY `envia_solicitud` (`envia_solicitud`),
-  ADD KEY `seguidores_ibfk_2` (`recibe_solicitud`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -258,25 +253,25 @@ ALTER TABLE `comentarios_anonimos`
 -- AUTO_INCREMENT de la tabla `comentarios_usuarios`
 --
 ALTER TABLE `comentarios_usuarios`
-  MODIFY `id_com_usu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_com_usu` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `encuesta`
+--
+ALTER TABLE `encuesta`
+  MODIFY `id_encu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT de la tabla `me_gusta_anonimos`
 --
 ALTER TABLE `me_gusta_anonimos`
-  MODIFY `id_mg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id_mg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `me_gusta_usuarios`
 --
 ALTER TABLE `me_gusta_usuarios`
-  MODIFY `id_mg_usu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- AUTO_INCREMENT de la tabla `notificaciones`
---
-ALTER TABLE `notificaciones`
-  MODIFY `id_noti` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_mg_usu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `no_me_gusta_anonimos`
@@ -288,31 +283,31 @@ ALTER TABLE `no_me_gusta_anonimos`
 -- AUTO_INCREMENT de la tabla `no_me_gusta_usuarios`
 --
 ALTER TABLE `no_me_gusta_usuarios`
-  MODIFY `id_nmg_usu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_nmg_usu` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `opciones_encuesta`
+--
+ALTER TABLE `opciones_encuesta`
+  MODIFY `id_op` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT de la tabla `publicaciones_anonimos`
 --
 ALTER TABLE `publicaciones_anonimos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `publicaciones_usuarios`
 --
 ALTER TABLE `publicaciones_usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- AUTO_INCREMENT de la tabla `seguidores`
---
-ALTER TABLE `seguidores`
-  MODIFY `id_segui` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
@@ -331,6 +326,12 @@ ALTER TABLE `comentarios_usuarios`
   ADD CONSTRAINT `comentarios_usuarios_ibfk_1` FOREIGN KEY (`com_id_usu`) REFERENCES `publicaciones_usuarios` (`id`) ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `encuesta`
+--
+ALTER TABLE `encuesta`
+  ADD CONSTRAINT `encuesta_ibfk_1` FOREIGN KEY (`id_usu_encu`) REFERENCES `usuarios` (`id`) ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `me_gusta_anonimos`
 --
 ALTER TABLE `me_gusta_anonimos`
@@ -341,13 +342,6 @@ ALTER TABLE `me_gusta_anonimos`
 --
 ALTER TABLE `me_gusta_usuarios`
   ADD CONSTRAINT `me_gusta_usuarios_ibfk_1` FOREIGN KEY (`mg_id_usu`) REFERENCES `publicaciones_usuarios` (`id`) ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `notificaciones`
---
-ALTER TABLE `notificaciones`
-  ADD CONSTRAINT `notificaciones_ibfk_1` FOREIGN KEY (`id_public_noti`) REFERENCES `publicaciones_usuarios` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `notificaciones_ibfk_2` FOREIGN KEY (`id_usu_noti`) REFERENCES `usuarios` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `no_me_gusta_anonimos`
@@ -362,17 +356,16 @@ ALTER TABLE `no_me_gusta_usuarios`
   ADD CONSTRAINT `no_me_gusta_usuarios_ibfk_1` FOREIGN KEY (`nmg_id_usu`) REFERENCES `publicaciones_usuarios` (`id`) ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `opciones_encuesta`
+--
+ALTER TABLE `opciones_encuesta`
+  ADD CONSTRAINT `opciones_encuesta_ibfk_1` FOREIGN KEY (`encu_id`) REFERENCES `encuesta` (`id_encu`) ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `publicaciones_usuarios`
 --
 ALTER TABLE `publicaciones_usuarios`
   ADD CONSTRAINT `publicaciones_usuarios_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `seguidores`
---
-ALTER TABLE `seguidores`
-  ADD CONSTRAINT `seguidores_ibfk_1` FOREIGN KEY (`envia_solicitud`) REFERENCES `usuarios` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `seguidores_ibfk_2` FOREIGN KEY (`recibe_solicitud`) REFERENCES `usuarios` (`id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

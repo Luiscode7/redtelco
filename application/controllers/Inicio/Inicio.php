@@ -45,6 +45,7 @@ class Inicio extends CI_Controller {
                         'id' => $res->id,
                         'nombre'=>$res->nombre,
                         'apellidos'=>$res->apellidos,
+                        'foto_perfil'=>$res->foto_perfil,
                         'procesoLogin' => TRUE
                     );
                     $dato = $this->session->set_userdata($data);

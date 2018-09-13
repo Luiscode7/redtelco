@@ -20,7 +20,9 @@ class Usuario extends CI_Controller {
             'titulo' => "Portal Usuario", 
             'contenido2' => "usuario",
             'posteos_usu' => $this->usu->mostrarMuroUsuario($id),
-            'fotoperfil' => $this->usu->ImagenPerfil($id) 
+            'fotoperfil' => $this->usu->ImagenPerfil($id),
+            //'encuesta' => $this->usu->mostrarEncuesta($id)
+            'encuesta' => $this->usu->mostrarOpciones($id)
         );
         $this->load->view('plantilla/plantilla2', $contenido2);
     }
@@ -42,7 +44,7 @@ class Usuario extends CI_Controller {
             $usuario=$this->security->xss_clean(strip_tags($this->input->post("id_usuario")));
             $id_usu=$this->encryption->decrypt($usuario);
             $contenido_usuario=$this->security->xss_clean(strip_tags($this->input->post("contenido_usuario")));
-            $encuesta=$this->security->xss_clean($this->input->post("texto1[]"));
+            $contenido_usuario=$this->security->xss_clean(strip_tags($this->input->post("contenido_usuario")));
 
             $config = [
                 "upload_path" => "./assest/imagenes/subidas",
@@ -67,24 +69,8 @@ class Usuario extends CI_Controller {
                 echo json_encode(array('res'=>"error", 'msg' => strip_tags(validation_errors())));exit;
             }else{
                 if($id_post_usu ==""){
-                    if($id_pu=$this->usu->InsertarPostUsuario($data_insert)){
-                        echo json_encode(array('res'=>"ok", 'msg' => "publicacion realizada con éxito"));
-
-                        $valorop = array();
-                        foreach($encuesta as $en){
-                            array_push($valorop, array(
-                                "id_publi_usu" => $id_pu,
-                                "opciones" => $en
-                            ));
-                        }
-
-                        if($this->usu->insertarEncuesta($valorop)){
-                            echo json_encode(array('res' => "ok", 'datos' => $valorop));    
-                        }
-                        else{
-                            echo json_encode(array('res' => "error", 'datos' => $valorop));
-                        }
-
+                    if($this->usu->InsertarPostUsuario($data_insert)){
+                        echo json_encode(array('res'=>"ok", 'msg' => "publicacion realizada con éxito"));exit;
                     }else{
                         echo json_encode(array('res'=>"error", 'msg' => "No se ha podido publicar"));exit;
                     }
@@ -239,15 +225,16 @@ class Usuario extends CI_Controller {
         $this->load->view("plantilla/plantilla5", $contenido5);
     }
 
-    /*public function encuesta(){
+    public function encuesta(){
         if($this->input->is_ajax_request()){
-            $id_public=$this->security->xss_clean(strip_tags($this->input->post("id_public_usu")));
-            $id_pu=$this->encryption->decrypt($id_public);
+            $titulo=$this->security->xss_clean(strip_tags($this->input->post("titulo")));
+            $id_usuario=$this->security->xss_clean(strip_tags($this->input->post("id_usuencuesta")));
+            $id_usu=$this->encryption->decrypt($id_usuario);
             $opcion=$this->security->xss_clean($this->input->post("texto1[]"));
 
             $data_insert = array(
-                "id_public_usu" => $id_pu,
-                "opciones" => $id_usu
+                "id_usu_encu" => $id_usu,
+                "titulo" => $titulo,
             );
 
             if($encu=$this->usu->insertarEncuesta($data_insert)){
@@ -261,16 +248,18 @@ class Usuario extends CI_Controller {
                 }
     
                 if($this->usu->insertarOpcionesEncu($valorop)){
-                    echo json_encode(array('res' => "ok", 'datos' => $valorop));    
+                    //echo json_encode(array('res' => "ok", 'datoso' => $valorop));    
                 }
                 else{
-                    echo json_encode(array('res' => "error", 'datos' => $valorop));
+                    echo json_encode(array('res' => "error"));
                 }
+                $opc=$this->usu->mostrarOpciones($encu);
+                echo json_encode(array('res' => "ok", 'datose' => $opc));
 
             }else{
 
             }
         }
-    }*/
+    }
 
 }

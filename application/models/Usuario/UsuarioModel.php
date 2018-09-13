@@ -39,7 +39,15 @@ class UsuarioModel extends CI_Model{
     }
 
     public function insertarEncuesta($datos){
-      if($this->db->insert_batch('encuesta',$datos)){
+      if($this->db->insert('encuesta',$datos)){
+        $insert_id = $this->db->insert_id();
+				return $insert_id;
+			}
+			return FALSE;
+    }
+
+    public function insertarOpcionesEncu($datos){
+      if($this->db->insert_batch('opciones_encuesta',$datos)){
         $insert_id = $this->db->insert_id();
 				return $insert_id;
 			}
@@ -144,13 +152,22 @@ class UsuarioModel extends CI_Model{
       return FALSE;
     }
 
-    public function mostrarEncuesta($id){
-      $this->db->select('en.pregunta, op.opciones');
+    /*public function mostrarEncuesta($id){
+      $this->db->select("CONCAT(usu.nombre, ' ' ,usu.apellidos) as 'nombre', usu.foto_perfil as foto, en.titulo as titulo, op.opciones as opciones");
       $this->db->from('usuarios as usu');
-      $this->db->join('encuesta as en', 'usu.id = en.usu_id', 'left');
-      $this->db->join('opciones_encuesta as op', 'en.id_encu = op.encu_id', 'left');
+      $this->db->join('encuesta as en', 'en.id_usu_encu = usu.id');
+      $this->db->join('opciones_encuesta as op', 'op.encu_id = en.id_encu');
       $this->db->where('usu.id', $id);
       $res=$this->db->get();
+      if($res->num_rows()>0){
+        return $res->result_array();
+			}
+      return FALSE;
+    }*/
+    
+    public function mostrarOpciones($id){
+      $this->db->where('encu_id', $id);
+      $res=$this->db->get('opciones_encuesta');
       if($res->num_rows()>0){
         return $res->result_array();
 			}

@@ -152,11 +152,17 @@ $(function(){
                     processData:false,
                     success: function (data) {
                         if(data.res == 'ok'){
-                         $("#exampleModalCenter").modal("toggle");
+                        $("#exampleModalCenter").modal("toggle");
+                        var encu = $("#publicarusu").children();
+                         for(dato in data.datose){
+                            var html = '<p class="mb-2">'+data.datose[dato].opciones+'</p>';
+                            $(encu).append(html);
+                         }
+                         
                         }
                         else
                         if(data.res == 'error'){
-                            console.log(data.datos);
+                            
                         }
                         
                     }
@@ -225,34 +231,43 @@ function Comments2(){
     <div class="col container-public p-cero">
         <textarea name="contenido_usuario" id="contenido_usuario" class="textarea-post" placeholder="Escriba lo que desee..." cols="30" rows="10"></textarea>
         <button type="submit" name="Comentar" id="Comentar" class="btn btn-primary btn-post_u">Publicar</button>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <!--<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
             Encuesta
-        </button>
+        </button>-->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Encuesta</button>
         <input type="file" name="uploadimagen" id="uploadimagen" style="display:none">
         <a href="#"><i class="fas fa-smile ml-4 mr-4"></i></a>
         <a id="imagen" href="#"><i class="far fa-image mr-4"></i></a>
-        <div class="collapse" id="collapseExample">
-            <div class="card card-body mt-1" style="width:100%">
-                <div class="row">
-                    <div class="col-6"></div>
-                    <div class="col-6 d-flex justify-content-end">
-                        <a class="nuevoitem" href="#">agregar item</a>
-                    </div>
-                </div>
-            </div>
-        </div>
         <hr>
     </div> 
     <?php echo form_close();?> 
 
     <div id="publicarusu">
+        <!--<div class="col container-post border-post">
+            <div class="perfil-post">
+                <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $en["foto"]?>" alt="">
+                <span><?php echo $en["nombre"]?></span>
+            </div>
+            <p class="p-post"><?php echo $en["titulo"]?></p>
+            <?php foreach($encuesta as $en): ?>
+                <p class="mb-3"><?php echo $en["opciones"]?></p>
+            <?php endforeach; ?>
+        </div>-->
+    
+        <!--<div class="col container-post border-post">
+        </div>-->
     </div>
+    
 
     <?php if(!empty($posteos_usu)): ?>
         <?php foreach($posteos_usu as $usu): ?>
             <div class="col container-post border-post">
                 <div class="perfil-post">
+                <?php if(empty($usu["foto"])):?>
+                    <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
+                <?php else: ?>
                     <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $usu["foto"]?>" alt="">
+                <?php endif ?>
                     <span><?php echo $usu["nombre"]?></span>
                 </div>
                 <p class="p-post"><?php echo $usu["contenido"]?></p>
@@ -298,40 +313,39 @@ function Comments2(){
             </div>
         <?php endforeach; ?>
     <?php endif; ?> 
-    
-    
+
     <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalCenterTitle">Encuesta</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Encuesta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <?php echo form_open_multipart("encuesta",array("id"=>"encuesta","class"=>"encuesta"))?>
+                    <div class="modal-body">
+                        <?php $id_usuario=$this->session->userdata("id"); $clave = $this->encryption->encrypt($id_usuario);?>
+                        <input type="hidden" name="id_usuencuesta" value="<?php echo $clave;?>">
+                        <div>
+                            <textarea class="textarea-encuesta" name="titulo" id="titulo" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
                             </div>
-                            <?php echo form_open_multipart("encuesta",array("id"=>"encuesta","class"=>"encuesta"))?>
-                            <div class="modal-body">
-                                <?php $id_usuario=$this->session->userdata("id"); $clave = $this->encryption->encrypt($id_usuario);?>
-                                <input type="hidden" name="id_usuencuesta" value="<?php echo $clave;?>">
-                                <div>
-                                    <textarea class="textarea-encuesta" name="pregunta" id="pregunta" cols="30" rows="10"></textarea>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                    </div>
-                                    <div class="col-6 d-flex justify-content-end">
-                                        <a class="nuevoitem" href="#">agregar item</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn btn-primary">Publicar</button>
-                            </div>
-                            <?php echo form_close();?>
+                            <div class="col-6 d-flex justify-content-end">
+                                <a class="nuevoitem" href="#">agregar item</a>
                             </div>
                         </div>
-                </div> 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary btn-encuesta">Publicar</button>
+                    </div>
+                <?php echo form_close();?>
+            </div>
+        </div>
+    </div> 
 </div>
 
