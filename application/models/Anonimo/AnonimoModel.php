@@ -92,11 +92,15 @@ class AnonimoModel extends CI_Model{
       
     }
 
-    public function verificarIpmg($ip){
+    public function verificarIpmg($ip,$idpu){
       $this->db->select('mg_ip');
-      //$this->db->where('mg_ip', $ip);
+      $this->db->where('mg_ip', $ip);
+      $this->db->where('mg_id_publicacion', $idpu);
       $res=$this->db->get('me_gusta_anonimos');
-      return $res->row_array($ip);
+      if($res->num_rows()>0){
+        return $res->row_array();
+			}
+      return FALSE;
     }
 
     public function mostrarNoMg($id){
@@ -108,11 +112,15 @@ class AnonimoModel extends CI_Model{
       
     }
 
-    public function verificarIpnmg($ip){
+    public function verificarIpnmg($ip,$idpu){
       $this->db->select('nmg_ip');
       $this->db->where('nmg_ip', $ip);
+      $this->db->where('nmg_id_publicacion', $idpu);
       $res=$this->db->get('no_me_gusta_anonimos');
-      return $res;
+      if($res->num_rows()>0){
+        return $res->row_array();
+			}
+      return FALSE;
     }
 
     /* ------ ESTADISTICAS DE DATOS -------*/

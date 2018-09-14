@@ -6,7 +6,8 @@ $(function(){
         $("#emojiusu").removeClass("ocultarImagenAn");
         $("#imagenan").removeClass("ocultarImagenAn");
     }
-    
+    $(".icon1").tooltip('disable');
+    $(".icon2").tooltip('disable');
 
     /* ---- FUNCION PUBLICACIONES ----*/
     $(document).on('submit', '#postAnonimo',function(event) {
@@ -142,11 +143,25 @@ $(function(){
                     dataType: "json",
                     data: form.serialize(),
                     processData:false,
-                    success: function (data) {    
-                           var padre = $(form).parent().parent();
+                    success: function (data) {
+                        if(data.res == "ok"){
+                            var padre = $(form).parent().parent();
                            var secondhijo = padre.children().eq(1);
                            var firsthijo = secondhijo.children().eq(0);
-                           var megusta = firsthijo.children().eq(1).html(data.datos);
+                           var megusta = firsthijo.children().eq(1).html(data.datos); 
+                        }else
+                        if(data.res2 == "error"){
+                            var padre = $(form).parent().parent();
+                           var secondhijo = padre.children().eq(1);
+                           var firsthijo = secondhijo.children().eq(0);
+                           var icono = firsthijo.children().eq(0); 
+                           $(icono).css("color", "#FE2E64");
+                           $(icono).tooltip('enable');
+                            setTimeout(function(){
+                                $(icono).css("color", "#0174DF");
+                            },2000);
+                        }    
+                           
                     }
                         
                 });
@@ -165,10 +180,24 @@ $(function(){
                     data: form2.serialize(),
                     processData:false,
                     success: function (data) {
-                        var padre = $(form2).parent().parent();
-                        var secondhijo = padre.children().eq(1);
-                        var twosecondthijo = secondhijo.children().eq(1);
-                        var nomegusta = twosecondthijo.children().eq(1).html(data.datos);
+                        if(data.res == "ok"){
+                            var padre = $(form2).parent().parent();
+                            var secondhijo = padre.children().eq(1);
+                            var twosecondthijo = secondhijo.children().eq(1);
+                            var nomegusta = twosecondthijo.children().eq(1).html(data.datos);
+                        }else
+                        if(data.res2 == "error"){
+                            var padre = $(form2).parent().parent();
+                           var secondhijo = padre.children().eq(1);
+                           var firsthijo = secondhijo.children().eq(1);
+                           var icono = firsthijo.children().eq(0); 
+                           $(icono).css("color", "#FE2E64");
+                           $(icono).tooltip('enable');
+                            setTimeout(function(){
+                                $(icono).css("color", "#0174DF");
+                            },2000);
+                        }    
+                        
                     }
                 });
                 return false; 
@@ -332,11 +361,11 @@ function Comments(){
                 </div>
                 <div class="block-likes col-md-2 col-lg-6 d-flex justify-content-end align-items-center">
                     <div>
-                        <a class="pr-2 icon1" href="#"><i class="far fa-thumbs-up"></i></a>
+                        <a class="pr-2 icon1" href="#" data-toggle="tooltip" data-placement="bottom" title="ya ha marcado una opcion"><i class="far fa-thumbs-up"></i></a>
                         <span id="mg"><?php echo $post["mgustas"]?></span>
                     </div>
                     <div>
-                        <a class=" pr-2 pl-2" href="#"><i class="far fa-thumbs-down"></i></a>
+                        <a class="pr-2 pl-2 icon2" href="#" data-toggle="tooltip" data-placement="bottom" title="ya ha marcado una opcion"><i class="far fa-thumbs-down"></i></a>
                         <span id="nmg"><?php echo $post["nmgustas"]?></span>
                     </div>
                 </div>

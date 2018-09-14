@@ -135,7 +135,7 @@ class Usuario extends CI_Controller {
                 "mg_ip_usu" => $ip
             );
 
-            $verip = $this->an->verificarIpmgUsu($ip);
+            $verip = $this->usu->verificarIpmgUsu($ip);
             if($verip !== $ip){
                 if($this->usu->insertarMeGusta($datos_insert)){
                     $data=$this->usu->mostrarMgUsu($id_usu);

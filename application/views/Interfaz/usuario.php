@@ -1,6 +1,5 @@
 <script type="text/javascript">
 $(function(){
-
     $(".iconomg").tooltip('disable');
 
     /* ---- Creacion de publicacion con AJAX ----*/
