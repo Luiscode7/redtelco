@@ -33,7 +33,7 @@ class Usuario extends CI_Controller {
         $contenido3 = array(
             'titulo' => "Portal General", 
             'contenido3' => "anonimo",
-            'posteo'=> $this->AnonimoModel->mostrarMuroAnonimo(),
+            'posteo'=> $this->anonimomodel->mostrarMuroAnonimo(),
             'fotoperfil' => $this->usu->ImagenPerfil($id)
         );
         $this->load->view('plantilla/plantilla3', $contenido3);

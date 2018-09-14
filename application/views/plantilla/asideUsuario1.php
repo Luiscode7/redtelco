@@ -1,4 +1,4 @@
-<div class="row" style="min-height:100vh">
+<div class="row principal" style="min-height:100vh">
     <div class="col-lg-3 col-xl-3">
         <div class="aside-1 position-fixed">
             <div class="col">

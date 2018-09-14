@@ -1,8 +1,8 @@
-<div class="row" style="min-height:100vh">
+<div class="row principal" style="min-height:100vh">
   <div class="col-lg-3 col-xl-3">
     <div class="aside-1 position-fixed">
-      <div class="col">
-        <ul class="list-group">
+      <div class="col colside1">
+        <ul class="list-group cardside1">
           <li class="list-group-item d-flex justify-content-between align-items-center">
               Cantidad de publicaciones
               <span class="badge badge-primary badge-pill"><?php echo $publicaciones ?></span>
