@@ -23,7 +23,7 @@ class Usuario extends CI_Controller {
             'posteos_usu' => $this->usu->mostrarMuroUsuario($id),
             'fotoperfil' => $this->usu->ImagenPerfil($id),
             //'tituloencu' => $this->usu->tituloEncuesta($id)
-            'encuesta' => $this->usu->mostrarEncuesta($id),
+            'encuesta' => $this->usu->mostrarEncuesta($id)
         );
         $this->load->view('plantilla/plantilla2', $contenido2);
     }
@@ -135,12 +135,15 @@ class Usuario extends CI_Controller {
                 "mg_ip_usu" => $ip
             );
 
-            if($this->usu->insertarMeGusta($datos_insert)){
-                $data=$this->usu->mostrarMgUsu($id_usu);
-                echo json_encode(array('datos' => $data));
-            }else{
-                echo json_encode(array('res'=>"error"));exit;
-            }
+            $verip = $this->an->verificarIpmgUsu($ip);
+            if($verip !== $ip){
+                if($this->usu->insertarMeGusta($datos_insert)){
+                    $data=$this->usu->mostrarMgUsu($id_usu);
+                    echo json_encode(array('datos' => $data));
+                }else{
+                    echo json_encode(array('res'=>"error"));exit;
+                }
+            }   
         }
     }
 

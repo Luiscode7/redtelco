@@ -94,9 +94,9 @@ class AnonimoModel extends CI_Model{
 
     public function verificarIpmg($ip){
       $this->db->select('mg_ip');
-      $this->db->where('mg_ip', $ip);
+      //$this->db->where('mg_ip', $ip);
       $res=$this->db->get('me_gusta_anonimos');
-      return $res;
+      return $res->row_array($ip);
     }
 
     public function mostrarNoMg($id){

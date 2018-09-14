@@ -1,5 +1,5 @@
 <div class="col-lg-3 col-xl-3">
-        <div class="aside-2 position-fixed">
+        <div class="aside-2">
         <div class="col" style="padding-left:0">
                 <h5 class="h5-usuario mt-3" style="padding-left:0 !important">Estadisticas</h5>
             </div>

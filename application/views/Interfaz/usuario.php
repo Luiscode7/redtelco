@@ -1,6 +1,8 @@
 <script type="text/javascript">
 $(function(){
 
+    $(".iconomg").tooltip('disable');
+
     /* ---- Creacion de publicacion con AJAX ----*/
     $(document).on('submit', '#postUsuario',function(event) {
       var url="<?php echo base_url()?>";
@@ -44,10 +46,21 @@ $(function(){
                            var padre = $(form).parent().parent();
                            var secondhijo = padre.children().eq(1);
                            var firsthijo = secondhijo.children().eq(1).html(data.datos);
+
+                           var icono = secondhijo.children().eq(0);
                            //var megusta = firsthijo.children().eq(1).html(data.datos);
                            console.log($(firsthijo));
                     }
                         
+                })
+                .fail(function(){
+                    var padre = $(form).parent().parent();
+                    var secondhijo = padre.children().eq(1);
+                    var icono = secondhijo.children().eq(0);
+                    $(icono).css("color", "red");
+                    $(icono).mouseover(function(){
+                        $(this).tooltip('enable');
+                    });
                 });
                 return false; 
         });
@@ -286,7 +299,7 @@ function Comments2(){
                         <button type="submit" class="btn btn-secondary form-control btn-commentusu1">Comentar</button>
                     </div>
                     <div class="col-6 d-flex justify-content-end align-items-center">
-                        <a class="pr-2" href=""><i class="far fa-thumbs-up"></i></a>
+                        <a class="pr-2 iconomg" href="" data-toggle="tooltip" data-placement="bottom" title="ya ha dado me gusta"><i class="far fa-thumbs-up"></i></a>
                         <span><?php echo $usu["mgustas"]?></span>
                         <a class=" pr-2 pl-2" href=""><i class="far fa-thumbs-down"></i></a>
                         <span><?php echo $usu["nmgustas"]?></span>

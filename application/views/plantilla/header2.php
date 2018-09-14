@@ -73,39 +73,41 @@ $(function(){
   <div class="container-fluid">
       <div class="row">
         <div class="col">
-          <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">TELCO-SOCIAL</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent2">
-              <ul class="navbar-nav d-flex align-items-center w-100">
-                <li class="nav-item active iniciousu">
-                  <a class="nav-link" href="#"><i class="fas fa-home mr-2 align-baseline"></i>Inicio</a>
-                </li>
-                <li class="nav-item active personas">
-                  <a class="nav-link" href="#"><i class="fas fa-users mr-2 align-baseline"></i>Personas</a>
-                </li>
-                <li class="nav-item ml-auto col-3" id="perfil-usuario" style="padding-left:0 !important;padding-right:0 !important;">
-                  <a class="link-usuario" role="button" href="usuario">
-                  <?php if(empty($fotoperfil)):?>
-                    <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
-                  <?php else:?>
-                    <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $fotoperfil;?>" alt="">
-                  <?php endif?>
-                      <span><?php echo $this->session->userdata("nombre")?></span>
-                  </a>
-                  <button type="button" class="btn-cerrar-sesion dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
-                    <span class="sr-only">Toggle Dropdown</span>
-                    <i class="fas fa-sort-down fa-lg"></i>
-                  </button>
-                  <div class="dropdown-menu-session dropdown-menu" aria-labelledby="dropdownMenuReference">
-                    <a class="dropdown-item sesion" href="#">Cerrar Sesi&oacute;n</a>
-                    <a class="dropdown-item edit-perfil" href="#">Editar Perfil</a>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </nav>
+          <div class="container-navbar">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <a class="navbar-brand" href="<?php base_url();?>MuroAnonimo">TELCO-SOCIAL</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+                <ul class="navbar-nav d-flex align-items-center w-100">
+                  <li class="nav-item active iniciousu">
+                    <a class="nav-link" href="#"><i class="fas fa-home mr-2 align-baseline"></i>Inicio</a>
+                  </li>
+                  <li class="nav-item active personas">
+                    <a class="nav-link" href="#"><i class="fas fa-users mr-2 align-baseline"></i>Personas</a>
+                  </li>
+                  <li class="nav-item ml-auto col-3" id="perfil-usuario" style="padding-left:0 !important;padding-right:0 !important;">
+                    <a class="link-usuario" role="button" href="usuario">
+                    <?php if(empty($fotoperfil)):?>
+                      <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
+                    <?php else:?>
+                      <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $fotoperfil;?>" alt="">
+                    <?php endif?>
+                        <span><?php echo $this->session->userdata("nombre")?></span>
+                    </a>
+                    <button type="button" class="btn-cerrar-sesion dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                      <span class="sr-only">Toggle Dropdown</span>
+                      <i class="fas fa-sort-down fa-lg"></i>
+                    </button>
+                    <div class="dropdown-menu-session dropdown-menu" aria-labelledby="dropdownMenuReference">
+                      <a class="dropdown-item sesion" href="#">Cerrar Sesi&oacute;n</a>
+                      <a class="dropdown-item edit-perfil" href="#">Editar Perfil</a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
         </div>
       </div>

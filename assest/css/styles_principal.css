@@ -16,10 +16,20 @@ body{
     justify-content: center;
 }
 
-.navbar{
+.container-navbar{
     background: #DF013A !important;
     width: 100%;
     box-shadow:0 3px 10px #A4A4A4;
+    padding:0 15px 0 15px;
+    position:fixed;
+    top:0;
+    left: 0;
+    z-index:1030;
+}
+
+.navbar{
+    background: #DF013A !important;
+    width: 100%;
 }
 
 .navbar-brand{
@@ -27,7 +37,7 @@ body{
 }
 
 .nav-link{
-    padding-left:30px;
+    padding-left:0;
     margin:0 !important;
     color:#fff !important;
 }
@@ -37,13 +47,13 @@ a:hover{
 }
 
 .aside-1{
-    width:25%;
+    width:100%;
     min-height:100vh;
     background: #F2F2F2;
 }
 
 .aside-2{
-    width:25%;
+    width:100%;
     min-height:100vh;
     background: #F2F2F2;
 }
@@ -171,21 +181,12 @@ hr{
 .list-group{
     width:100%;
     margin:auto;
-    padding-right:15px;
 }
 
 .p-post{
     background:#fff;
     padding:15px 0 15px 0;
     overflow-wrap: break-word;
-}
-
-.card{
-    margin-right:45px;
-}
-
-.h5-usuario{
-    padding-left:30px;
 }
 
 .icon-size{
@@ -248,7 +249,7 @@ hr{
     width:100%;
     height: 200px;
     margin:auto;
-    padding: 0 30px 0 30px;
+    padding: 0 30px 0 0;
     margin-bottom:20px;
 }
 
@@ -303,38 +304,54 @@ hr{
 }
 
 /*--- Media query muro---*/
-@media (min-width:1200px){
+@media (min-width:1920px){
     .principal{
         width: 70%;
         margin:auto;
     }
-    .aside-2{
-        width: 297.77px;
+    .navbar{
+        width: 70%;
+        margin: auto;
     }
-    .aside-1{
-        width: 297.77px;
-    }
-    .card{
+}
+
+/*--- Media query muro---*/
+@media (min-width:1600px) and (max-width:1919px){
+    .principal{
+        width: 80%;
         margin:auto;
     }
-    .cardside1{
-        padding: 0 !important;
+    .navbar{
+        width: 80%;
+        margin: auto;
     }
-    .colside1{
-        padding: 0;
+}
+
+/*--- Media query muro---*/
+@media (min-width:1366px) and (max-width:1599px){
+    .principal{
+        width: 90%;
+        margin:auto;
     }
+    .navbar{
+        width: 90%;
+        margin: auto;
+    }    
 }
 
 /*--- Media query ocultar barras laterales---*/
 @media (max-width:992px){
     .aside-2{
-        visibility:hidden;
+        display:none;
     }
-}
-
-@media (max-width:992px){
     .aside-1{
-        visibility:hidden;
+        display:none;
+    }
+    .colaside2{
+        display:none;
+    }
+    .colaside1{
+        display:none;
     }
 }
 

@@ -78,7 +78,7 @@ class Anonimo extends CI_Controller {
                 );
                 
                 $verip = $this->an->verificarIpmg($ip);
-                if($ip !== $verip){
+                if($verip !== $ip){
                     if($this->an->insertarMeGusta($datos_insert)){
                         $data=$this->an->mostrarMg($id_pu);
                         echo json_encode(array('datos' => $data));
