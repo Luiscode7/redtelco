@@ -1,6 +1,7 @@
 <script type="text/javascript">
 $(function(){
     $(".iconomg").tooltip('disable');
+    $(".icononmg").tooltip('disable');
 
     /* ---- Creacion de publicacion con AJAX ----*/
     $(document).on('submit', '#postUsuario',function(event) {
@@ -41,26 +42,26 @@ $(function(){
                     dataType: "json",
                     data: form.serialize(),
                     processData:false,
-                    success: function (data) {    
-                           var padre = $(form).parent().parent();
+                    success: function (data) {
+                        if(data.res == "ok"){
+                            var padre = $(form).parent().parent();
                            var secondhijo = padre.children().eq(1);
                            var firsthijo = secondhijo.children().eq(1).html(data.datos);
-
-                           var icono = secondhijo.children().eq(0);
-                           //var megusta = firsthijo.children().eq(1).html(data.datos);
-                           console.log($(firsthijo));
+                        }
+                        else
+                        if(data.res2 == "error"){
+                            var padre = $(form).parent().parent();
+                            var secondhijo = padre.children().eq(1);
+                            var icono = secondhijo.children().eq(0);
+                            $(icono).css("color", "#FE2E64");
+                            $(icono).tooltip('enable');
+                            setTimeout(function(){
+                                $(icono).css("color", "#0174DF");
+                            },2000);
+                        }    
                     }
                         
                 })
-                .fail(function(){
-                    var padre = $(form).parent().parent();
-                    var secondhijo = padre.children().eq(1);
-                    var icono = secondhijo.children().eq(0);
-                    $(icono).css("color", "red");
-                    $(icono).mouseover(function(){
-                        $(this).tooltip('enable');
-                    });
-                });
                 return false; 
         });
 
@@ -75,9 +76,22 @@ $(function(){
                     data: form2.serialize(),
                     processData:false,
                     success: function (data) {
-                        var padre2 = $(form2).parent().parent();
-                        var secondhijo2 = padre2.children().eq(1);
-                        var twosecondthijo = secondhijo2.children().eq(3).html(data.datos);
+                        if(data.res == "ok"){
+                            var padre2 = $(form2).parent().parent();
+                            var secondhijo2 = padre2.children().eq(1);
+                            var twosecondthijo = secondhijo2.children().eq(3).html(data.datos);
+                        }
+                        else
+                        if(data.res2 == "error"){
+                            var padre2 = $(form2).parent().parent();
+                            var icono = padre2.children().eq(1);
+                            var icono2 = icono.children().eq(2);
+                            $(icono2).css("color", "#FE2E64");
+                            $(icono2).tooltip('enable');
+                                setTimeout(function(){
+                                    $(icono2).css("color", "#0174DF");
+                                },2000);
+                        }
                     }
                 });
                 return false; 
@@ -286,8 +300,8 @@ function Comments2(){
                 <div class="row">
                     <div class="col-6 container-button-post d-flex justify-content-start">
                         <?php echo form_open_multipart("meGustaUsu",array("id"=>"meGustaUsu","class"=>"meGustaUsu"))?>
-                            <?php $id_usuario=$usu["id"]; $clave = $this->encryption->encrypt($id_usuario);?>
-                            <input type="hidden" name="id_usuariomg" id="id_usuariomg" value="<?php echo $clave?>">
+                            <?php $id_publi=$usu["id"]; $clave = $this->encryption->encrypt($id_publi);?>
+                            <input type="hidden" name="id_publimg" id="id_publimg" value="<?php echo $clave?>">
                             <button type="submit" class="btn btn-secondary form-control">Me gusta</button>
                         <?php echo form_close();?>
                         <?php echo form_open_multipart("NomeGustaUsu",array("id"=>"NomeGustaUsu","class"=>"NomeGustaUsu"))?>
@@ -298,9 +312,9 @@ function Comments2(){
                         <button type="submit" class="btn btn-secondary form-control btn-commentusu1">Comentar</button>
                     </div>
                     <div class="col-6 d-flex justify-content-end align-items-center">
-                        <a class="pr-2 iconomg" href="" data-toggle="tooltip" data-placement="bottom" title="ya ha dado me gusta"><i class="far fa-thumbs-up"></i></a>
+                        <a class="pr-2 iconomg" href="" data-toggle="tooltip" data-placement="bottom" title="ya ha marcado una opcion"><i class="far fa-thumbs-up"></i></a>
                         <span><?php echo $usu["mgustas"]?></span>
-                        <a class=" pr-2 pl-2" href=""><i class="far fa-thumbs-down"></i></a>
+                        <a class=" pr-2 pl-2 icononmg" href="#" data-toggle="tooltip" data-placement="bottom" title="ya ha marcado una opcion"><i class="far fa-thumbs-down"></i></a>
                         <span><?php echo $usu["nmgustas"]?></span>
                     </div>
                     <div class="col pt-3 pb-1 ocultarComment">

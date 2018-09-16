@@ -126,8 +126,8 @@ class Usuario extends CI_Controller {
 
     public function meGustaUsu(){
         if($this->input->is_ajax_request()){
-            $id_usuario=$this->security->xss_clean(strip_tags($this->input->post("id_usuariomg")));
-            $id_usu=$this->encryption->decrypt($id_usuario);
+            $id_publi=$this->security->xss_clean(strip_tags($this->input->post("id_publimg")));
+            $id_usu=$this->encryption->decrypt($id_publi);
             $ip = $this->input->ip_address();
 
             $datos_insert = array(
@@ -135,14 +135,18 @@ class Usuario extends CI_Controller {
                 "mg_ip_usu" => $ip
             );
 
-            $verip = $this->usu->verificarIpmgUsu($ip);
-            if($verip !== $ip){
+            $veripmg = $this->usu->verificarIpmgUsu($ip,$id_usu);
+            $veripnmg = $this->usu->verificarIpnmgUsu($ip,$id_usu);
+            if($veripmg == false && $veripnmg == false){
                 if($this->usu->insertarMeGusta($datos_insert)){
                     $data=$this->usu->mostrarMgUsu($id_usu);
-                    echo json_encode(array('datos' => $data));
+                    echo json_encode(array('res' => "ok",'datos' => $data));
                 }else{
                     echo json_encode(array('res'=>"error"));exit;
                 }
+            }
+            else{
+                echo json_encode(array('res2'=>"error"));
             }   
         }
     }
@@ -158,12 +162,20 @@ class Usuario extends CI_Controller {
                 "nmg_ip" => $ip
             );
 
-            if($this->usu->insertarNoMeGusta($datos_insert)){
-                $data=$this->usu->mostrarNoMgUsu($id_usu);
-                echo json_encode(array('datos' => $data));
-            }else{
-                echo json_encode(array('res'=>"error"));exit;
+            $veripmg = $this->usu->verificarIpmgUsu($ip,$id_usu);
+            $veripnmg = $this->usu->verificarIpnmgUsu($ip,$id_usu);
+            if($veripnmg == false && $veripmg == false){
+                if($this->usu->insertarNoMeGusta($datos_insert)){
+                    $data=$this->usu->mostrarNoMgUsu($id_usu);
+                    echo json_encode(array('res' => "ok", 'datos' => $data));
+                }else{
+                    echo json_encode(array('res'=>"error"));exit;
+                }
             }
+            else{
+                echo json_encode(array('res2'=>"error"));
+            }   
+            
         }
     }
 

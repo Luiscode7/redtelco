@@ -117,11 +117,15 @@ class UsuarioModel extends CI_Model{
       
     }
 
-    public function verificarIpmgUsu($ip){
+    public function verificarIpmgUsu($ip,$idpu){
       $this->db->select('mg_ip_usu');
-      //$this->db->where('mg_ip', $ip);
+      $this->db->where('mg_ip_usu', $ip);
+      $this->db->where('mg_id_usu', $idpu);
       $res=$this->db->get('me_gusta_usuarios');
-      return $res->row_array($ip);
+      if($res->num_rows()>0){
+        return $res->row_array();
+			}
+      return FALSE;
     }
 
     public function mostrarNoMgUsu($id){
@@ -131,6 +135,17 @@ class UsuarioModel extends CI_Model{
       $res=$this->db->count_all_results();
       return $res;
       
+    }
+
+    public function verificarIpnmgUsu($ip,$idpu){
+      $this->db->select('nmg_ip');
+      $this->db->where('nmg_ip', $ip);
+      $this->db->where('nmg_id_usu', $idpu);
+      $res=$this->db->get('no_me_gusta_usuarios');
+      if($res->num_rows()>0){
+        return $res->row_array();
+			}
+      return FALSE;
     }
 
     public function mostrarUsuario($id){
