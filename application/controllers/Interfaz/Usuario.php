@@ -91,6 +91,7 @@ class Usuario extends CI_Controller {
             $id_publicacionusu=$this->security->xss_clean(strip_tags($this->input->post("id_publicacionusu")));
             $id_pusu=$this->encryption->decrypt($id_publicacionusu);
             $comentario=$this->security->xss_clean(strip_tags($this->input->post("comentariousu")));
+            $id_usu = $this->session->userdata("id");
 
                 $datos_insert = array(
                     "com_id_usu" => $id_pusu,
@@ -101,7 +102,7 @@ class Usuario extends CI_Controller {
                     echo json_encode(array('res'=>"error", 'msg' => strip_tags(validation_errors())));exit;
                 }else{
                     if($data=$this->usu->insertarComentario($datos_insert)){
-                        $datos=$this->usu->mostrarComentarioUsuario($data,$id_pusu);
+                        $datos=$this->usu->mostrarComentarioUsuario($data,$id_pusu,$id_usu);
                         echo json_encode(array('res' => "ok", 'datos' => $datos));
                     }else{
                         echo json_encode(array('res'=>"error"));exit;
@@ -115,7 +116,9 @@ class Usuario extends CI_Controller {
     public function mostrarComPublicadosUsu(){
         $id_publicacion=$this->security->xss_clean(strip_tags($this->input->post("id_publicacionshowusu")));
         $id_pu=$this->encryption->decrypt($id_publicacion);
-        $data=$this->usu->mostrarComPublicadosUsu($id_pu);
+        $id_usu=$this->session->userdata("id");
+        
+        $data=$this->usu->mostrarComPublicadosUsu($id_pu,$id_usu);
         if($data){
             echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
         }else{

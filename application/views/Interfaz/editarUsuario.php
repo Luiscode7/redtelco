@@ -33,7 +33,15 @@ $(function(){
     });
 
     $(".upload").change(function(){
+        $("#previewImagen").css("display", "block");
+        $(".cancelarpreview").css("display", "inline");
         imagenPreview(this);
+    });
+
+     $(".cancelarpreview").click(function(){
+        $(".upload").val("");
+        $("#previewImagen").css("display", "none");
+        $(".cancelarpreview").css("display", "none");
     });
     
 });
@@ -61,11 +69,14 @@ function imagenPreview(input){
             <input type="text" name="apellidos" id="apellidos" autocomplete="off" class="form-control form-control-sm input-indent" value="<?php echo $this->session->userdata("apellidos");?>">                 
         </div>
         <div class="row">
-            <div class="form-group upload-perfil col-5">
+            <div class="form-group col-5 mb-3">
                 <input type="file" role="button" class="upload" name="imagenGrande" id="imagenGrande" hidden="hidden"> 
                 <input type="button" class="btn btn-perfil" value="Subir Imagen"/>                
             </div>
-            <div id="previewImagen" class="mb-3 col-7"></div>
+            <div class="col">
+                <div id="previewImagen" class="col-7 mb-2" style="display:none"></div>
+                <span class="cancelarpreview" role="button" style="display:none;margin-left:15px;"><i class="fas fa-trash mr-2"></i>cancelar</span>
+            </div>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Guardar Cambios</button>                 

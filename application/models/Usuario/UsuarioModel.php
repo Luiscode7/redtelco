@@ -84,11 +84,15 @@ class UsuarioModel extends CI_Model{
       return FALSE;
     }
 
-    public function mostrarComentarioUsuario($id, $idpubli){
-      $this->db->select('comentario_usu');
-      $this->db->where('id_com_usu', $id);
-      $this->db->where('com_id_usu', $idpubli);
-      $res = $this->db->get('comentarios_usuarios');
+    public function mostrarComentarioUsuario($id, $idpubli,$id_usu){
+      $this->db->select("com.comentario_usu as comentario, usu.foto_perfil as foto, CONCAT(nombre, ' ' , apellidos) as 'nombre'");
+      $this->db->from('comentarios_usuarios as com');
+      $this->db->join('publicaciones_usuarios as p', 'p.id = com.com_id_usu', 'left');
+      $this->db->join('usuarios as usu', 'usu.id = p.id_usuario', 'left');
+      $this->db->where('com.id_com_usu', $id);
+      $this->db->where('com.com_id_usu', $idpubli);
+      $this->db->where('p.id_usuario', $id_usu);
+      $res = $this->db->get();
       if($res->num_rows()>0){
         return $res->result_array();
 			}
@@ -96,11 +100,13 @@ class UsuarioModel extends CI_Model{
     }
 
 
-    public function mostrarComPublicadosUsu($id){
-      $this->db->select('com.comentario_usu as comments');
+    public function mostrarComPublicadosUsu($id,$idusu){
+      $this->db->select("com.comentario_usu as comments, usu.foto_perfil as foto, CONCAT(nombre, ' ' , apellidos) as 'nombre'");
       $this->db->from('comentarios_usuarios as com');
       $this->db->join('publicaciones_usuarios as p', 'p.id = com.com_id_usu', 'left');
+      $this->db->join('usuarios as usu', 'usu.id = p.id_usuario', 'left');
       $this->db->where('p.id', $id);
+      $this->db->where('p.id_usuario', $idusu);
       $this->db->order_by('com.id_com_usu', 'ASC');
       $res=$this->db->get();
       if($res->num_rows()>0){

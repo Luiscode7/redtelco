@@ -21,6 +21,25 @@
           </li>
         </ul>
       </div>
+      <div class="mt-4">
+          <h5>Páginas de Empleos</h5>
+      </div>
+      <div class="col" style="padding:0">
+        <ul class="list-group">
+          <li class="mb-2 d-flex justify-content-between align-items-center">
+            <a class="list-paginas container-paginas" href="https://www.laborum.cl/" target="_blank">Laborum</a>
+          </li>
+          <li class="mb-2 d-flex justify-content-between align-items-center">
+            <a class="list-paginas container-paginas" href="https://www.computrabajo.cl/" target="_blank">CompuTrabajo</a>
+          </li>
+          <li class="mb-2 d-flex justify-content-between align-items-center">
+            <a class="list-paginas container-paginas" href="https://www.indeed.cl/" target="_blank">Indeed</a>
+          </li>
+          <li class="d-flex justify-content-between align-items-center">
+            <a class="list-paginas container-paginas" href="https://www.trabajando.cl/" target="_blank">Trabajando</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
   
