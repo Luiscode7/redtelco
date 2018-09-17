@@ -41,6 +41,19 @@ $(function(){
         return false;
     });
 
+    $(".murousu").click(function(){
+        var url = "<?php echo base_url();?>";
+        $.ajax({
+          url: "MuroUsuarios",
+          type:"POST",
+          data:{},
+          success:function(){
+            window.location="MuroUsuarios";
+          }
+        });
+        return false;
+    });
+
      $(".edit-perfil").click(function(){
         var url = "<?php echo base_url();?>";
         $.ajax({
@@ -81,9 +94,17 @@ $(function(){
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent2">
                 <ul class="navbar-nav d-flex align-items-center w-100">
-                  <li class="nav-item active iniciousu">
+                  <!--<li class="nav-item active iniciousu">
                     <a class="nav-link" href="#"><i class="fas fa-home mr-2 align-baseline"></i>Inicio</a>
-                  </li>
+                  </li>-->
+                  <div class="dropdown dropinicio">
+                    <a href="#" class="btn dropdown-toggle btn-inicio" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-home mr-2 align-baseline"></i>Inicio</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item iniciousu" href="#">Muro An&oacute;nimo</a>
+                      <a class="dropdown-item murousu" href="#">Muro Usuarios</a>
+                    </div>
+                  </div>
                   <li class="nav-item active personas">
                     <a class="nav-link" href="#"><i class="fas fa-users mr-2 align-baseline"></i>Personas</a>
                   </li>

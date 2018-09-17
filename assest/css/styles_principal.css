@@ -334,6 +334,15 @@ hr{
     font-weight: bold;
 }
 
+.btn-inicio{
+    border:none;
+    color:#fff !important;
+    box-shadow: none !important;
+}
+
+.btn-inicio:hover{
+    
+}
 
 
 /*--- Media query menu navbar usuarios---*/

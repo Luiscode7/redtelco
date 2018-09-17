@@ -39,6 +39,17 @@ class Usuario extends CI_Controller {
         $this->load->view('plantilla/plantilla3', $contenido3);
     }
 
+    public function MuroUsuarios(){
+        $id = $this->session->userdata("id");
+        $contenido6 = array(
+            'titulo' => "Muro Usuarios", 
+            'contenido6' => "muroUsuarios",
+            'posteosUsu'=> $this->usu->mostrarMuroUsuarioGeneral(),
+            'fotoperfil' => $this->usu->ImagenPerfil($id)
+        );
+        $this->load->view('plantilla/plantilla6', $contenido6);
+    }
+
     public function postUsuario(){
         if($this->input->is_ajax_request()){
             $id_post_usu=$this->security->xss_clean(strip_tags($this->input->post("id_post_usuario")));
@@ -79,10 +90,6 @@ class Usuario extends CI_Controller {
             }
 
         }
-    }
-
-    public function imagenUpload(){
-
     }
 
     public function ComentariosUsu(){
