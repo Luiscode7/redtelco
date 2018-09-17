@@ -101,7 +101,7 @@ class UsuarioModel extends CI_Model{
       $this->db->from('comentarios_usuarios as com');
       $this->db->join('publicaciones_usuarios as p', 'p.id = com.com_id_usu', 'left');
       $this->db->where('p.id', $id);
-      $this->db->order_by('comments', 'DESC');
+      $this->db->order_by('com.id_com_usu', 'ASC');
       $res=$this->db->get();
       if($res->num_rows()>0){
         return $res->result_array();

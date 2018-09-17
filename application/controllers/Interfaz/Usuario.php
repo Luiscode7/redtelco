@@ -184,7 +184,7 @@ class Usuario extends CI_Controller {
         $contenido4 = array(
             'titulo' => "Edición de Perfil",
             'contenido4' => "editarUsuario",
-            'fotoperfil' => $this->usu->ImagenPerfil($id)
+            'fotoperfil' => $this->usu->ImagenPerfil($id),
             //'usuario' => $this->session->userdata("procesoLogin");
         );
         $this->load->view("plantilla/plantilla4", $contenido4);
@@ -217,7 +217,7 @@ class Usuario extends CI_Controller {
             );
 
             if($this->form_validation->run("EditarPerfil") == FALSE){
-                echo json_encode(array('res'=>"error", 'msg' => ERROR_MSG));exit;
+                echo json_encode(array('res'=>"error", 'msg' => strip_tags(validation_errors())));exit;
             }else{
                 if($this->usu->actualizarUsuario($id_usuario, $data_insert)){
                     $nuevo=$this->usu->mostrarUsuario($id_usuario);
@@ -225,8 +225,7 @@ class Usuario extends CI_Controller {
                 }else{
                     echo json_encode(array('res'=>"error", 'msg' => ERROR_MSG));exit;
                 }
-                
-            }
+            } 
         }
     }
 

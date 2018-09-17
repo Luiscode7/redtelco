@@ -116,7 +116,7 @@ $(function(){
                             var pd = $(formdata);
             
                             for(dato in data.datos){
-                                var coment = pd.append('<div id ="publicarusu" class="col p-0 pt-4 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/login1.png" alt=""></div><div><p id="commentsusu" class="mb-0">'+data.datos[dato].comentario_usu+'</p></div></div>');
+                                var coment = pd.append('<div id ="publicarusu" class="col p-0 pt-4 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/login1.png" alt=""></div><div><p id="commentsusu" class="container-publicom mb-0">'+data.datos[dato].comentario_usu+'</p></div></div>');
                             }
                             $(formdata)[0].reset();
                         }
@@ -149,7 +149,7 @@ $(function(){
                             console.log($(showmore));
                             for(dato in data.datos){
                                 var comentarios = data.datos[dato].comments;
-                                var showmore2 = showmore.append('<div class="col p-0 pt-1 muestra2 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/login1.png" alt=""></div><div><p id="commentusu">'+comentarios+'</p></div></div>');
+                                var showmore2 = showmore.append('<div class="col p-0 pt-3 muestra2 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/login1.png" alt=""></div><div><p id="commentusu" class="container-publicom mb-0">'+comentarios+'</p></div></div>');
                             }
                             $(".btn-showmoreusu").hide();
                         }
@@ -214,6 +214,18 @@ $(function(){
       $("#uploadimagen").trigger("click");
   });
 
+  $("#uploadimagen").change(function(){
+        $("#previewPublic").css("display", "block");
+        $(".cancelarimg").css("display", "inline");
+        imagenPreview(this);
+    });
+
+    $(".cancelarimg").click(function(){
+        $("#uploadimagen").val("");
+        $("#previewPublic").css("display", "none");
+        $(".cancelarimg").css("display", "none");
+    });
+
 });
 
 function Comments2(){
@@ -248,6 +260,19 @@ function Comments2(){
     });
 }
 
+function imagenPreview(input){
+    if(input.files && input.files[0]){
+        var reader = new FileReader();
+
+        reader.onload = function(e){
+            var imagen = '<img class="img-edit-perfil" src='+e.target.result+' />';
+            $("#previewPublic").html(imagen);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
 </script>
 <div class="container-central col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
     <?php echo form_open_multipart("postUsuario",array("id"=>"postUsuario","class"=>"postUsuario"))?>
@@ -261,9 +286,11 @@ function Comments2(){
             Encuesta
         </button>-->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Encuesta</button>
-        <input type="file" name="uploadimagen" id="uploadimagen" style="display:none">
+        <input type="file" name="uploadimagen" id="uploadimagen" hidden="hidden">
         <a href="#"><i class="fas fa-smile ml-4 mr-4"></i></a>
         <a id="imagen" href="#"><i class="far fa-image mr-4"></i></a>
+        <div id="previewPublic" class="mt-3 mb-3" style="display:none"></div>    
+        <span class="cancelarimg" role="button" style="display:none"><i class="fas fa-trash mr-2"></i>cancelar</span>
         <hr>
     </div> 
     <?php echo form_close();?> 

@@ -241,6 +241,12 @@ hr{
     display:block;
 }
 
+.container-publicom{
+    padding: 8px 10px 8px 10px;
+    border-radius: 2%;
+    background: #F2F2F2;
+}
+
 .ocultarImagenAn{
     display:none;
 }
@@ -276,6 +282,31 @@ hr{
     margin-bottom:6px;
 }
 
+.img-edit-perfil{
+    width: 200px;
+    height: 200px;
+}
+
+.btn-perfil.btn-perfil{
+    width: 200px;
+    height: 200px;;
+    background:#F2F2F2;
+    color:#585858;
+    font-weight: bold;
+    border: 3px dotted;
+}
+
+.btn-perfil:hover{
+
+}
+
+.cancelarimg{
+    background:#F2F2F2;
+    color:#585858;
+    border:1px solid #A4A4A4;
+    padding:5px;
+    cursor:pointer;
+}
 
 /*--- Media query menu navbar usuarios---*/
 @media (max-width:992px){
