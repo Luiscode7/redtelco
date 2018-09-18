@@ -29,6 +29,7 @@ class Anonimo extends CI_Controller {
             $id_post=$this->security->xss_clean(strip_tags($this->input->post("id_post")));
             $nombre=$this->security->xss_clean(strip_tags($this->input->post("nombre")));
             $contenido=$this->security->xss_clean(strip_tags($this->input->post("contenido")));
+            date_default_timezone_set("America/Santiago");
 
             $config = [
                 "upload_path" => "./assest/imagenes/subidas",
@@ -46,7 +47,8 @@ class Anonimo extends CI_Controller {
             $data_insert=array(
                 "nombre"=>$nombre,
                 "contenido"=>$contenido,
-                "imagenAnonimo"=>$imagen['upload_imagenan']['file_name']
+                "imagenAnonimo"=>$imagen['upload_imagenan']['file_name'],
+                "fecha" => date("Y-m-d G:i:s")
             );
 
             if($this->form_validation->run("postAnonimo") == FALSE){

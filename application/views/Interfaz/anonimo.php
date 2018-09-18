@@ -338,9 +338,20 @@ function Comments(){
     foreach($posteo as $post):
     ?>
     <div class="col container-post border-post">
-        <div class="perfil-post" id="post-p">
-            <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">
-            <span id="nombreP"><?php echo $post["nombre"]?></span>
+        <div class="row perfil-post" id="post-p">
+            <div class="col-1 pr-0">
+                <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">
+            </div>
+            <div class="col-11 pl-4">
+                <div class="row">
+                    <div class="col-12">
+                        <span id="nombreP"><?php echo $post["nombre"]?></span>
+                    </div>
+                    <div class="col-12">
+                        <span class="font-fecha"><?php echo $post["fecha"]?></span>
+                    </div>  
+                </div> 
+            </div>
         </div>
         <p id="p-post" class="p-post"><?php echo $post["contenido"]?></p>
         <img style="width:100%" src="<?php echo base_url();?>assest/imagenes/subidas/<?php echo $post["imagen"]?>" alt="">
