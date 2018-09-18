@@ -344,6 +344,11 @@ hr{
     
 }
 
+.font-fecha{
+    font-size: 0.8em;
+    color:#A4A4A4 !important;
+}
+
 
 /*--- Media query menu navbar usuarios---*/
 @media (max-width:992px){

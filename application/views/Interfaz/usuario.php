@@ -318,13 +318,26 @@ function imagenPreview(input){
     <?php if(!empty($posteos_usu)): ?>
         <?php foreach($posteos_usu as $usu): ?>
             <div class="col container-post border-post">
-                <div class="perfil-post">
+                <div class="row perfil-post">
                 <?php if(empty($usu["foto"])):?>
-                    <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
-                <?php else: ?>
-                    <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $usu["foto"]?>" alt="">
-                <?php endif ?>
-                    <span class="text-negrilla"><?php echo $usu["nombre"]?></span>
+                <div class="col-1 pr-0">
+                    <img class="perfil" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
+                </div>
+                <?php else: ?>      
+                <div class="col-1 pr-0">
+                    <img class="perfil" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $usu["foto"]?>" alt="">
+                </div>
+                <?php endif ?>  
+                <div class="col-11 pl-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="text-negrilla"><?php echo $usu["nombre"]?></span>
+                        </div>
+                        <div class="col-12">
+                            <span class="font-fecha"><?php echo $usu["fecha"]?></span>
+                        </div>
+                    </div>
+                </div>
                 </div>
                 <p class="p-post"><?php echo $usu["contenido"]?></p>
                 <img style="width:100%" src="<?php echo base_url();?>assest/imagenes/subidas/<?php echo $usu["imagen"]?>" alt="">
@@ -337,7 +350,7 @@ function imagenPreview(input){
                         <?php echo form_close();?>
                         <?php echo form_open_multipart("NomeGustaUsu",array("id"=>"NomeGustaUsu","class"=>"NomeGustaUsu"))?>
                             <?php $id_public=$usu["id"]; $clave = $this->encryption->encrypt($id_public);?>
-                            <input type="hidden" name="id_usuarionomg" id="id_usuarionomg" value="<?php echo $clave?>"> 
+                            <input type="hidden" name="id_publinomg" id="id_publinomg" value="<?php echo $clave?>"> 
                             <button type="submit" class="btn btn-secondary form-control">No me gusta</button>
                         <?php echo form_close();?>
                         <button type="submit" class="btn btn-secondary form-control btn-commentusu1">Comentar</button>

@@ -67,7 +67,7 @@ class UsuarioModel extends CI_Model{
 
     public function mostrarMuroUsuario($id){
       $query=$this->db->query("SELECT p.id as id, p.id_usuario as usuario, p.contenido as contenido,
-       p.imagen as imagen, CONCAT(usu.nombre, ' ' ,usu.apellidos) as 'nombre', usu.foto_perfil as foto,
+       p.imagen as imagen, p.fecha as fecha, CONCAT(usu.nombre, ' ' ,usu.apellidos) as 'nombre', usu.foto_perfil as foto,
        (SELECT COUNT(*) FROM me_gusta_usuarios mg WHERE mg.mg_id_usu = p.id) as mgustas,
        (SELECT COUNT(*) FROM no_me_gusta_usuarios ng WHERE ng.nmg_id_usu = p.id) as nmgustas
        FROM publicaciones_usuarios as p JOIN usuarios usu ON p.id_usuario=usu.id WHERE p.id_usuario = $id ORDER BY id DESC");
@@ -76,7 +76,7 @@ class UsuarioModel extends CI_Model{
 
     public function mostrarMuroUsuarioGeneral(){
       $query=$this->db->query("SELECT p.id as id, p.id_usuario as usuario, p.contenido as contenido,
-       p.imagen as imagen, CONCAT(usu.nombre, ' ' ,usu.apellidos) as 'nombre', usu.foto_perfil as foto,
+       p.imagen as imagen, p.fecha as fecha, CONCAT(usu.nombre, ' ' ,usu.apellidos) as 'nombre', usu.foto_perfil as foto,
        (SELECT COUNT(*) FROM me_gusta_usuarios mg WHERE mg.mg_id_usu = p.id) as mgustas,
        (SELECT COUNT(*) FROM no_me_gusta_usuarios ng WHERE ng.nmg_id_usu = p.id) as nmgustas
        FROM publicaciones_usuarios as p JOIN usuarios usu ON p.id_usuario=usu.id ORDER BY id DESC");
@@ -97,10 +97,10 @@ class UsuarioModel extends CI_Model{
       $this->db->select("com.comentario_usu as comentario, usu.foto_perfil as foto, CONCAT(nombre, ' ' , apellidos) as 'nombre'");
       $this->db->from('comentarios_usuarios as com');
       $this->db->join('publicaciones_usuarios as p', 'p.id = com.com_id_usu', 'left');
-      $this->db->join('usuarios as usu', 'usu.id = p.id_usuario', 'left');
+      $this->db->join('usuarios as usu', 'usu.id = com.id_usuario_com', 'left');
       $this->db->where('com.id_com_usu', $id);
       $this->db->where('com.com_id_usu', $idpubli);
-      $this->db->where('p.id_usuario', $id_usu);
+      $this->db->where('com.id_usuario_com', $id_usu);
       $res = $this->db->get();
       if($res->num_rows()>0){
         return $res->result_array();
@@ -108,14 +108,12 @@ class UsuarioModel extends CI_Model{
       return FALSE;
     }
 
-
-    public function mostrarComPublicadosUsu($id,$idusu){
+    public function mostrarComPublicadosUsu($id_pu){
       $this->db->select("com.comentario_usu as comments, usu.foto_perfil as foto, CONCAT(nombre, ' ' , apellidos) as 'nombre'");
       $this->db->from('comentarios_usuarios as com');
       $this->db->join('publicaciones_usuarios as p', 'p.id = com.com_id_usu', 'left');
-      $this->db->join('usuarios as usu', 'usu.id = p.id_usuario', 'left');
-      $this->db->where('p.id', $id);
-      $this->db->where('p.id_usuario', $idusu);
+      $this->db->join('usuarios as usu', 'usu.id = com.id_usuario_com', 'left');
+      $this->db->where('p.id', $id_pu);
       $this->db->order_by('com.id_com_usu', 'ASC');
       $res=$this->db->get();
       if($res->num_rows()>0){
@@ -132,10 +130,10 @@ class UsuarioModel extends CI_Model{
       
     }
 
-    public function verificarIpmgUsu($ip,$idpu){
+    public function verificarIpmgUsu($idpu,$id_usu){
       $this->db->select('mg_ip_usu');
-      $this->db->where('mg_ip_usu', $ip);
       $this->db->where('mg_id_usu', $idpu);
+      $this->db->where('id_usuario_mg', $id_usu);
       $res=$this->db->get('me_gusta_usuarios');
       if($res->num_rows()>0){
         return $res->row_array();
@@ -145,17 +143,16 @@ class UsuarioModel extends CI_Model{
 
     public function mostrarNoMgUsu($id){
       $this->db->select('id_nmg_usu');
-      $this->db->from('no_me_gusta_usuarios');
       $this->db->where('nmg_id_usu', $id);
-      $res=$this->db->count_all_results();
+      $res=$this->db->count_all_results('no_me_gusta_usuarios');
       return $res;
       
     }
 
-    public function verificarIpnmgUsu($ip,$idpu){
+    public function verificarIpnmgUsu($idpu,$id_usu){
       $this->db->select('nmg_ip');
-      $this->db->where('nmg_ip', $ip);
       $this->db->where('nmg_id_usu', $idpu);
+      $this->db->where('id_usuario_nmg', $id_usu);
       $res=$this->db->get('no_me_gusta_usuarios');
       if($res->num_rows()>0){
         return $res->row_array();

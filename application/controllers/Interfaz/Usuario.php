@@ -57,6 +57,7 @@ class Usuario extends CI_Controller {
             $id_usu=$this->encryption->decrypt($usuario);
             $contenido_usuario=$this->security->xss_clean(strip_tags($this->input->post("contenido_usuario")));
             $contenido_usuario=$this->security->xss_clean(strip_tags($this->input->post("contenido_usuario")));
+            date_default_timezone_set("America/Santiago");
 
             $config = [
                 "upload_path" => "./assest/imagenes/subidas",
@@ -74,7 +75,8 @@ class Usuario extends CI_Controller {
             $data_insert=array(
                 "id_usuario"=>$id_usu,
                 "contenido"=>$contenido_usuario,
-                "imagen"=>$imagen['upload_imagen']['file_name']
+                "imagen"=>$imagen['upload_imagen']['file_name'],
+                "fecha" => date("Y-m-d G:i:s")
             );
 
             if($this->form_validation->run("postUsuario") == FALSE){
@@ -102,6 +104,7 @@ class Usuario extends CI_Controller {
 
                 $datos_insert = array(
                     "com_id_usu" => $id_pusu,
+                    "id_usuario_com" => $id_usu,
                     "comentario_usu" => $comentario
                 );
 
@@ -125,7 +128,7 @@ class Usuario extends CI_Controller {
         $id_pu=$this->encryption->decrypt($id_publicacion);
         $id_usu=$this->session->userdata("id");
         
-        $data=$this->usu->mostrarComPublicadosUsu($id_pu,$id_usu);
+        $data=$this->usu->mostrarComPublicadosUsu($id_pu);
         if($data){
             echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
         }else{
@@ -137,19 +140,21 @@ class Usuario extends CI_Controller {
     public function meGustaUsu(){
         if($this->input->is_ajax_request()){
             $id_publi=$this->security->xss_clean(strip_tags($this->input->post("id_publimg")));
-            $id_usu=$this->encryption->decrypt($id_publi);
+            $id_pub=$this->encryption->decrypt($id_publi);
+            $id_usu=$this->session->userdata("id");
             $ip = $this->input->ip_address();
 
             $datos_insert = array(
-                "mg_id_usu" => $id_usu,
+                "mg_id_usu" => $id_pub,
+                "id_usuario_mg" =>  $id_usu,
                 "mg_ip_usu" => $ip
             );
 
-            $veripmg = $this->usu->verificarIpmgUsu($ip,$id_usu);
-            $veripnmg = $this->usu->verificarIpnmgUsu($ip,$id_usu);
-            if($veripmg == false && $veripnmg == false){
+            $verusumg = $this->usu->verificarIpmgUsu($id_pub,$id_usu);
+            $verusunmg = $this->usu->verificarIpnmgUsu($id_pub,$id_usu);
+            if($verusumg == false && $verusunmg == false){
                 if($this->usu->insertarMeGusta($datos_insert)){
-                    $data=$this->usu->mostrarMgUsu($id_usu);
+                    $data=$this->usu->mostrarMgUsu($id_pub);
                     echo json_encode(array('res' => "ok",'datos' => $data));
                 }else{
                     echo json_encode(array('res'=>"error"));exit;
@@ -163,20 +168,22 @@ class Usuario extends CI_Controller {
 
     public function NomeGustaUsu(){
         if($this->input->is_ajax_request()){
-            $id_usuario=$this->security->xss_clean(strip_tags($this->input->post("id_usuarionomg")));
-            $id_usu=$this->encryption->decrypt($id_usuario);
+            $id_public=$this->security->xss_clean(strip_tags($this->input->post("id_publinomg")));
+            $id_pu=$this->encryption->decrypt($id_public);
+            $id_usu=$this->session->userdata("id");
             $ip = $this->input->ip_address();
 
             $datos_insert = array(
-                "nmg_id_usu" => $id_usu,
+                "nmg_id_usu" => $id_pu,
+                "id_usuario_nmg" => $id_usu,
                 "nmg_ip" => $ip
             );
 
-            $veripmg = $this->usu->verificarIpmgUsu($ip,$id_usu);
-            $veripnmg = $this->usu->verificarIpnmgUsu($ip,$id_usu);
-            if($veripnmg == false && $veripmg == false){
+            $verusunmg = $this->usu->verificarIpnmgUsu($id_pu,$id_usu);
+            $verusumg = $this->usu->verificarIpmgUsu($id_pu,$id_usu);
+            if($verusunmg == false && $verusumg == false){
                 if($this->usu->insertarNoMeGusta($datos_insert)){
-                    $data=$this->usu->mostrarNoMgUsu($id_usu);
+                    $data=$this->usu->mostrarNoMgUsu($id_pu);
                     echo json_encode(array('res' => "ok", 'datos' => $data));
                 }else{
                     echo json_encode(array('res'=>"error"));exit;
