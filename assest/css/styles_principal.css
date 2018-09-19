@@ -349,6 +349,26 @@ hr{
     color:#A4A4A4 !important;
 }
 
+.boton-drop-elimi{
+    padding: 0px 8px 2px 8px;
+    border-radius: 50%;
+    border:none;
+    box-shadow: none !important;
+}
+
+.link-drop-elimi{
+    padding-left:0;
+    padding-right:0;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.menu-eliminar{
+    margin-top: 0;
+    padding:0;
+    transform: translate3d(-140px, 27px, 0px) !important;
+}
+
 
 /*--- Media query menu navbar usuarios---*/
 @media (max-width:992px){

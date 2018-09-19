@@ -328,13 +328,23 @@ function imagenPreview(input){
                     <img class="perfil" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $usu["foto"]?>" alt="">
                 </div>
                 <?php endif ?>  
-                <div class="col-11 pl-4">
+                <div class="col-10 pl-4">
                     <div class="row">
                         <div class="col-12">
                             <span class="text-negrilla"><?php echo $usu["nombre"]?></span>
                         </div>
                         <div class="col-12">
                             <span class="font-fecha"><?php echo $usu["fecha"]?></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1 pr-0">
+                    <div class="dropdown">
+                        <button class="btn boton-drop-elimi dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            x
+                        </button>
+                        <div class="dropdown-menu menu-eliminar" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item link-drop-elimi" href="#">Eliminar Publicaci&oacute;n</a>
                         </div>
                     </div>
                 </div>
