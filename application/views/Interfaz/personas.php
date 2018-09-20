@@ -32,6 +32,9 @@
 });*/
 </script>
 <div class="container-central col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+    <div class="pl-0 mb-4">
+        <h5>Usuarios de Redtelco</h5>
+    </div>
     <?php if(!empty($usuarios)):?>
         <?php foreach($usuarios as $per):?>
                 <div class="row container-mostrarper d-flex align-items-center">

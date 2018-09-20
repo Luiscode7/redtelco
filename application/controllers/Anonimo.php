@@ -7,6 +7,7 @@ class Anonimo extends CI_Controller {
 		parent::__construct();
         
         $this->load->model("anonimo/anonimomodel", "an");
+        $this->load->model("usuario/usuariomodel", "usu");
     }
     
 	public function index()
@@ -21,6 +22,15 @@ class Anonimo extends CI_Controller {
             'countComentarios' => $this->an->cantidadComentarios()
         );
         $this->load->view('plantilla/plantilla', $contenido);
+    }
+
+    public function mostrarUsuariosAno(){
+        $contenido8 = array(
+            'titulo' => "Usuarios",
+            'contenido8' => "personas",
+            'usuarios' => $this->usu->mostrarUsuarios()
+        );
+        $this->load->view("plantilla/plantilla8", $contenido8);
     }
 
 

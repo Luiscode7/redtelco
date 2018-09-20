@@ -68,19 +68,19 @@ class Usuario extends CI_Controller {
             $usuario=$this->security->xss_clean(strip_tags($this->input->post("id_usuario")));
             $id_usu=$this->encryption->decrypt($usuario);
             $contenido_usuario=$this->security->xss_clean(strip_tags($this->input->post("contenido_usuario")));
-            $contenido_usuario=$this->security->xss_clean(strip_tags($this->input->post("contenido_usuario")));
             date_default_timezone_set("America/Santiago");
 
             $config = [
-                "upload_path" => "./assest/imagenes/subidas",
+                "upload_path" => "./assets/imagenes/subidas",
                 "allowed_types" => "png|jpg|jpeg|gif"
             ];
-            $this->load->library("upload", $config);
 
+            $this->load->library("upload", $config);
+            
             $this->upload->do_upload('uploadimagen');
 
             if(!$config["allowed_types"]){
-                echo json_encode(array('res'=>"error", 'msg' => "Solo se aceptan imagenes png, jpg, jpeg y gif"));exit;
+                echo json_encode(array('res'=>"error", 'msg' => "Formato de imagen no válido"));exit;
             }
 
             $imagen = array("upload_imagen" => $this->upload->data());
@@ -91,12 +91,13 @@ class Usuario extends CI_Controller {
                 "fecha" => date("Y-m-d G:i:s")
             );
 
+
             if($this->form_validation->run("postUsuario") == FALSE){
                 echo json_encode(array('res'=>"error", 'msg' => strip_tags(validation_errors())));exit;
             }else{
                 if($id_post_usu ==""){
-                    if($this->usu->InsertarPostUsuario($data_insert)){
-                        echo json_encode(array('res'=>"ok", 'msg' => "publicacion realizada con éxito"));exit;
+                    if($data=$this->usu->InsertarPostUsuario($data_insert)){
+                        echo json_encode(array('res'=>"ok", 'msg' => "publicacion realizada con éxito"));
                     }else{
                         echo json_encode(array('res'=>"error", 'msg' => "No se ha podido publicar"));exit;
                     }
@@ -113,7 +114,7 @@ class Usuario extends CI_Controller {
             $imagen=$this->usu->mostrarImagenPost($id_pu);
 
             if($data=$this->usu->eliminarPublicacion($id_pu)){
-                unlink("./assest/imagenes/subidas/".$imagen);
+                unlink("./assets/imagenes/subidas/".$imagen);
                 echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
             }else{
                 echo json_encode(array('res'=>"error", 'datos' => $data));exit;
@@ -257,7 +258,7 @@ class Usuario extends CI_Controller {
             $apellidos=$this->security->xss_clean(strip_tags($this->input->post("apellidos")));
 
             $config = [
-                "upload_path" => "./assest/imagenes/perfil",
+                "upload_path" => "./assets/imagenes/perfil",
                 "allowed_types" => "png|jpg|jpeg"
             ];
             $this->load->library("upload", $config);

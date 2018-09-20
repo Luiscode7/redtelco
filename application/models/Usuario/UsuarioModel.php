@@ -46,6 +46,14 @@ class UsuarioModel extends CI_Model{
 			return FALSE;
     }
 
+    public function insertarArchivo($datos){
+      if($this->db->insert('archivos_usuarios',$datos)){
+        $insert_id = $this->db->insert_id();
+				return $insert_id;
+			}
+			return FALSE;
+    }
+
     public function insertarOpcionesEncu($datos){
       if($this->db->insert_batch('opciones_encuesta',$datos)){
         $insert_id = $this->db->insert_id();

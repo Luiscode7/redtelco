@@ -20,9 +20,9 @@ $(function(){
         <div class="aside-1">
             <div class="col" style="padding:0">
             <?php if(empty($fotoperfil)):?>
-                <img class="img-perfil-grande" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
+                <img class="img-perfil-grande" src="<?php echo base_url()?>assets/imagenes/user.png" alt="">
             <?php else:?>
-                <img class="img-perfil-grande" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $fotoperfil;?>" alt="">
+                <img class="img-perfil-grande" src="<?php echo base_url()?>assets/imagenes/perfil/<?php echo $fotoperfil;?>" alt="">
             <?php endif?>
             </div>
             <div class="col" style="padding:0">

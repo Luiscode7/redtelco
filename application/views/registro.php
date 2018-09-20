@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?php echo $titulo?></title>
-    <script src="<?php echo base_url();?>assest/js/popper.min.js"></script>
-    <script src="<?php echo base_url();?>assest/js/jquery-3.3.1.min.js"></script>
-    <script src="<?php echo base_url();?>assest/js/bootstrap.min.js"></script>
-    <script defer src="<?php echo base_url();?>assest/js/all.js"></script>
-    <!--<link rel="stylesheet" href="<?php echo base_url();?>assest/css/loader.css" >-->
-    <link rel="stylesheet" href="<?php echo base_url();?>assest/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>assest/css/normalize.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>assest/css/styles_principal.css">
+    <script src="<?php echo base_url();?>assets/js/popper.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/jquery-3.3.1.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
+    <script defer src="<?php echo base_url();?>assets/js/all.js"></script>
+    <!--<link rel="stylesheet" href="<?php echo base_url();?>assets/css/loader.css" >-->
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/normalize.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/styles_principal.css">
 <style>
     body{
         /*background-image: linear-gradient(
@@ -142,10 +142,10 @@ $(function(){
     </div>
     
     
-    <script src="<?php echo base_url();?>assest/js/popper.min.js"></script>
-    <script src="<?php echo base_url();?>assest/js/jquery-3.3.1.min.js"></script>
-    <script src="<?php echo base_url();?>assest/js/notify.min.js"></script>
-    <script src="<?php echo base_url();?>assest/js/bootstrap.min.js"></script>
-    <script defer src="<?php echo base_url();?>assest/js/all.js"></script>
+    <script src="<?php echo base_url();?>assets/js/popper.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/jquery-3.3.1.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/notify.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
+    <script defer src="<?php echo base_url();?>assets/js/all.js"></script>
 </body>
 </html>

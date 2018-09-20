@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?php echo $titulo?></title>
-    <script src="<?php echo base_url();?>assest/js/jquery-3.3.1.min.js"></script>
-    <script defer src="<?php echo base_url();?>assest/js/all.js"></script>
-    <link rel="stylesheet" href="<?php echo base_url();?>assest/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>assest/css/datatables.min.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>assest/css/normalize.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>assest/css/styles_principal.css">
+    <script src="<?php echo base_url();?>assets/js/jquery-3.3.1.min.js"></script>
+    <script defer src="<?php echo base_url();?>assets/js/all.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/datatables.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/normalize.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/styles_principal.css">
 </head>
 <script type="text/javascript">
 $(function(){
@@ -111,9 +111,9 @@ $(function(){
                   <li class="nav-item ml-auto col-3" id="perfil-usuario" style="padding-left:0 !important;padding-right:0 !important;">
                     <a class="link-usuario" role="button" href="usuario">
                     <?php if(empty($fotoperfil)):?>
-                      <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
+                      <img class="perfil mr-2" src="<?php echo base_url()?>assets/imagenes/user.png" alt="">
                     <?php else:?>
-                      <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $fotoperfil;?>" alt="">
+                      <img class="perfil mr-2" src="<?php echo base_url()?>assets/imagenes/perfil/<?php echo $fotoperfil;?>" alt="">
                     <?php endif?>
                         <span><?php echo $this->session->userdata("nombre")?></span>
                     </a>

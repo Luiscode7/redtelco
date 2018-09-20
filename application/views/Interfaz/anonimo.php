@@ -93,7 +93,7 @@ $(function(){
                             
                             var html = '<div class="col container-post border-post">'
                                 + '<div class="perfil-post">'
-                                + '<img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">'
+                                + '<img class="perfil mr-2" src="<?php echo base_url()?>assets/imagenes/login1.png" alt="">'
                                 + '<span id="nombreP">'+data.datos[datito].nombre+'</span>'
                                 + '</div>'
                                 + '<p id="p-post" class="p-post">'+data.datos[datito].contenido+'</p>'    
@@ -223,7 +223,7 @@ $(function(){
                             var pd = $(formdata);
             
                             for(dato in data.datos){
-                                var coment = pd.append('<div id ="publicar" class="col p-0 pt-4 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/login1.png" alt=""></div><div><p id="comments" class="mb-0">'+data.datos[dato].comentario+'</p></div></div>');
+                                var coment = pd.append('<div id ="publicar" class="col p-0 pt-4 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assets/imagenes/login1.png" alt=""></div><div><p id="comments" class="mb-0">'+data.datos[dato].comentario+'</p></div></div>');
                             }
                             $(formdata)[0].reset();
                             console.log(nomostrarmsj3);
@@ -256,7 +256,7 @@ $(function(){
                             
                             for(dato in data.datos){
                                 var comentarios = data.datos[dato].comments;
-                                var showmore2 = showmore.append('<div class="col p-0 pt-1 muestra d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/login1.png" alt=""></div><div><p id="comment">'+comentarios+'</p></div></div>');
+                                var showmore2 = showmore.append('<div class="col p-0 pt-1 muestra d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assets/imagenes/login1.png" alt=""></div><div><p id="comment">'+comentarios+'</p></div></div>');
                             }
                             $(".btn-showmore").hide();
                         }
@@ -279,6 +279,19 @@ $(function(){
         $("#imagenan").click(function(){
             $("#uploadimagenan").trigger("click");
         });
+
+        $("#uploadimagenan").change(function(){
+        $("#previewPublicano").css("display", "block");
+        $(".cancelarimg").css("display", "inline");
+        imagenPreview(this);
+        });
+
+        $(".cancelarimg").click(function(){
+            $("#uploadimagenan").val("");
+            $("#previewPublicano").css("display", "none");
+            $(".cancelarimg").css("display", "none");
+        });
+
 
         Comments();
         
@@ -315,6 +328,19 @@ function Comments(){
     });
 }
 
+function imagenPreview(input){
+    if(input.files && input.files[0]){
+        var reader = new FileReader();
+
+        reader.onload = function(e){
+            var imagen = '<img class="img-edit-perfil" src='+e.target.result+' />';
+            $("#previewPublicano").html(imagen);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
 </script>
 
 <!-- Muro -->
@@ -328,6 +354,8 @@ function Comments(){
         <input type="file" name="uploadimagenan" id="uploadimagenan" style="display:none">
         <a href="#" id="emojiusu" class="ocultarImagenAn"><i class="fas fa-smile ml-4 mr-4"></i></a>
         <a id="imagenan" href="#" class="ocultarImagenAn"><i class="far fa-image mr-4"></i></a>
+        <div id="previewPublicano" class="mt-3 mb-3" style="display:none"></div>    
+        <span class="cancelarimg" role="button" style="display:none"><i class="fas fa-trash mr-2"></i>cancelar</span>
         <hr>
     </div> 
     <?php echo form_close();?>
@@ -340,7 +368,7 @@ function Comments(){
     <div class="col container-post border-post">
         <div class="row perfil-post" id="post-p">
             <div class="col-1 pr-0">
-                <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/login1.png" alt="">
+                <img class="perfil mr-2" src="<?php echo base_url()?>assets/imagenes/login1.png" alt="">
             </div>
             <div class="col-11 pl-4">
                 <div class="row">
@@ -354,7 +382,7 @@ function Comments(){
             </div>
         </div>
         <p id="p-post" class="p-post"><?php echo $post["contenido"]?></p>
-        <img style="width:100%" src="<?php echo base_url();?>assest/imagenes/subidas/<?php echo $post["imagen"]?>" alt="">
+        <img style="width:100%" src="<?php echo base_url();?>assets/imagenes/subidas/<?php echo $post["imagen"]?>" alt="">
         <div class="row">
                 <div class="padre col-md-10 col-lg-6 block-comment container-button-post d-flex justify-content-start">
                     <?php echo form_open_multipart("meGusta",array("id"=>"meGusta","class"=>"meGusta"))?>

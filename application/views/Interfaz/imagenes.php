@@ -41,7 +41,7 @@ $(function(){
                             <button class="dropdown-item link-drop-elimi btn-eliminar" type="submit">Eliminar Foto</button>
                         </div>
                     </div>
-                    <img class="img-seccion" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $per["fotop"]?>" alt="">
+                    <img class="img-seccion" src="<?php echo base_url()?>assets/imagenes/perfil/<?php echo $per["fotop"]?>" alt="">
                 </div>
             <?php endforeach?>
             </div>
@@ -64,7 +64,7 @@ $(function(){
                         <button class="dropdown-item link-drop-elimi btn-eliminarImg" type="submit">Eliminar Foto</button>
                     </div>
                 </div>-->
-                <img class="img-seccion" src="<?php echo base_url()?>assest/imagenes/subidas/<?php echo $post["imagen"]?>" alt="">
+                <img class="img-seccion" src="<?php echo base_url()?>assets/imagenes/subidas/<?php echo $post["imagen"]?>" alt="">
             </div>
         <?php endforeach?>
         </div>

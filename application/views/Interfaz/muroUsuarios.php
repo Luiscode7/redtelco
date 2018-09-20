@@ -119,7 +119,7 @@ $(function(){
                                 var comentario = data.datos[dato].comentario;
                                 var nombre = data.datos[dato].nombre;
                                 var fotoperfil = data.datos[dato].foto;
-                                var coment = pd.append('<div id ="publicarusu" class="col p-0 pt-4 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/perfil/'+fotoperfil+'" alt=""></div><div class="container-publicom"><div class="text-negrilla">'+nombre+'</div><p id="commentsusu" class="container-publicom mb-0">'+" "+''+comentario+'</p></div></div>');
+                                var coment = pd.append('<div id ="publicarusu" class="col p-0 pt-4 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assets/imagenes/perfil/'+fotoperfil+'" alt=""></div><div class="container-publicom"><div class="text-negrilla">'+nombre+'</div><p id="commentsusu" class="container-publicom mb-0">'+" "+''+comentario+'</p></div></div>');
                             }
                             $(formdata)[0].reset();
                         }
@@ -153,7 +153,7 @@ $(function(){
                                 var comentarios = data.datos[dato].comments;
                                 var fotoperfil = data.datos[dato].foto;
                                 var nombre = data.datos[dato].nombre;
-                                var showmore2 = showmore.append('<div class="col p-0 pt-3 muestra2 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/perfil/'+fotoperfil+'" alt=""></div><div class="container-publicom"><div class="text-negrilla">'+nombre+'</div><p id="commentusu" class="mb-0">'+" "+''+comentarios+'</p></div></div>');
+                                var showmore2 = showmore.append('<div class="col p-0 pt-3 muestra2 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assets/imagenes/perfil/'+fotoperfil+'" alt=""></div><div class="container-publicom"><div class="text-negrilla">'+nombre+'</div><p id="commentusu" class="mb-0">'+" "+''+comentarios+'</p></div></div>');
                             }
                             $(".btn-showmoreusu").hide();
                         }
@@ -304,7 +304,7 @@ function imagenPreview(input){
     <?php foreach($encuesta as $en): ?>
         <div class="col container-post border-post">
             <!--<div class="perfil-post">
-                <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $en["foto"]?>" alt="">
+                <img class="perfil mr-2" src="<?php echo base_url()?>assets/imagenes/perfil/<?php echo $en["foto"]?>" alt="">
                 <span><?php echo $en["nombre"]?></span>
             </div>-->
             <p class="p-post"><?php echo $en["titulo"]?></p>
@@ -321,11 +321,11 @@ function imagenPreview(input){
             <div class="row perfil-post">
                 <?php if(empty($usu["foto"])):?>
                 <div class="col-1 pr-0">
-                    <img class="perfil" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
+                    <img class="perfil" src="<?php echo base_url()?>assets/imagenes/user.png" alt="">
                 </div>
                 <?php else: ?>      
                 <div class="col-1 pr-0">
-                    <img class="perfil" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $usu["foto"]?>" alt="">
+                    <img class="perfil" src="<?php echo base_url()?>assets/imagenes/perfil/<?php echo $usu["foto"]?>" alt="">
                 </div>
                 <?php endif ?>  
                 <div class="col-11 pl-4">
@@ -340,7 +340,7 @@ function imagenPreview(input){
                 </div>
                 </div>
                 <p class="p-post"><?php echo $usu["contenido"]?></p>
-                <img style="width:100%" src="<?php echo base_url();?>assest/imagenes/subidas/<?php echo $usu["imagen"]?>" alt="">
+                <img style="width:100%" src="<?php echo base_url();?>assets/imagenes/subidas/<?php echo $usu["imagen"]?>" alt="">
                 <div class="row">
                     <div class="col-6 container-button-post d-flex justify-content-start">
                         <?php echo form_open_multipart("meGustaUsu",array("id"=>"meGustaUsu","class"=>"meGustaUsu"))?>

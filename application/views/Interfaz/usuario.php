@@ -119,7 +119,7 @@ $(function(){
                                 var comentario = data.datos[dato].comentario;
                                 var nombre = data.datos[dato].nombre;
                                 var fotoperfil = data.datos[dato].foto;
-                                var coment = pd.append('<div id ="publicarusu" class="col p-0 pt-4 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/perfil/'+fotoperfil+'" alt=""></div><div class="container-publicom"><div class="text-negrilla">'+nombre+'</div><p id="commentsusu" class="container-publicom mb-0">'+" "+''+comentario+'</p></div></div>');
+                                var coment = pd.append('<div id ="publicarusu" class="col p-0 pt-4 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assets/imagenes/perfil/'+fotoperfil+'" alt=""></div><div class="container-publicom"><div class="text-negrilla">'+nombre+'</div><p id="commentsusu" class="container-publicom mb-0">'+" "+''+comentario+'</p></div></div>');
                             }
                             $(formdata)[0].reset();
                         }
@@ -153,7 +153,7 @@ $(function(){
                                 var comentarios = data.datos[dato].comments;
                                 var fotoperfil = data.datos[dato].foto;
                                 var nombre = data.datos[dato].nombre;
-                                var showmore2 = showmore.append('<div class="col p-0 pt-3 muestra2 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assest/imagenes/perfil/'+fotoperfil+'" alt=""></div><div class="container-publicom"><div class="text-negrilla">'+nombre+'</div><p id="commentusu" class="mb-0">'+" "+''+comentarios+'</p></div></div>');
+                                var showmore2 = showmore.append('<div class="col p-0 pt-3 muestra2 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assets/imagenes/perfil/'+fotoperfil+'" alt=""></div><div class="container-publicom"><div class="text-negrilla">'+nombre+'</div><p id="commentusu" class="mb-0">'+" "+''+comentarios+'</p></div></div>');
                             }
                             $(".btn-showmoreusu").hide();
                         }
@@ -204,12 +204,16 @@ $(function(){
         $(document).on('submit', '.eliminarPost', function(event){
             var url = "<?php echo base_url();?>";
             var formdelete = $(this);
+            /*var formElement = document.querySelector(".eliminarPost");
+            var formData = new FormData(formElement);*/
                 $.ajax({
                 url: $(".eliminarPost").attr('action')+"?"+$.now(),
                 type:"POST",
                 dataType: "json",
                 data:formdelete.serialize(),
+                //cache: false,
                 processData:false,
+                //contentType : false,
                 success:function(data){
                         if(data.res == "ok"){
                             console.log(data);
@@ -238,6 +242,10 @@ $(function(){
   /*--- FUNCION PARA UTILIZAR LINK COMO INPUT FILE ---*/
   $("#imagen").click(function(){
       $("#uploadimagen").trigger("click");
+  });
+
+  $("#archivo").click(function(){
+      $("#uploadarchivo").trigger("click");
   });
 
   $("#uploadimagen").change(function(){
@@ -313,8 +321,10 @@ function imagenPreview(input){
         </button>-->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Encuesta</button>
         <input type="file" name="uploadimagen" id="uploadimagen" hidden="hidden">
+        <input type="file" name="uploadarchivo" id="uploadarchivo" hidden="hidden">
         <a href="#"><i class="fas fa-smile ml-4 mr-4"></i></a>
         <a id="imagen" href="#"><i class="far fa-image mr-4"></i></a>
+        <a id="archivo" href="#"><i class="fas fa-file-upload"></i></a>
         <div id="previewPublic" class="mt-3 mb-3" style="display:none"></div>    
         <span class="cancelarimg" role="button" style="display:none"><i class="fas fa-trash mr-2"></i>cancelar</span>
         <hr>
@@ -326,7 +336,7 @@ function imagenPreview(input){
     <?php foreach($encuesta as $en): ?>
         <div class="col container-post border-post">
             <!--<div class="perfil-post">
-                <img class="perfil mr-2" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $en["foto"]?>" alt="">
+                <img class="perfil mr-2" src="<?php echo base_url()?>assets/imagenes/perfil/<?php echo $en["foto"]?>" alt="">
                 <span><?php echo $en["nombre"]?></span>
             </div>-->
             <p class="p-post"><?php echo $en["titulo"]?></p>
@@ -343,11 +353,11 @@ function imagenPreview(input){
                 <div class="row perfil-post">
                 <?php if(empty($usu["foto"])):?>
                 <div class="col-1 pr-0">
-                    <img class="perfil" src="<?php echo base_url()?>assest/imagenes/user.png" alt="">
+                    <img class="perfil" src="<?php echo base_url()?>assets/imagenes/user.png" alt="">
                 </div>
                 <?php else: ?>      
                 <div class="col-1 pr-0">
-                    <img class="perfil" src="<?php echo base_url()?>assest/imagenes/perfil/<?php echo $usu["foto"]?>" alt="">
+                    <img class="perfil" src="<?php echo base_url()?>assets/imagenes/perfil/<?php echo $usu["foto"]?>" alt="">
                 </div>
                 <?php endif ?>  
                 <div class="col-10 pl-4">
@@ -365,10 +375,10 @@ function imagenPreview(input){
                 <?php $id_pub=$usu["id"]; $clave = $this->encryption->encrypt($id_pub);?>
                 <input type="hidden" name="id_pu" value="<?php echo $clave?>">
                     <div class="dropdown">
-                        <button class="btn boton-drop-elimi dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn boton-drop-elimi dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             x
                         </button>
-                        <div class="dropdown-menu menu-eliminar" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-menu menu-eliminar" aria-labelledby="dropdownMenuButton3">
                             <button class="dropdown-item link-drop-elimi btn-eliminar" type="submit">Eliminar Publicaci&oacute;n</button>
                         </div>
                     </div>
@@ -376,7 +386,7 @@ function imagenPreview(input){
                 </div>
                 </div>
                 <p class="p-post"><?php echo $usu["contenido"]?></p>
-                <img style="width:100%" src="<?php echo base_url();?>assest/imagenes/subidas/<?php echo $usu["imagen"]?>" alt="">
+                <img style="width:100%" src="<?php echo base_url();?>assets/imagenes/subidas/<?php echo $usu["imagen"]?>" alt="">
                 <div class="row">
                     <div class="col-6 container-button-post d-flex justify-content-start">
                         <?php echo form_open_multipart("meGustaUsu",array("id"=>"meGustaUsu","class"=>"meGustaUsu"))?>

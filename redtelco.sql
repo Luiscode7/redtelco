@@ -140,9 +140,6 @@ CREATE TABLE `publicaciones_anonimos` (
 -- Volcado de datos para la tabla `publicaciones_anonimos`
 --
 
-INSERT INTO `publicaciones_anonimos` (`id`, `nombre`, `contenido`, `imagenAnonimo`, `fecha`) VALUES
-(5, 'Anonimo 1', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,', '', '2018-09-18 12:06:04'),
-(10, 'Anonimo 2', 'Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '', '2018-09-18 12:23:40');
 
 -- --------------------------------------------------------
 
@@ -162,9 +159,6 @@ CREATE TABLE `publicaciones_usuarios` (
 -- Volcado de datos para la tabla `publicaciones_usuarios`
 --
 
-INSERT INTO `publicaciones_usuarios` (`id`, `id_usuario`, `contenido`, `imagen`, `fecha`) VALUES
-(34, 7, 'probando', 'cropped-1920-1080-693174.jpg', '2018-09-19 20:57:46'),
-(35, 7, 'probando2', 'ciervo.jpg', '2018-09-19 21:01:50');
 
 -- --------------------------------------------------------
 
@@ -186,8 +180,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `correo`, `contrasehna`, `foto_perfil`) VALUES
-(7, 'luis', 'venegas', 'luis@gmail.com', '0f9f6938cea5bb9e0267efd1e71fcf75dd649c91', 'triangleuniverse1.jpg'),
-(8, 'freddy', 'turbina', 'turbina@gmail.com', '4fd1fa7f89cb278e9f521dd973e5b653bfb42b0b', 'freddy.jpg');
+(7, 'luis', 'venegas', 'luis@gmail.com', '0f9f6938cea5bb9e0267efd1e71fcf75dd649c91', 'triangleuniverse1.jpg');
 
 --
 -- Índices para tablas volcadas

@@ -22,6 +22,7 @@ $route['mostrarMuroTodos'] = "anonimo/mostrarMuroTodos";
 $route['nomeGusta'] = "anonimo/nomeGusta";
 $route['Comentarios'] = "anonimo/Comentarios";
 $route['mostrarComPublicados'] = "anonimo/mostrarComPublicados";
+$route['mostrarUsuariosAno'] = "anonimo/mostrarUsuariosAno";
 
 /* ------- PORTAL USUARIO ---------- */
 
