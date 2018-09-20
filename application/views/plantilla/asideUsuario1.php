@@ -1,3 +1,20 @@
+<script type="text/javascript">
+$(function(){
+
+    $(".imagenes").click(function(){
+        var url = "<?php echo base_url();?>";
+        $.ajax({
+          url: "seccionImgPerfil",
+          type:"POST",
+          data:{},
+          success:function(){
+            window.location="seccionImgPerfil";
+          }
+        });
+        return false;
+    });
+});
+</script>
 <div class="row principal" style="min-height:100vh">
     <div class="colaside1 col-lg-3 col-xl-3">
         <div class="aside-1">
@@ -13,7 +30,7 @@
             </div>
             <div class="col" style="padding:0">
                 <div>
-                    <a class="nav-link" href="#"><i class="far fa-images" style="color:#04B404"></i>&nbsp;Im&aacute;genes</a>
+                    <a class="nav-link imagenes" href="#"><i class="far fa-images" style="color:#04B404"></i>&nbsp;Im&aacute;genes</a>
                     <!--<a class="nav-link" href="#"><i class="fas fa-video" style="color:#0174DF"></i>&nbsp;Videos</a>-->
                     <a class="nav-link" href="#"><i class="far fa-file" style="color:#DF7401"></i>&nbsp;Archivos</a>
                 </div>

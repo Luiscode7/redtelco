@@ -50,6 +50,18 @@ class Usuario extends CI_Controller {
         $this->load->view('plantilla/plantilla6', $contenido6);
     }
 
+    public function seccionImgPerfil(){
+        $id = $this->session->userdata("id");
+        $contenido7 = array(
+            'titulo' => "Imagenes", 
+            'contenido7' => "imagenes",
+            'imgperfil'=> $this->usu->seccionImagenesPerfil($id),
+            'imgpost'=> $this->usu->seccionImagenesPost($id),
+            'fotoperfil' => $this->usu->ImagenPerfil($id)
+        );
+        $this->load->view('plantilla/plantilla7', $contenido7);
+    }
+
     public function postUsuario(){
         if($this->input->is_ajax_request()){
             $id_post_usu=$this->security->xss_clean(strip_tags($this->input->post("id_post_usuario")));
@@ -89,6 +101,22 @@ class Usuario extends CI_Controller {
                         echo json_encode(array('res'=>"error", 'msg' => "No se ha podido publicar"));exit;
                     }
                 }
+            }
+
+        }
+    }
+
+    public function eliminarPost(){
+        if($this->input->is_ajax_request()){
+            $id_publi=$this->security->xss_clean(strip_tags($this->input->post("id_pu")));
+            $id_pu=$this->encryption->decrypt($id_publi);
+            $imagen=$this->usu->mostrarImagenPost($id_pu);
+
+            if($data=$this->usu->eliminarPublicacion($id_pu)){
+                unlink("./assest/imagenes/subidas/".$imagen);
+                echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
+            }else{
+                echo json_encode(array('res'=>"error", 'datos' => $data));exit;
             }
 
         }

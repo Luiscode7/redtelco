@@ -54,6 +54,16 @@ class UsuarioModel extends CI_Model{
 			return FALSE;
     }
 
+    public function eliminarPublicacion($id_pu){
+      $this->db->where('id',$id_pu);
+      $res=$this->db->delete('publicaciones_usuarios');
+      if($res){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
     public function actualizarUsuario($id,$datos){
       $this->db->select('nombre, apellidos, foto_perfil');
       $this->db->where('id', $id);
@@ -175,6 +185,33 @@ class UsuarioModel extends CI_Model{
       $row=$res->row_array();
       return $row["foto_perfil"];
 		
+    }
+
+    public function mostrarImagenPost($id){
+      $this->db->where('id', $id);
+      $res=$this->db->get('publicaciones_usuarios');
+      $row=$res->row_array();
+      return $row["imagen"];
+    }
+
+    public function seccionImagenesPerfil($id){
+      $this->db->select('foto_perfil as fotop');
+      $this->db->where('id', $id);
+      $res=$this->db->get('usuarios');
+      if($res->num_rows()>0){
+        return $res->result_array();
+			}
+      return FALSE;
+    }
+
+    public function seccionImagenesPost($id){
+      $this->db->select('imagen as imagen');
+      $this->db->where('id_usuario', $id);
+      $res=$this->db->get('publicaciones_usuarios');
+      if($res->num_rows()>0){
+        return $res->result_array();
+			}
+      return FALSE;
     }
 
     public function mostrarUsuarios(){

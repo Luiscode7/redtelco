@@ -361,12 +361,23 @@ hr{
     padding-right:0;
     font-size: 0.8rem;
     text-align: center;
+    cursor: pointer;
 }
 
 .menu-eliminar{
     margin-top: 0;
     padding:0;
     transform: translate3d(-140px, 27px, 0px) !important;
+}
+
+.img-seccion{
+    width: 100px;
+    height: 100px;
+}
+
+.cancelar{
+    width: 100px;
+    
 }
 
 

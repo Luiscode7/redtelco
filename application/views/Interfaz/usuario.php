@@ -201,6 +201,28 @@ $(function(){
                 return false; 
         });
 
+        $(document).on('submit', '.eliminarPost', function(event){
+            var url = "<?php echo base_url();?>";
+            var formdelete = $(this);
+                $.ajax({
+                url: $(".eliminarPost").attr('action')+"?"+$.now(),
+                type:"POST",
+                dataType: "json",
+                data:formdelete.serialize(),
+                processData:false,
+                success:function(data){
+                        if(data.res == "ok"){
+                            console.log(data);
+                        }
+                        else
+                        if(data.res == "error"){
+                            console.log(data);
+                        }
+                    }
+                });
+                return false;
+        });
+
         $(".nuevoitem").click(function(){
             var data =$(this);
             var item = data.parent().parent().children().eq(0);
@@ -339,14 +361,18 @@ function imagenPreview(input){
                     </div>
                 </div>
                 <div class="col-1 pr-0">
+                <?php echo form_open_multipart("eliminarPost",array("id"=>"eliminarPost","class"=>"eliminarPost"))?>
+                <?php $id_pub=$usu["id"]; $clave = $this->encryption->encrypt($id_pub);?>
+                <input type="hidden" name="id_pu" value="<?php echo $clave?>">
                     <div class="dropdown">
                         <button class="btn boton-drop-elimi dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             x
                         </button>
                         <div class="dropdown-menu menu-eliminar" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item link-drop-elimi" href="#">Eliminar Publicaci&oacute;n</a>
+                            <button class="dropdown-item link-drop-elimi btn-eliminar" type="submit">Eliminar Publicaci&oacute;n</button>
                         </div>
                     </div>
+                <?php echo form_close();?>
                 </div>
                 </div>
                 <p class="p-post"><?php echo $usu["contenido"]?></p>

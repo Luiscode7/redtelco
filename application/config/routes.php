@@ -37,3 +37,6 @@ $route['editarPerfil'] = "interfaz/usuario/editarPerfil";
 $route['mostrarUsuarios'] = "interfaz/usuario/mostrarUsuarios";
 $route['encuesta'] = "interfaz/usuario/encuesta";
 $route['MuroUsuarios'] = "interfaz/usuario/MuroUsuarios";
+$route['eliminarPost'] = "interfaz/usuario/eliminarPost";
+$route['seccionImgPerfil'] = "interfaz/usuario/seccionImgPerfil";
+
