@@ -64,6 +64,16 @@ class UsuarioModel extends CI_Model{
       }
     }
 
+    /*public function eliminarImgPerfil($id_usu){
+      $this->db->where('id',$id_usu);
+      $res=$this->db->delete('usuarios');
+      if($res){
+        return true;
+      }else{
+        return false;
+      }
+    }*/
+
     public function actualizarUsuario($id,$datos){
       $this->db->select('nombre, apellidos, foto_perfil');
       $this->db->where('id', $id);

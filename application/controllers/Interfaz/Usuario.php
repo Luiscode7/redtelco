@@ -122,6 +122,21 @@ class Usuario extends CI_Controller {
         }
     }
 
+    /*public function eliminarImgPost(){
+        if($this->input->is_ajax_request()){
+            $id_publi=$this->security->xss_clean(strip_tags($this->input->post("id_publicimgp")));
+            $id_pu=$this->encryption->decrypt($id_publi);
+            $imagen=$this->usu->mostrarImagenPost($id_pu);
+
+           if($data=$this->usu->eliminarPublicacion($id_pu)){
+            unlink("./assest/imagenes/subidas/".$imagen);
+            echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
+            }else{
+                echo json_encode(array('res'=>"error", 'datos' => $data));exit;
+            }
+        }
+    }*/
+
     public function ComentariosUsu(){
         if($this->input->is_ajax_request()){
             $id_comment=$this->security->xss_clean(strip_tags($this->input->post("id_commentusu")));
