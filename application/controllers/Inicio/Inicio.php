@@ -81,8 +81,11 @@ class Inicio extends CI_Controller {
 
                 $check = $this->in->verificarCuenta($correo);
                 if($check == false){
-                    if($this->in->insertarUsuario($data_insert)){
-                        echo json_encode(array('res'=>"ok", 'msg' => OK_MSG));exit;
+                    if($data=$this->in->insertarUsuario($data_insert)){
+                        $correo=$this->in->mostrarCorreo($data);
+                        $nombre=$this->in->mostrarNombre($data);
+                        $this->enviarDatosUsuario($correo,$nombre,$pass);
+                        echo json_encode(array('res'=>"ok"));exit;
                     }else{
                         echo json_encode(array('res'=>"error", 'msg' => ERROR_MSG));exit;
                     }
@@ -91,6 +94,25 @@ class Inicio extends CI_Controller {
                 }    
             }
         }    
+    }
+
+    public function enviarDatosUsuario($correo,$nombre,$pass){
+        $this->load->library("email");
+        $mensaje = 'Estimado(a) '.$nombre.'.';
+        $mensaje .= ''." ".'';
+        $mensaje .= 'Le damos la más cordial bienvenida a RedTelco.';
+        $mensaje .= ''." ".'';
+        $mensaje .= 'Sus datos son los siguientes:';
+        $mensaje .= ''." ".'';
+        $mensaje .= 'Nombre usuario: '.$correo.'';
+        $mensaje .= ''." ".'';
+        $mensaje .= 'Contraseña: '.$pass.'';
+        $asunto = 'Bienvenido(a) a RedTelco';
+        $this->email->from('luiseduardo.venegas7@gmail.com','RedTelco');
+        $this->email->to($correo);
+        $this->email->subject($asunto);
+        $this->email->message($mensaje);
+        $this->email->send();
     }
 
 

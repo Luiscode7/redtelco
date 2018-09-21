@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-09-2018 a las 13:42:03
+-- Tiempo de generación: 21-09-2018 a las 06:19:39
 -- Versión del servidor: 10.1.34-MariaDB
 -- Versión de PHP: 5.6.37
 
@@ -21,6 +21,26 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `redtelco`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `archivos_usuarios`
+--
+
+CREATE TABLE `archivos_usuarios` (
+  `id_archivo` int(11) NOT NULL,
+  `archivo` varchar(255) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_pub` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `archivos_usuarios`
+--
+
+INSERT INTO `archivos_usuarios` (`id_archivo`, `archivo`, `id_usuario`, `id_pub`) VALUES
+(1, 'Curriculum_Vitae_Luis Venegas.pdf', 7, 50);
 
 -- --------------------------------------------------------
 
@@ -59,6 +79,27 @@ CREATE TABLE `encuesta` (
   `id_usu_encu` int(11) NOT NULL,
   `titulo` varchar(50) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `imagen_pub_usu`
+--
+
+CREATE TABLE `imagen_pub_usu` (
+  `id_imagen` int(11) NOT NULL,
+  `imagen` varchar(255) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_pub` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `imagen_pub_usu`
+--
+
+INSERT INTO `imagen_pub_usu` (`id_imagen`, `imagen`, `id_usuario`, `id_pub`) VALUES
+(12, '406071.jpg', 7, 48),
+(14, '', 7, 50);
 
 -- --------------------------------------------------------
 
@@ -140,6 +181,9 @@ CREATE TABLE `publicaciones_anonimos` (
 -- Volcado de datos para la tabla `publicaciones_anonimos`
 --
 
+INSERT INTO `publicaciones_anonimos` (`id`, `nombre`, `contenido`, `imagenAnonimo`, `fecha`) VALUES
+(5, 'Anonimo 1', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,', '', '2018-09-18 12:06:04'),
+(10, 'Anonimo 2', 'Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '', '2018-09-18 12:23:40');
 
 -- --------------------------------------------------------
 
@@ -151,7 +195,6 @@ CREATE TABLE `publicaciones_usuarios` (
   `id` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `contenido` varchar(20000) COLLATE utf8_spanish_ci NOT NULL,
-  `imagen` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -159,6 +202,10 @@ CREATE TABLE `publicaciones_usuarios` (
 -- Volcado de datos para la tabla `publicaciones_usuarios`
 --
 
+INSERT INTO `publicaciones_usuarios` (`id`, `id_usuario`, `contenido`, `fecha`) VALUES
+(48, 7, 'publicacion1', '2018-09-20 20:07:02'),
+(49, 7, 'publicacion2', '2018-09-20 20:33:05'),
+(50, 7, 'probando archivo', '2018-09-20 21:18:26');
 
 -- --------------------------------------------------------
 
@@ -180,11 +227,20 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `correo`, `contrasehna`, `foto_perfil`) VALUES
-(7, 'luis', 'venegas', 'luis@gmail.com', '0f9f6938cea5bb9e0267efd1e71fcf75dd649c91', 'triangleuniverse1.jpg');
+(7, 'luis', 'venegas', 'luis@gmail.com', '0f9f6938cea5bb9e0267efd1e71fcf75dd649c91', 'triangleuniverse1.jpg'),
+(16, 'freddy', 'turbina', 'luis.venegas007@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', NULL);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `archivos_usuarios`
+--
+ALTER TABLE `archivos_usuarios`
+  ADD PRIMARY KEY (`id_archivo`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_pub` (`id_pub`);
 
 --
 -- Indices de la tabla `comentarios_anonimos`
@@ -199,7 +255,7 @@ ALTER TABLE `comentarios_anonimos`
 ALTER TABLE `comentarios_usuarios`
   ADD PRIMARY KEY (`id_com_usu`),
   ADD KEY `com_id_usu` (`com_id_usu`),
-  ADD KEY `id_usuario_com` (`id_usuario_com`);
+  ADD KEY `comentarios_usuarios_ibfk_2` (`id_usuario_com`);
 
 --
 -- Indices de la tabla `encuesta`
@@ -207,6 +263,14 @@ ALTER TABLE `comentarios_usuarios`
 ALTER TABLE `encuesta`
   ADD PRIMARY KEY (`id_encu`),
   ADD KEY `id_usu_encu` (`id_usu_encu`);
+
+--
+-- Indices de la tabla `imagen_pub_usu`
+--
+ALTER TABLE `imagen_pub_usu`
+  ADD PRIMARY KEY (`id_imagen`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_pub` (`id_pub`);
 
 --
 -- Indices de la tabla `me_gusta_anonimos`
@@ -221,7 +285,7 @@ ALTER TABLE `me_gusta_anonimos`
 ALTER TABLE `me_gusta_usuarios`
   ADD PRIMARY KEY (`id_mg_usu`),
   ADD KEY `mg_id_usu` (`mg_id_usu`),
-  ADD KEY `id_usuario_mg` (`id_usuario_mg`);
+  ADD KEY `me_gusta_usuarios_ibfk_2` (`id_usuario_mg`);
 
 --
 -- Indices de la tabla `no_me_gusta_anonimos`
@@ -236,7 +300,7 @@ ALTER TABLE `no_me_gusta_anonimos`
 ALTER TABLE `no_me_gusta_usuarios`
   ADD PRIMARY KEY (`id_nmg_usu`),
   ADD KEY `nmg_id_usu` (`nmg_id_usu`),
-  ADD KEY `id_usuario_nmg` (`id_usuario_nmg`);
+  ADD KEY `no_me_gusta_usuarios_ibfk_2` (`id_usuario_nmg`);
 
 --
 -- Indices de la tabla `opciones_encuesta`
@@ -269,6 +333,12 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `archivos_usuarios`
+--
+ALTER TABLE `archivos_usuarios`
+  MODIFY `id_archivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `comentarios_anonimos`
 --
 ALTER TABLE `comentarios_anonimos`
@@ -285,6 +355,12 @@ ALTER TABLE `comentarios_usuarios`
 --
 ALTER TABLE `encuesta`
   MODIFY `id_encu` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `imagen_pub_usu`
+--
+ALTER TABLE `imagen_pub_usu`
+  MODIFY `id_imagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `me_gusta_anonimos`
@@ -326,17 +402,24 @@ ALTER TABLE `publicaciones_anonimos`
 -- AUTO_INCREMENT de la tabla `publicaciones_usuarios`
 --
 ALTER TABLE `publicaciones_usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `archivos_usuarios`
+--
+ALTER TABLE `archivos_usuarios`
+  ADD CONSTRAINT `archivos_usuarios_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `archivos_usuarios_ibfk_2` FOREIGN KEY (`id_pub`) REFERENCES `publicaciones_usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `comentarios_anonimos`
@@ -348,14 +431,21 @@ ALTER TABLE `comentarios_anonimos`
 -- Filtros para la tabla `comentarios_usuarios`
 --
 ALTER TABLE `comentarios_usuarios`
-  ADD CONSTRAINT `comentarios_usuarios_ibfk_1` FOREIGN KEY (`com_id_usu`) REFERENCES `publicaciones_usuarios` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `comentarios_usuarios_ibfk_2` FOREIGN KEY (`id_usuario_com`) REFERENCES `usuarios` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `comentarios_usuarios_ibfk_1` FOREIGN KEY (`com_id_usu`) REFERENCES `publicaciones_usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comentarios_usuarios_ibfk_2` FOREIGN KEY (`id_usuario_com`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `encuesta`
 --
 ALTER TABLE `encuesta`
   ADD CONSTRAINT `encuesta_ibfk_1` FOREIGN KEY (`id_usu_encu`) REFERENCES `usuarios` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `imagen_pub_usu`
+--
+ALTER TABLE `imagen_pub_usu`
+  ADD CONSTRAINT `imagen_pub_usu_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `imagen_pub_usu_ibfk_2` FOREIGN KEY (`id_pub`) REFERENCES `publicaciones_usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `me_gusta_anonimos`
@@ -367,8 +457,8 @@ ALTER TABLE `me_gusta_anonimos`
 -- Filtros para la tabla `me_gusta_usuarios`
 --
 ALTER TABLE `me_gusta_usuarios`
-  ADD CONSTRAINT `me_gusta_usuarios_ibfk_1` FOREIGN KEY (`mg_id_usu`) REFERENCES `publicaciones_usuarios` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `me_gusta_usuarios_ibfk_2` FOREIGN KEY (`id_usuario_mg`) REFERENCES `usuarios` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `me_gusta_usuarios_ibfk_1` FOREIGN KEY (`mg_id_usu`) REFERENCES `publicaciones_usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `me_gusta_usuarios_ibfk_2` FOREIGN KEY (`id_usuario_mg`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `no_me_gusta_anonimos`
@@ -380,8 +470,8 @@ ALTER TABLE `no_me_gusta_anonimos`
 -- Filtros para la tabla `no_me_gusta_usuarios`
 --
 ALTER TABLE `no_me_gusta_usuarios`
-  ADD CONSTRAINT `no_me_gusta_usuarios_ibfk_1` FOREIGN KEY (`nmg_id_usu`) REFERENCES `publicaciones_usuarios` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `no_me_gusta_usuarios_ibfk_2` FOREIGN KEY (`id_usuario_nmg`) REFERENCES `usuarios` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `no_me_gusta_usuarios_ibfk_1` FOREIGN KEY (`nmg_id_usu`) REFERENCES `publicaciones_usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `no_me_gusta_usuarios_ibfk_2` FOREIGN KEY (`id_usuario_nmg`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `opciones_encuesta`

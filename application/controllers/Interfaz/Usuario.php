@@ -70,41 +70,74 @@ class Usuario extends CI_Controller {
             $contenido_usuario=$this->security->xss_clean(strip_tags($this->input->post("contenido_usuario")));
             date_default_timezone_set("America/Santiago");
 
-            $config = [
-                "upload_path" => "./assets/imagenes/subidas",
-                "allowed_types" => "png|jpg|jpeg|gif"
-            ];
-
-            $this->load->library("upload", $config);
-            
-            $this->upload->do_upload('uploadimagen');
-
-            if(!$config["allowed_types"]){
-                echo json_encode(array('res'=>"error", 'msg' => "Formato de imagen no válido"));exit;
-            }
-
-            $imagen = array("upload_imagen" => $this->upload->data());
             $data_insert=array(
                 "id_usuario"=>$id_usu,
                 "contenido"=>$contenido_usuario,
-                "imagen"=>$imagen['upload_imagen']['file_name'],
                 "fecha" => date("Y-m-d G:i:s")
             );
-
 
             if($this->form_validation->run("postUsuario") == FALSE){
                 echo json_encode(array('res'=>"error", 'msg' => strip_tags(validation_errors())));exit;
             }else{
                 if($id_post_usu ==""){
                     if($data=$this->usu->InsertarPostUsuario($data_insert)){
+
+                        $config = [
+                            "upload_path" => "./assets/imagenes/subidas",
+                            "allowed_types" => "png|jpg|jpeg|gif"
+                        ];
+            
+                        $this->load->library("upload", $config);
+                        
+                        $this->upload->do_upload('uploadimagen');
+            
+                        if(!$config["allowed_types"]){
+                            echo json_encode(array('res'=>"error", 'msg' => "Formato de imagen no válido"));exit;
+                        }
+            
+                        $imagen = array("upload_imagen" => $this->upload->data());
+                        $data_imagen_ins=array(
+                            "imagen"=>$imagen['upload_imagen']['file_name'],
+                            "id_usuario"=>$id_usu,
+                            "id_pub" => $data
+                        );
+            
+                        $this->usu->insertarImagenPost($data_imagen_ins);
+                        
+                        $this->archivos($id_usu,$data);
+
                         echo json_encode(array('res'=>"ok", 'msg' => "publicacion realizada con éxito"));
                     }else{
-                        echo json_encode(array('res'=>"error", 'msg' => "No se ha podido publicar"));exit;
+                        echo json_encode(array('res'=>"error", 'msg' => "No se ha podido publicar"));
                     }
                 }
             }
 
         }
+    }
+
+    public function archivos($id_usu,$data){
+        $config = [
+            "upload_path" => "./assets/imagenes/archivos",
+            "allowed_types" => "pdf|doc|docx|xls"
+        ];
+
+        $this->load->library("upload", $config);
+        
+        $this->upload->do_upload('uploadarchivo');
+
+        if(!$config["allowed_types"]){
+            echo json_encode(array('res'=>"error", 'msg' => "Formato de imagen no válido"));exit;
+        }
+
+        $archivo = array("upload_archivo" => $this->upload->data());
+        $data_archivo_ins=array(
+            "archivo"=>$archivo['upload_archivo']['file_name'],
+            "id_usuario"=>$id_usu,
+            "id_pub" => $data
+        );
+
+        $this->usu->insertarArchivo($data_archivo_ins);
     }
 
     public function eliminarPost(){
@@ -114,6 +147,7 @@ class Usuario extends CI_Controller {
             $imagen=$this->usu->mostrarImagenPost($id_pu);
 
             if($data=$this->usu->eliminarPublicacion($id_pu)){
+                $this->usu->eliminarImgPost($id_pu);
                 unlink("./assets/imagenes/subidas/".$imagen);
                 echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
             }else{
@@ -123,20 +157,21 @@ class Usuario extends CI_Controller {
         }
     }
 
-    /*public function eliminarImgPost(){
+    public function eliminarImgPost2(){
         if($this->input->is_ajax_request()){
             $id_publi=$this->security->xss_clean(strip_tags($this->input->post("id_publicimgp")));
             $id_pu=$this->encryption->decrypt($id_publi);
-            $imagen=$this->usu->mostrarImagenPost($id_pu);
+            $id_usu = $this->session->userdata("id");
+            $imagen=$this->usu->mostrarImagenPost2($id_usu,$id_pu);
 
-           if($data=$this->usu->eliminarPublicacion($id_pu)){
-            unlink("./assest/imagenes/subidas/".$imagen);
+           if($data=$this->usu->eliminarImgPost2($id_usu,$id_pu)){
+            unlink("./assets/imagenes/subidas/".$imagen);
             echo json_encode(array('res'=>"ok", 'datos' => $data));exit;
             }else{
                 echo json_encode(array('res'=>"error", 'datos' => $data));exit;
             }
         }
-    }*/
+    }
 
     public function ComentariosUsu(){
         if($this->input->is_ajax_request()){
@@ -259,7 +294,8 @@ class Usuario extends CI_Controller {
 
             $config = [
                 "upload_path" => "./assets/imagenes/perfil",
-                "allowed_types" => "png|jpg|jpeg"
+                "allowed_types" => "png|jpg|jpeg",
+                "overwrite" => TRUE
             ];
             $this->load->library("upload", $config);
 

@@ -54,6 +54,14 @@ class UsuarioModel extends CI_Model{
 			return FALSE;
     }
 
+    public function insertarImagenPost($datos){
+      if($this->db->insert('imagen_pub_usu',$datos)){
+        $insert_id = $this->db->insert_id();
+				return $insert_id;
+			}
+			return FALSE;
+    }
+
     public function insertarOpcionesEncu($datos){
       if($this->db->insert_batch('opciones_encuesta',$datos)){
         $insert_id = $this->db->insert_id();
@@ -72,15 +80,26 @@ class UsuarioModel extends CI_Model{
       }
     }
 
-    /*public function eliminarImgPerfil($id_usu){
-      $this->db->where('id',$id_usu);
-      $res=$this->db->delete('usuarios');
+    public function eliminarImgPost($id_pub){
+      $this->db->where('id_pub',$id_pub);
+      $res=$this->db->delete('imagen_pub_usu');
       if($res){
         return true;
       }else{
         return false;
       }
-    }*/
+    }
+
+    public function eliminarImgPost2($id_usu,$id_pu){
+      $this->db->where('id_usuario',$id_usu);
+      $this->db->where('id_pub',$id_pu);
+      $res=$this->db->delete('imagen_pub_usu');
+      if($res){
+        return true;
+      }else{
+        return false;
+      }
+    }
 
     public function actualizarUsuario($id,$datos){
       $this->db->select('nombre, apellidos, foto_perfil');
@@ -95,19 +114,19 @@ class UsuarioModel extends CI_Model{
 
     public function mostrarMuroUsuario($id){
       $query=$this->db->query("SELECT p.id as id, p.id_usuario as usuario, p.contenido as contenido,
-       p.imagen as imagen, p.fecha as fecha, CONCAT(usu.nombre, ' ' ,usu.apellidos) as 'nombre', usu.foto_perfil as foto,
+       im.imagen as imagen, p.fecha as fecha, CONCAT(usu.nombre, ' ' ,usu.apellidos) as 'nombre', usu.foto_perfil as foto,
        (SELECT COUNT(*) FROM me_gusta_usuarios mg WHERE mg.mg_id_usu = p.id) as mgustas,
        (SELECT COUNT(*) FROM no_me_gusta_usuarios ng WHERE ng.nmg_id_usu = p.id) as nmgustas
-       FROM publicaciones_usuarios as p JOIN usuarios usu ON p.id_usuario=usu.id WHERE p.id_usuario = $id ORDER BY id DESC");
+       FROM publicaciones_usuarios as p JOIN usuarios usu ON p.id_usuario=usu.id LEFT JOIN imagen_pub_usu im ON p.id=im.id_pub WHERE p.id_usuario = $id ORDER BY id DESC");
       return $query->result_array();
     }
 
     public function mostrarMuroUsuarioGeneral(){
       $query=$this->db->query("SELECT p.id as id, p.id_usuario as usuario, p.contenido as contenido,
-       p.imagen as imagen, p.fecha as fecha, CONCAT(usu.nombre, ' ' ,usu.apellidos) as 'nombre', usu.foto_perfil as foto,
+       im.imagen as imagen, p.fecha as fecha, CONCAT(usu.nombre, ' ' ,usu.apellidos) as 'nombre', usu.foto_perfil as foto,
        (SELECT COUNT(*) FROM me_gusta_usuarios mg WHERE mg.mg_id_usu = p.id) as mgustas,
        (SELECT COUNT(*) FROM no_me_gusta_usuarios ng WHERE ng.nmg_id_usu = p.id) as nmgustas
-       FROM publicaciones_usuarios as p JOIN usuarios usu ON p.id_usuario=usu.id ORDER BY id DESC");
+       FROM publicaciones_usuarios as p JOIN usuarios usu ON p.id_usuario=usu.id LEFT JOIN imagen_pub_usu im ON p.id=im.id_pub ORDER BY id DESC");
       return $query->result_array();
     }
 
@@ -206,8 +225,16 @@ class UsuarioModel extends CI_Model{
     }
 
     public function mostrarImagenPost($id){
-      $this->db->where('id', $id);
-      $res=$this->db->get('publicaciones_usuarios');
+      $this->db->where('id_pub', $id);
+      $res=$this->db->get('imagen_pub_usu');
+      $row=$res->row_array();
+      return $row["imagen"];
+    }
+
+    public function mostrarImagenPost2($id_usu,$id_pu){
+      $this->db->where('id_usuario', $id_usu);
+      $this->db->where('id_pub', $id_pu);
+      $res=$this->db->get('imagen_pub_usu');
       $row=$res->row_array();
       return $row["imagen"];
     }
@@ -222,10 +249,12 @@ class UsuarioModel extends CI_Model{
       return FALSE;
     }
 
-    public function seccionImagenesPost($id){
-      $this->db->select('imagen as imagen');
-      $this->db->where('id_usuario', $id);
-      $res=$this->db->get('publicaciones_usuarios');
+    public function seccionImagenesPost($id_usu){
+      $this->db->select('im.imagen as imagen, pu.id as id');
+      $this->db->from('imagen_pub_usu as im');
+      $this->db->join('publicaciones_usuarios as pu', 'pu.id = im.id_pub');
+      $this->db->where('im.id_usuario', $id_usu);
+      $res=$this->db->get();
       if($res->num_rows()>0){
         return $res->result_array();
 			}

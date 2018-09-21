@@ -12,6 +12,7 @@ $route['procesoRegistro'] = "inicio/inicio/procesoRegistro";
 $route['login'] = "inicio/inicio/login";
 $route['procesoLogin'] = "inicio/inicio/procesoLogin";
 $route['cerrarSesion'] = "inicio/inicio/cerrarSesion";
+$route['enviarDatosUsuario'] = "inicio/inicio/enviarDatosUsuario";
 
 /* ------- PORTAL ANONIMO ---------- */
 
@@ -40,5 +41,5 @@ $route['encuesta'] = "interfaz/usuario/encuesta";
 $route['MuroUsuarios'] = "interfaz/usuario/MuroUsuarios";
 $route['eliminarPost'] = "interfaz/usuario/eliminarPost";
 $route['seccionImgPerfil'] = "interfaz/usuario/seccionImgPerfil";
-$route['eliminarImgPost'] = "interfaz/usuario/eliminarImgPost";
+$route['eliminarImgPost2'] = "interfaz/usuario/eliminarImgPost2";
 

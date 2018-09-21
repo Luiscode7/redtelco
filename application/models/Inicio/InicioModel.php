@@ -38,4 +38,26 @@ class InicioModel extends CI_Model{
 			return FALSE;
 		}
     }
+
+    public function mostrarCorreo($id_usu){
+        $this->db->where('id', $id_usu);
+        $res=$this->db->get('usuarios');
+        $row=$res->row_array();
+        return $row["correo"];
+    }
+
+    public function mostrarNombre($id_usu){
+        $this->db->where('id', $id_usu);
+        $res=$this->db->get('usuarios');
+        $row=$res->row_array();
+        return $row["nombre"]." ".$row["apellidos"];
+    }
+
+    public function mostrarPass($id_usu){
+        $this->db->where('id', $id_usu);
+        $res=$this->db->get('usuarios');
+        $row=$res->row_array();
+        return $row["contrasehna"];
+    }
+
 }

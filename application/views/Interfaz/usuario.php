@@ -24,8 +24,8 @@ $(function(){
                     autoHideDelay:5000
                   });
               }else if(data.res == "ok"){
-                window.location="usuario";
                 $('#postUsuario')[0].reset();
+                window.location="usuario";
               }
             }
       });
@@ -204,19 +204,16 @@ $(function(){
         $(document).on('submit', '.eliminarPost', function(event){
             var url = "<?php echo base_url();?>";
             var formdelete = $(this);
-            /*var formElement = document.querySelector(".eliminarPost");
-            var formData = new FormData(formElement);*/
                 $.ajax({
                 url: $(".eliminarPost").attr('action')+"?"+$.now(),
                 type:"POST",
                 dataType: "json",
                 data:formdelete.serialize(),
-                //cache: false,
                 processData:false,
-                //contentType : false,
                 success:function(data){
                         if(data.res == "ok"){
                             console.log(data);
+                            window.location="usuario";
                         }
                         else
                         if(data.res == "error"){

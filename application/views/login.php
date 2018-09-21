@@ -121,7 +121,7 @@
             <?php echo form_open_multipart("procesoLogin",array("id"=>"procesoLogin","class"=>"procesoLogin"))?>
                 <div class="container-login">
                     <div class="text-center" style="padding-bottom:30px">
-                        <img src="<?php base_url();?>assest/imagenes/login1.png" alt="">
+                        <img src="<?php base_url();?>assets/imagenes/login1.png" alt="">
                     </div>
                     <div class="form-group">
                         <i class="fas fa-user icon-user"></i>
