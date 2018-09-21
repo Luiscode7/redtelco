@@ -84,6 +84,7 @@
     $(function(){
 
         $(document).on('submit', '.procesoLogin', function(event){
+            $(".btn-login").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
                 var url="<?php echo base_url()?>";
                 var post = $(this);
                 var formElement = document.querySelector(".procesoLogin");
@@ -112,6 +113,44 @@
                 });
                 return false; 
             }); 
+
+
+            $(document).on('submit', '.ReestablecerPass', function(event){
+                $(".btn-reset").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
+                var url="<?php echo base_url()?>";
+                var post = $(this);
+                var formElement = document.querySelector(".ReestablecerPass");
+                var formData = new FormData(formElement);
+                    $.ajax({
+                        url: $('.ReestablecerPass').attr('action')+"?"+$.now(),  
+                        type: 'POST',
+                        data: formData,
+                        cache: false,
+                        processData: false,
+                        dataType: "json",
+                        contentType : false,
+                        success: function (data) {
+                            if(data.res == "error"){
+                                $.notify(data.msg, {
+                                className:'error',
+                                globalPosition: 'top right',
+                                autoHideDelay:5000,
+                                });
+                            $("#email").focus();
+                            }else if(data.res == "ok"){
+                                $('.ReestablecerPass')[0].reset();
+                                $("#exampleModal").modal("toggle");
+                                $.notify(data.msg, {
+                                className:'success',
+                                globalPosition: 'middle center',
+                                autoHideDelay:6000,
+                                });
+                                //window.location="login";
+                            }
+                        }
+                });
+                return false; 
+            }); 
     });
 </script>
 </head>
@@ -132,16 +171,57 @@
                         <input type="password" name="pass" id="pass" autocomplete="off" placeholder="Ingrese su contrase&ntilde;a" class="form-control form-control-sm input-indent">
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary col-12">Ingresar</button>
+                        <button type="submit" class="btn btn-primary col-12 btn-login btn-sinshadow">Ingresar</button>
                     </div>
-                    <div class="row pl-2">
-                        <p>¿No tiene cuenta?, por favor</p>&nbsp;
+                    <div class="row pl-2 d-flex align-items-center">
+                        <p class="mb-0">¿No tiene cuenta?, por favor</p>&nbsp;
                         <a class="a-login" href="<?php base_url();?>registro">Registrese</a>
+                    </div>
+                    <div class="row pl-3">
+                        <a class="a-login" href="<?php base_url();?>registro" data-toggle="modal" data-target="#exampleModal">He olvidado la contrase&ntilde;a</a>
                     </div>
                 </div>
             <?php echo form_close();?>
         </div>
     </div>
+
+
+    <!--Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <?php echo form_open_multipart("ReestablecerPass",array("id"=>"ReestablecerPass","class"=>"ReestablecerPass"))?>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Reestablecer Contrase&ntilde;a</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Digite su correo</label>
+                    <input type="text" name="email" id="email" class="form-control" id="recipient-name">
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Nueva Contrase&ntilde;a</label>
+                    <input type="password" name="pass" class="form-control" id="recipient-name2">
+                </div>
+                <div class="form-group">
+                    <label for="message-text" class="col-form-label">Repita la Contrase&ntilde;a</label>
+                    <input type="password" name="pass2" class="form-control" id="recipient-name3">
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sinshadow" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary btn-reset btn-sinshadow">Reestablecer</button>
+            </div>
+            </div>
+        </div>
+        <?php echo form_close();?>
+    </div>
+   
 
 
     <script src="<?php echo base_url();?>assets/js/popper.min.js"></script>

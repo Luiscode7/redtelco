@@ -81,5 +81,22 @@ $config = array(
                   'field'   => 'apellidos',
                   'rules'   => 'required'
             )
+      ),
+
+      'ReestablecerPass' => array(
+            array(
+                  'field'   => 'email',
+                  'rules'   => 'required|valid_email'
+            ),
+
+            array(
+                  'field'   => 'pass',
+                  'rules'   => 'required'
+            ),
+
+            array(
+                  'field'   => 'pass2',
+                  'rules'   => 'required'
+            ),
       )
 );

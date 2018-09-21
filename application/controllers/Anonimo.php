@@ -42,7 +42,7 @@ class Anonimo extends CI_Controller {
             date_default_timezone_set("America/Santiago");
 
             $config = [
-                "upload_path" => "./assest/imagenes/subidas",
+                "upload_path" => "./assets/imagenes/subidas",
                 "allowed_types" => "png|jpg|jpeg|gif"
             ];
             $this->load->library("upload", $config);

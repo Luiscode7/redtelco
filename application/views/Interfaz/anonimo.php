@@ -11,6 +11,7 @@ $(function(){
 
     /* ---- FUNCION PUBLICACIONES ----*/
     $(document).on('submit', '#postAnonimo',function(event) {
+      $(".btn-post").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
       var url="<?php echo base_url()?>";
       var post = $(this);
       var formElement = document.querySelector("#postAnonimo");
@@ -206,6 +207,7 @@ $(function(){
         
         /* -------- FUNCION PARA PUBLICAR COMENTARIOS ----------- */
         $(document).on('submit', '.Comentarios', function(event){
+            $(".btn-comment3").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
             var url="<?php echo base_url()?>";
             var formdata=$(this);
                 $.ajax({
@@ -223,7 +225,7 @@ $(function(){
                             var pd = $(formdata);
             
                             for(dato in data.datos){
-                                var coment = pd.append('<div id ="publicar" class="col p-0 pt-4 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assets/imagenes/login1.png" alt=""></div><div><p id="comments" class="mb-0">'+data.datos[dato].comentario+'</p></div></div>');
+                                var coment = pd.append('<div id ="publicar" class="col p-0 pt-4 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assets/imagenes/login1.png" alt=""></div><div class="container-publicom"><p id="comments" class="mb-0">'+data.datos[dato].comentario+'</p></div></div>');
                             }
                             $(formdata)[0].reset();
                             console.log(nomostrarmsj3);
@@ -241,6 +243,7 @@ $(function(){
 
         /* -------- FUNCION PARA VER COMENTARIOS ----------- */
         $(document).on('submit', '.mostrarComPublicados', function(event){
+            $(".btn-showmore").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
             var url="<?php echo base_url()?>";
             var formdata2=$(this);
                 $.ajax({
@@ -256,7 +259,7 @@ $(function(){
                             
                             for(dato in data.datos){
                                 var comentarios = data.datos[dato].comments;
-                                var showmore2 = showmore.append('<div class="col p-0 pt-1 muestra d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assets/imagenes/login1.png" alt=""></div><div><p id="comment">'+comentarios+'</p></div></div>');
+                                var showmore2 = showmore.append('<div class="col p-0 pt-3 muestra d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assets/imagenes/login1.png" alt=""></div><div class="container-publicom"><p id="comment" class="mb-0">'+comentarios+'</p></div></div>');
                             }
                             $(".btn-showmore").hide();
                         }
@@ -350,7 +353,7 @@ function imagenPreview(input){
     <div class="col container-public p-cero">
         <input type="text" class="form-control form-control-sm mb-3" style="text-indent:15px" autofocus placeholder="Ingrese un nombre si lo desea | es opcional" name="nombre" id="nombre" autocomplete="off">
         <textarea name="contenido" id="contenido" class="textarea-post" placeholder="Escriba lo que desee..." cols="30" rows="10"></textarea>
-        <button type="submit" name="Comentar" id="Comentar" class="btn btn-primary btn-post">Publicar</button>
+        <button type="submit" name="Comentar" id="Comentar" class="btn btn-primary btn-post btn-sinshadow">Publicar</button>
         <input type="file" name="uploadimagenan" id="uploadimagenan" style="display:none">
         <a href="#" id="emojiusu" class="ocultarImagenAn"><i class="fas fa-smile ml-4 mr-4"></i></a>
         <a id="imagenan" href="#" class="ocultarImagenAn"><i class="far fa-image mr-4"></i></a>
@@ -388,15 +391,15 @@ function imagenPreview(input){
                     <?php echo form_open_multipart("meGusta",array("id"=>"meGusta","class"=>"meGusta"))?>
                         <?php $id_publi=$post["id_publi"]; $clave = $this->encryption->encrypt($id_publi);?>
                         <input type="hidden" id="id_publicacionmg" name="id_publicacionmg" value="<?php echo $clave?>">
-                        <button type="submit" name="publicacion" id="publicacion" class="btn btn-secondary form-control btn-megusta" value="<?php echo $post["id_publi"]?>">Me gusta</button>
+                        <button type="submit" name="publicacion" id="publicacion" class="btn btn-secondary form-control btn-megusta btn-sinshadow" value="<?php echo $post["id_publi"]?>">Me gusta</button>
                     <?php echo form_close();?>
                     <?php echo form_open_multipart("nomeGusta",array("id"=>"nomeGusta","class"=>"nomeGusta"))?>
                         <?php $id_publi=$post["id_publi"]; $clave = $this->encryption->encrypt($id_publi);?>
                         <input type="hidden" id="id_publicacionomg" name="id_publicacionomg" value="<?php echo $clave?>">
-                        <button type="submit" name="no_me_gusta" class="btn btn-secondary form-control">No me gusta</button>
+                        <button type="submit" name="no_me_gusta" class="btn btn-secondary form-control btn-sinshadow">No me gusta</button>
                     <?php echo form_close();?>
                     <?php $id_publi=$post["id_publi"]; $clave = $this->encryption->encrypt($id_publi);?>
-                    <button type="button" id="btn-comment1" class="btn btn-secondary form-control btn-comment1" value="<?php echo $clave?>">Comentar</button>
+                    <button type="button" id="btn-comment1" class="btn btn-secondary form-control btn-comment1 btn-sinshadow" value="<?php echo $clave?>">Comentar</button>
                 </div>
                 <div class="block-likes col-md-2 col-lg-6 d-flex justify-content-end align-items-center">
                     <div>
@@ -409,19 +412,19 @@ function imagenPreview(input){
                     </div>
                 </div>
     
-                <div class="col pt-3 pb-1 ocultarComment" id="blockcomments">
+                <div class="col pt-3 pb-3 ocultarComment" id="blockcomments">
                     <?php echo form_open_multipart("Comentarios",array("id"=>"Comentarios","class"=>"Comentarios"))?>
                         <?php $id_publi=$post["id_publi"]; $clave = $this->encryption->encrypt($id_publi);?>
                         <input type="hidden" name="id_comment" id="id_comment">
                         <input type="hidden" name="id_publicacionc" value="<?php echo $clave?>">
                         <textarea name="comentario" class="textarea-comment" placeholder="Comentario..." cols="30" rows="10"></textarea>
-                        <button type="submit" class="btn btn-primary btn-comment2">Comentar</button>
+                        <button type="submit" class="btn btn-primary btn-comment3 btn-sinshadow">Comentar</button>
                     <?php echo form_close();?>
                     <?php echo form_open_multipart("mostrarComPublicados",array("id"=>"mostrarComPublicados","class"=>"mostrarComPublicados"))?>
                         <?php $id_publi=$post["id_publi"]; $clave = $this->encryption->encrypt($id_publi);?>
                         <input type="hidden" name="id_publicacionshow" value="<?php echo $clave?>">
                         <div class="d-flex justify-content-center mb-3">
-                            <button class="btn btn-primary btn-showmore" type="submit" id="showmore" name="showmore">ver comentarios</button>
+                            <button class="btn btn-primary btn-showmore btn-sinshadow" type="submit" id="showmore" name="showmore">ver comentarios</button>
                         </div>
                     <?php echo form_close();?>
                 </div>

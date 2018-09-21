@@ -76,7 +76,7 @@ class AnonimoModel extends CI_Model{
       $this->db->from('comentarios_anonimos as com');
       $this->db->join('publicaciones_anonimos as p', 'p.id = com.com_id_publicacion', 'left');
       $this->db->where('p.id', $id);
-      $this->db->order_by('comments', 'DESC');
+      $this->db->order_by('comments', 'ASC');
       $res=$this->db->get();
       if($res->num_rows()>0){
         return $res->result_array();

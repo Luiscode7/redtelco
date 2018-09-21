@@ -39,8 +39,6 @@ CREATE TABLE `archivos_usuarios` (
 -- Volcado de datos para la tabla `archivos_usuarios`
 --
 
-INSERT INTO `archivos_usuarios` (`id_archivo`, `archivo`, `id_usuario`, `id_pub`) VALUES
-(1, 'Curriculum_Vitae_Luis Venegas.pdf', 7, 50);
 
 -- --------------------------------------------------------
 
@@ -97,9 +95,7 @@ CREATE TABLE `imagen_pub_usu` (
 -- Volcado de datos para la tabla `imagen_pub_usu`
 --
 
-INSERT INTO `imagen_pub_usu` (`id_imagen`, `imagen`, `id_usuario`, `id_pub`) VALUES
-(12, '406071.jpg', 7, 48),
-(14, '', 7, 50);
+
 
 -- --------------------------------------------------------
 
@@ -181,9 +177,6 @@ CREATE TABLE `publicaciones_anonimos` (
 -- Volcado de datos para la tabla `publicaciones_anonimos`
 --
 
-INSERT INTO `publicaciones_anonimos` (`id`, `nombre`, `contenido`, `imagenAnonimo`, `fecha`) VALUES
-(5, 'Anonimo 1', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,', '', '2018-09-18 12:06:04'),
-(10, 'Anonimo 2', 'Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '', '2018-09-18 12:23:40');
 
 -- --------------------------------------------------------
 
@@ -202,10 +195,6 @@ CREATE TABLE `publicaciones_usuarios` (
 -- Volcado de datos para la tabla `publicaciones_usuarios`
 --
 
-INSERT INTO `publicaciones_usuarios` (`id`, `id_usuario`, `contenido`, `fecha`) VALUES
-(48, 7, 'publicacion1', '2018-09-20 20:07:02'),
-(49, 7, 'publicacion2', '2018-09-20 20:33:05'),
-(50, 7, 'probando archivo', '2018-09-20 21:18:26');
 
 -- --------------------------------------------------------
 
@@ -226,9 +215,6 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `correo`, `contrasehna`, `foto_perfil`) VALUES
-(7, 'luis', 'venegas', 'luis@gmail.com', '0f9f6938cea5bb9e0267efd1e71fcf75dd649c91', 'triangleuniverse1.jpg'),
-(16, 'freddy', 'turbina', 'luis.venegas007@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', NULL);
 
 --
 -- Índices para tablas volcadas

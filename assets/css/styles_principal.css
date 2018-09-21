@@ -379,6 +379,16 @@ hr{
     width: 100px;
 }
 
+.btn-sinshadow{
+    box-shadow: none !important;
+}
+
+.eliminar-img{
+    margin-top: 0;
+    padding:0;
+    transform: translate3d(-10px, 27px, 0px) !important;
+}
+
 
 /*--- Media query menu navbar usuarios---*/
 @media (max-width:992px){

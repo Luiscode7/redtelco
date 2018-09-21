@@ -66,6 +66,7 @@ $(function(){
 
     /* ---- Creacion de usuario con AJAX ----*/
     $(document).on('submit', '#procesoRegistro',function(event) {
+        $(".btn_registro").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
           var url="<?php echo base_url()?>";
           var formElement = document.querySelector("#procesoRegistro");
           var formData = new FormData(formElement);
@@ -89,7 +90,7 @@ $(function(){
                     $(".btn_registro").attr("disabled", false);
                     $.notify(data.msg, {
                       className:'success',
-                      globalPosition: 'top right',
+                      globalPosition: 'middle',
                       autoHideDelay:5000
                     });
                     $('#procesoRegistro')[0].reset();
@@ -130,7 +131,7 @@ $(function(){
                     <input type="password" name="pass2" id="pass2" autocomplete="off" placeholder="Repita su contrase&ntilde;a" class="form-control form-control-sm input-indent">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn_registro col-12">Registrarse</button>
+                    <button type="submit" class="btn btn-primary btn_registro btn-sinshadow col-12">Registrarse</button>
                 </div>
                 <div class="row pl-2">
                     <p>¿Ya tienes una cuenta?, por favor</p>&nbsp;

@@ -45,7 +45,7 @@
                     <img class="img-mostrarper" src="<?php echo base_url()?>assets/imagenes/perfil/<?php echo $per["foto"];?>" alt="">
                     </div>
                     <div class="col-4">
-                        <span><?php echo $per["nombre"];?></span>
+                        <span class="text-negrilla"><?php echo $per["nombre"];?></span>
                     </div>
                 </div> 
         <?php endforeach; ?>

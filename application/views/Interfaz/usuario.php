@@ -5,6 +5,7 @@ $(function(){
 
     /* ---- Creacion de publicacion con AJAX ----*/
     $(document).on('submit', '#postUsuario',function(event) {
+      $(".btn-post_u").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
       var url="<?php echo base_url()?>";
       var formElement = document.querySelector("#postUsuario");
       var formData = new FormData(formElement);
@@ -99,6 +100,7 @@ $(function(){
 
     /* -------- FUNCION PARA PUBLICAR COMENTARIOS ----------- */
     $(document).on('submit', '.ComentariosUsu', function(event){
+        $(".btn-comment2").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
             var url="<?php echo base_url()?>";
             var formdata=$(this);
                 $.ajax({
@@ -137,6 +139,7 @@ $(function(){
 
     /* -------- FUNCION PARA VER COMENTARIOS ----------- */
     $(document).on('submit', '.mostrarComPublicadosUsu', function(event){
+        $(".btn-showmoreusu").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
             var url="<?php echo base_url()?>";
             var formdata2=$(this);
                 $.ajax({
@@ -257,6 +260,7 @@ $(function(){
         $(".cancelarimg").css("display", "none");
     });
 
+
 });
 
 function Comments2(){
@@ -312,16 +316,16 @@ function imagenPreview(input){
     <input type="hidden" name="id_usuario" id="id_post_usuario" value="<?php echo $clave ?>">
     <div class="col container-public p-cero">
         <textarea name="contenido_usuario" id="contenido_usuario" class="textarea-post" placeholder="Escriba lo que desee..." cols="30" rows="10"></textarea>
-        <button type="submit" name="Comentar" id="Comentar" class="btn btn-primary btn-post_u">Publicar</button>
+        <button type="submit" name="Comentar" id="Comentar" class="btn btn-primary btn-post_u btn-sinshadow">Publicar</button>
         <!--<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
             Encuesta
         </button>-->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Encuesta</button>
+        <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Encuesta</button>-->
         <input type="file" name="uploadimagen" id="uploadimagen" hidden="hidden">
         <input type="file" name="uploadarchivo" id="uploadarchivo" hidden="hidden">
-        <a href="#"><i class="fas fa-smile ml-4 mr-4"></i></a>
+        <a id="smilepost" href="#"><i class="fas fa-smile ml-4 mr-4"></i></a>
         <a id="imagen" href="#"><i class="far fa-image mr-4"></i></a>
-        <a id="archivo" href="#"><i class="fas fa-file-upload"></i></a>
+        <!--<a id="archivo" href="#"><i class="fas fa-file-upload"></i></a>-->
         <div id="previewPublic" class="mt-3 mb-3" style="display:none"></div>    
         <span class="cancelarimg" role="button" style="display:none"><i class="fas fa-trash mr-2"></i>cancelar</span>
         <hr>
@@ -389,14 +393,14 @@ function imagenPreview(input){
                         <?php echo form_open_multipart("meGustaUsu",array("id"=>"meGustaUsu","class"=>"meGustaUsu"))?>
                             <?php $id_publi=$usu["id"]; $clave = $this->encryption->encrypt($id_publi);?>
                             <input type="hidden" name="id_publimg" id="id_publimg" value="<?php echo $clave?>">
-                            <button type="submit" class="btn btn-secondary form-control">Me gusta</button>
+                            <button type="submit" class="btn btn-secondary form-control btn-sinshadow">Me gusta</button>
                         <?php echo form_close();?>
                         <?php echo form_open_multipart("NomeGustaUsu",array("id"=>"NomeGustaUsu","class"=>"NomeGustaUsu"))?>
                             <?php $id_public=$usu["id"]; $clave = $this->encryption->encrypt($id_public);?>
                             <input type="hidden" name="id_publinomg" id="id_publinomg" value="<?php echo $clave?>"> 
-                            <button type="submit" class="btn btn-secondary form-control">No me gusta</button>
+                            <button type="submit" class="btn btn-secondary form-control btn-sinshadow">No me gusta</button>
                         <?php echo form_close();?>
-                        <button type="submit" class="btn btn-secondary form-control btn-commentusu1">Comentar</button>
+                        <button type="submit" class="btn btn-secondary form-control btn-commentusu1 btn-sinshadow">Comentar</button>
                     </div>
                     <div class="col-6 d-flex justify-content-end align-items-center">
                         <a class="pr-2 iconomg" href="" data-toggle="tooltip" data-placement="bottom" title="ya ha marcado una opcion"><i class="far fa-thumbs-up"></i></a>
@@ -410,13 +414,13 @@ function imagenPreview(input){
                             <?php $id_publico=$usu["id"]; $clave = $this->encryption->encrypt($id_publico);?>
                             <input type="hidden" name="id_publicacionusu" value="<?php echo $clave?>">
                             <textarea name="comentariousu" class="textarea-comment" placeholder="Comentario..." cols="30" rows="10"></textarea>
-                            <button type="submit" class="btn btn-primary btn-comment2">Comentar</button>
+                            <button type="submit" class="btn btn-primary btn-comment2 btn-sinshadow">Comentar</button>
                         <?php echo form_close();?>
                         <?php echo form_open_multipart("mostrarComPublicadosUsu",array("id"=>"mostrarComPublicadosUsu","class"=>"mostrarComPublicadosUsu"))?>
                             <?php $id_public=$usu["id"]; $clave = $this->encryption->encrypt($id_public);?>
                             <input type="hidden" name="id_publicacionshowusu" value="<?php echo $clave?>">
                             <div class="d-flex justify-content-center mb-3">
-                                <button class="btn btn-primary btn-showmoreusu" type="submit" id="showmoreusu" name="showmoreusu">ver comentarios</button>
+                                <button class="btn btn-primary btn-showmoreusu btn-sinshadow" type="submit" id="showmoreusu" name="showmoreusu">ver comentarios</button>
                             </div>
                         <?php echo form_close();?>
                     </div>

@@ -85,7 +85,7 @@ class Inicio extends CI_Controller {
                         $correo=$this->in->mostrarCorreo($data);
                         $nombre=$this->in->mostrarNombre($data);
                         $this->enviarDatosUsuario($correo,$nombre,$pass);
-                        echo json_encode(array('res'=>"ok"));exit;
+                        echo json_encode(array('res'=>"ok", 'msg' => "Se han enviado los datos a su correo "));exit;
                     }else{
                         echo json_encode(array('res'=>"error", 'msg' => ERROR_MSG));exit;
                     }
@@ -94,6 +94,36 @@ class Inicio extends CI_Controller {
                 }    
             }
         }    
+    }
+
+    public function ReestablecerPass(){
+        if($this->input->is_ajax_request()){
+            $correo=$this->security->xss_clean(strip_tags($this->input->post("email")));
+            $pass=$this->security->xss_clean(strip_tags($this->input->post("pass")));
+            $pass2=sha1($pass);
+
+            if ($this->form_validation->run("ReestablecerPass") == FALSE){
+                echo json_encode(array('res'=>"error", 'msg' => strip_tags(validation_errors())));exit;
+            }else{
+
+                $data_insert=array(
+                    "contrasehna"=>$pass2
+                );
+
+                $check = $this->in->verificarCorreo($correo);
+                if($check != false){
+                    if($this->in->actualizarPass($check,$data_insert)){
+                        $nombre=$this->in->mostrarNombrePorCorreo($check);
+                        $this->enviarNuevaPass($check,$nombre,$pass);
+                        echo json_encode(array('res'=>"ok", 'msg' => "Se ha enviado la nueva contraseña a su correo "));
+                    }else{
+                        echo json_encode(array('res'=>"error", 'msg' => ERROR_MSG));exit;
+                    }
+                }else{
+                    echo json_encode(array('res2'=>"error", 'msg' => "el correo ingresado no existe"));exit;
+                }
+            }
+        }
     }
 
     public function enviarDatosUsuario($correo,$nombre,$pass){
@@ -108,6 +138,21 @@ class Inicio extends CI_Controller {
         $mensaje .= ''." ".'';
         $mensaje .= 'Contraseña: '.$pass.'';
         $asunto = 'Bienvenido(a) a RedTelco';
+        $this->email->from('luiseduardo.venegas7@gmail.com','RedTelco');
+        $this->email->to($correo);
+        $this->email->subject($asunto);
+        $this->email->message($mensaje);
+        $this->email->send();
+    }
+
+    public function enviarNuevaPass($correo,$nombre,$pass){
+        $this->load->library("email");
+        $mensaje = 'Estimado(a) '.$nombre.'.';
+        $mensaje .= ''." ".'';
+        $mensaje .= 'Su nueva contraseña es la siguiente:';
+        $mensaje .= ''." ".'';
+        $mensaje .= ''.$pass.'';
+        $asunto = 'Reestablecer Contraseña de usuario RedTelco';
         $this->email->from('luiseduardo.venegas7@gmail.com','RedTelco');
         $this->email->to($correo);
         $this->email->subject($asunto);

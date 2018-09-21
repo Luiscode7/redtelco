@@ -13,6 +13,8 @@ $route['login'] = "inicio/inicio/login";
 $route['procesoLogin'] = "inicio/inicio/procesoLogin";
 $route['cerrarSesion'] = "inicio/inicio/cerrarSesion";
 $route['enviarDatosUsuario'] = "inicio/inicio/enviarDatosUsuario";
+$route['enviarNuevaPass'] = "inicio/inicio/enviarNuevaPass";
+$route['ReestablecerPass'] = "inicio/inicio/ReestablecerPass";
 
 /* ------- PORTAL ANONIMO ---------- */
 

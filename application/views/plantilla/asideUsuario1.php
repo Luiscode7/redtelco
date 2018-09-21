@@ -32,10 +32,10 @@ $(function(){
                 <div>
                     <a class="nav-link imagenes" href="#"><i class="far fa-images" style="color:#04B404"></i>&nbsp;Im&aacute;genes</a>
                     <!--<a class="nav-link" href="#"><i class="fas fa-video" style="color:#0174DF"></i>&nbsp;Videos</a>-->
-                    <a class="nav-link" href="#"><i class="far fa-file" style="color:#DF7401"></i>&nbsp;Archivos</a>
+                    <!--<a class="nav-link" href="#"><i class="far fa-file" style="color:#DF7401"></i>&nbsp;Archivos</a>-->
                 </div>
             </div>
-            <div class="mt-4">
+            <div class="mt-4 mb-4">
                 <h5>Páginas de Empleos</h5>
             </div>
             <div class="col" style="padding:0">

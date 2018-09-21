@@ -315,4 +315,64 @@ class UsuarioModel extends CI_Model{
       return FALSE;
     }*/
 
+    public function countPublicaciones($id){
+      $this->db->select('id');
+      $this->db->where('id_usuario', $id);
+      $this->db->from('publicaciones_usuarios');
+      $res=$this->db->count_all_results();
+      return $res;
+    }
+
+    public function cantidadComentarios($id){
+      $this->db->select('id_com_usu');
+      $this->db->where('id_usuario_com', $id);
+      $this->db->from('comentarios_usuarios');
+      $res=$this->db->count_all_results();
+      return $res;
+    }
+
+    public function cantidadMg($id){
+      $this->db->select('id_mg_usu');
+      $this->db->where('id_usuario_mg', $id);
+      $this->db->from('me_gusta_usuarios');
+      $res=$this->db->count_all_results();
+      return $res;
+    }
+
+    public function cantidadNoMg($id){
+      $this->db->select('id_nmg_usu');
+      $this->db->where('id_usuario_nmg', $id);
+      $this->db->from('no_me_gusta_usuarios');
+      $res=$this->db->count_all_results();
+      return $res;
+    }
+
+    public function countPublicacionesAll(){
+      $this->db->select('id');
+      $this->db->from('publicaciones_usuarios');
+      $res=$this->db->count_all_results();
+      return $res;
+    }
+
+    public function cantidadComentariosAll(){
+      $this->db->select('id_com_usu');
+      $this->db->from('comentarios_usuarios');
+      $res=$this->db->count_all_results();
+      return $res;
+    }
+
+    public function cantidadMgAll(){
+      $this->db->select('id_mg_usu');
+      $this->db->from('me_gusta_usuarios');
+      $res=$this->db->count_all_results();
+      return $res;
+    }
+
+    public function cantidadNoMgAll(){
+      $this->db->select('id_nmg_usu');
+      $this->db->from('no_me_gusta_usuarios');
+      $res=$this->db->count_all_results();
+      return $res;
+    }
+
 }

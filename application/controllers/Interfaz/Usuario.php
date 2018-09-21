@@ -20,9 +20,12 @@ class Usuario extends CI_Controller {
         $contenido2 = array(
             'titulo' => "Portal Usuario", 
             'contenido2' => "usuario",
+            'publicaciones' => $this->usu->countPublicaciones($id),
+            'countMg' => $this->usu->cantidadMg($id),
+            'countNoMg' => $this->usu->cantidadNoMg($id),
+            'countComentarios' => $this->usu->cantidadComentarios($id),
             'posteos_usu' => $this->usu->mostrarMuroUsuario($id),
             'fotoperfil' => $this->usu->ImagenPerfil($id),
-            //'tituloencu' => $this->usu->tituloEncuesta($id)
             'encuesta' => $this->usu->mostrarEncuesta($id)
         );
         $this->load->view('plantilla/plantilla2', $contenido2);
@@ -44,6 +47,10 @@ class Usuario extends CI_Controller {
         $contenido6 = array(
             'titulo' => "Muro Usuarios", 
             'contenido6' => "muroUsuarios",
+            'publicaciones' => $this->usu->countPublicacionesAll(),
+            'countMg' => $this->usu->cantidadMgAll(),
+            'countNoMg' => $this->usu->cantidadNoMgAll(),
+            'countComentarios' => $this->usu->cantidadComentariosAll(),
             'posteosUsu'=> $this->usu->mostrarMuroUsuarioGeneral(),
             'fotoperfil' => $this->usu->ImagenPerfil($id)
         );

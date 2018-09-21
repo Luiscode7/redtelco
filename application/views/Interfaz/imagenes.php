@@ -13,6 +13,7 @@ $(function(){
                 success:function(data){
                         if(data.res == "ok"){
                             console.log(data);
+                            window.location="seccionImgPerfil";
                         }
                         else
                         if(data.res == "error"){
@@ -60,7 +61,7 @@ $(function(){
                     <button class="btn boton-drop-elimi dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         x
                     </button>
-                    <div class="dropdown-menu menu-eliminar" aria-labelledby="dropdownMenuButton2">
+                    <div class="dropdown-menu eliminar-img" aria-labelledby="dropdownMenuButton2">
                         <button class="dropdown-item link-drop-elimi btn-eliminarImg" type="submit">Eliminar Foto</button>
                     </div>
                 </div>

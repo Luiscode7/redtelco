@@ -16,6 +16,16 @@ class InicioModel extends CI_Model{
             return FALSE;
     }
 
+    public function actualizarPass($correo,$datos){
+        $this->db->where('correo', $correo);
+        $this->db->update('usuarios', $datos);
+        if($this->db->affected_rows()){
+          return true;
+        }else{
+          return false;
+        }
+      }
+
     public function login($user, $pass){
         $this->db->where('correo', $user);
         $this->db->where('contrasehna', $pass);
@@ -39,6 +49,14 @@ class InicioModel extends CI_Model{
 		}
     }
 
+    public function verificarCorreo($correo){
+        $this->db->where('correo', $correo);
+        $res = $this->db->get('usuarios');
+        $row=$res->row_array();
+        return $row["correo"];
+    }
+
+
     public function mostrarCorreo($id_usu){
         $this->db->where('id', $id_usu);
         $res=$this->db->get('usuarios');
@@ -48,6 +66,13 @@ class InicioModel extends CI_Model{
 
     public function mostrarNombre($id_usu){
         $this->db->where('id', $id_usu);
+        $res=$this->db->get('usuarios');
+        $row=$res->row_array();
+        return $row["nombre"]." ".$row["apellidos"];
+    }
+
+    public function mostrarNombrePorCorreo($correo){
+        $this->db->where('correo', $correo);
         $res=$this->db->get('usuarios');
         $row=$res->row_array();
         return $row["nombre"]." ".$row["apellidos"];
