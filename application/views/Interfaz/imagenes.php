@@ -53,6 +53,7 @@ $(function(){
         </div>
         <?php echo form_open_multipart("eliminarImgPost2",array("id"=>"eliminarImgPost2","class"=>"eliminarImgPost2"))?>
         <div class="row" style="padding:0 15px;">
+        <?php if(!empty($imgpost)):?>
         <?php foreach($imgpost as $post):?>
         <?php $id_pub=$post["id"]; $clave = $this->encryption->encrypt($id_pub);?>
         <input type="hidden" name="id_publicimgp" value="<?php echo $clave?>">
@@ -68,6 +69,7 @@ $(function(){
                 <img class="img-seccion" src="<?php echo base_url()?>assets/imagenes/subidas/<?php echo $post["imagen"]?>" alt="">
             </div>
         <?php endforeach?>
+        <?php endif?>
         </div>
         <?php echo form_close();?>
 </div>

@@ -301,16 +301,16 @@ function imagenPreview(input){
 
     
     <div id="publicausu">
-    <?php foreach($encuesta as $en): ?>
+    <!--<?php foreach($encuesta as $en): ?>
         <div class="col container-post border-post">
-            <!--<div class="perfil-post">
+            <div class="perfil-post">
                 <img class="perfil mr-2" src="<?php echo base_url()?>assets/imagenes/perfil/<?php echo $en["foto"]?>" alt="">
                 <span><?php echo $en["nombre"]?></span>
-            </div>-->
+            </div>
             <p class="p-post"><?php echo $en["titulo"]?></p>
             <p class="mb-3"><?php echo $en["opciones"]?></p>  
         </div>
-    <?php endforeach; ?>
+    <?php endforeach; ?>-->
     </div>
    
     

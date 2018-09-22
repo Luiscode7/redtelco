@@ -28,6 +28,10 @@ class Anonimo extends CI_Controller {
         $contenido8 = array(
             'titulo' => "Usuarios",
             'contenido8' => "personas",
+            'publicaciones' => $this->an->countPublicaciones(),
+            'countMg' => $this->an->cantidadMg(),
+            'countNoMg' => $this->an->cantidadNoMg(),
+            'countComentarios' => $this->an->cantidadComentarios(),
             'usuarios' => $this->usu->mostrarUsuarios()
         );
         $this->load->view("plantilla/plantilla8", $contenido8);

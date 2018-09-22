@@ -36,6 +36,10 @@ class Usuario extends CI_Controller {
         $contenido3 = array(
             'titulo' => "Portal General", 
             'contenido3' => "anonimo",
+            'publicaciones' => $this->usu->countPublicaciones($id),
+            'countMg' => $this->usu->cantidadMg($id),
+            'countNoMg' => $this->usu->cantidadNoMg($id),
+            'countComentarios' => $this->usu->cantidadComentarios($id),
             'posteo'=> $this->anonimomodel->mostrarMuroAnonimo(),
             'fotoperfil' => $this->usu->ImagenPerfil($id)
         );
@@ -62,6 +66,10 @@ class Usuario extends CI_Controller {
         $contenido7 = array(
             'titulo' => "Imagenes", 
             'contenido7' => "imagenes",
+            'publicaciones' => $this->usu->countPublicaciones($id),
+            'countMg' => $this->usu->cantidadMg($id),
+            'countNoMg' => $this->usu->cantidadNoMg($id),
+            'countComentarios' => $this->usu->cantidadComentarios($id),
             'imgperfil'=> $this->usu->seccionImagenesPerfil($id),
             'imgpost'=> $this->usu->seccionImagenesPost($id),
             'fotoperfil' => $this->usu->ImagenPerfil($id)
@@ -338,6 +346,10 @@ class Usuario extends CI_Controller {
         $contenido5 = array(
             'titulo' => "Usuarios",
             'contenido5' => "personas",
+            'publicaciones' => $this->usu->countPublicaciones($id),
+            'countMg' => $this->usu->cantidadMg($id),
+            'countNoMg' => $this->usu->cantidadNoMg($id),
+            'countComentarios' => $this->usu->cantidadComentarios($id),
             'fotoperfil' => $this->usu->ImagenPerfil($id),
             'usuarios' => $this->usu->mostrarUsuarios()
         );
