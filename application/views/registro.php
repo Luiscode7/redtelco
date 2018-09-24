@@ -90,7 +90,7 @@ $(function(){
                     $(".btn_registro").attr("disabled", false);
                     $.notify(data.msg, {
                       className:'success',
-                      globalPosition: 'middle',
+                      globalPosition: 'top right',
                       autoHideDelay:5000
                     });
                     $('#procesoRegistro')[0].reset();
