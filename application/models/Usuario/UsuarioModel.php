@@ -116,7 +116,8 @@ class UsuarioModel extends CI_Model{
       $query=$this->db->query("SELECT p.id as id, p.id_usuario as usuario, p.contenido as contenido,
        im.imagen as imagen, p.fecha as fecha, CONCAT(usu.nombre, ' ' ,usu.apellidos) as 'nombre', usu.foto_perfil as foto,
        (SELECT COUNT(*) FROM me_gusta_usuarios mg WHERE mg.mg_id_usu = p.id) as mgustas,
-       (SELECT COUNT(*) FROM no_me_gusta_usuarios ng WHERE ng.nmg_id_usu = p.id) as nmgustas
+       (SELECT COUNT(*) FROM no_me_gusta_usuarios ng WHERE ng.nmg_id_usu = p.id) as nmgustas,
+       (SELECT COUNT(*) FROM comentarios_usuarios cm WHERE cm.com_id_usu = p.id) as countcomment
        FROM publicaciones_usuarios as p JOIN usuarios usu ON p.id_usuario=usu.id LEFT JOIN imagen_pub_usu im ON p.id=im.id_pub WHERE p.id_usuario = $id ORDER BY id DESC");
       return $query->result_array();
     }
@@ -125,7 +126,8 @@ class UsuarioModel extends CI_Model{
       $query=$this->db->query("SELECT p.id as id, p.id_usuario as usuario, p.contenido as contenido,
        im.imagen as imagen, p.fecha as fecha, CONCAT(usu.nombre, ' ' ,usu.apellidos) as 'nombre', usu.foto_perfil as foto,
        (SELECT COUNT(*) FROM me_gusta_usuarios mg WHERE mg.mg_id_usu = p.id) as mgustas,
-       (SELECT COUNT(*) FROM no_me_gusta_usuarios ng WHERE ng.nmg_id_usu = p.id) as nmgustas
+       (SELECT COUNT(*) FROM no_me_gusta_usuarios ng WHERE ng.nmg_id_usu = p.id) as nmgustas,
+       (SELECT COUNT(*) FROM comentarios_usuarios cm WHERE cm.com_id_usu = p.id) as countcomment
        FROM publicaciones_usuarios as p JOIN usuarios usu ON p.id_usuario=usu.id LEFT JOIN imagen_pub_usu im ON p.id=im.id_pub ORDER BY id DESC");
       return $query->result_array();
     }

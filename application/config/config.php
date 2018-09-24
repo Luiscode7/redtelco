@@ -2,8 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-$config['base_url'] = 'http://luisevs.epizy.com/redtelco/';
-//$config['base_url'] = 'http://localhost/redtelco/';
+//$config['base_url'] = 'http://luisevs.epizy.com/redtelco/';
+$config['base_url'] = 'http://localhost/redtelco/';
 $config['index_page'] = '';
 $config['uri_protocol']	= 'AUTO';
 $config['url_suffix'] = '';

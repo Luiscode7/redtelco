@@ -28,7 +28,8 @@ body{
 }
 
 .navbar{
-    background: #DF013A !important;
+     background: linear-gradient(-45deg, #5858FA,#5858FA 10%, #FE2E2E 10%,#FE2E2E 20%, #2EFE2E 20%,#2EFE2E 30%,
+     #F7FE2E 30%, #F7FE2E 40%, #DF013A 40%, #DF013A 50%);
     width: 100%;
 }
 
@@ -65,7 +66,7 @@ a:hover{
 .btn-secondary{
     background:#F2F2F2 !important;
     color:#585858;
-    border-radius:0;
+    border-radius:  2px;
     border:none;
 }
 
@@ -74,7 +75,8 @@ a:hover{
 }
 
 .btn-primary{
-    border-radius:  0;
+    background: #FF0040 !important;
+    border-radius:  2px;
     border: none;
 }
 
@@ -228,8 +230,8 @@ hr{
 }
 
 .btn-cerrar-sesion{
-    background:#DF013A !important;
-    border: #DF013A !important;
+    background:#FE2E2E !important;
+    border: #FE2E2E !important;
     cursor:pointer;
 }
 
@@ -285,6 +287,7 @@ hr{
     background: #fff;
     margin-bottom:20px;
     border: 0.5px solid #BDBDBD;
+    border-radius: 3px;
 }
 
 .textarea-encuesta{
@@ -387,6 +390,14 @@ hr{
     margin-top: 0;
     padding:0;
     transform: translate3d(-10px, 27px, 0px) !important;
+}
+
+.badge-pill{
+    border-radius: 0;
+}
+
+.badge-primary{
+    background: #5858FA !important;
 }
 
 

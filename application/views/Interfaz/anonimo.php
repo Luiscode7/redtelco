@@ -151,19 +151,21 @@ $(function(){
                         if(data.res == "ok"){
                             var padre = $(form).parent().parent();
                            var secondhijo = padre.children().eq(1);
-                           var firsthijo = secondhijo.children().eq(0);
-                           var megusta = firsthijo.children().eq(1).html(data.datos); 
+                           var firsthijo = secondhijo.children().eq(2);
+                           var megusta = firsthijo.children().eq(1).html(data.datos);
+                           
                         }else
                         if(data.res2 == "error"){
                             var padre = $(form).parent().parent();
                            var secondhijo = padre.children().eq(1);
-                           var firsthijo = secondhijo.children().eq(0);
+                           var firsthijo = secondhijo.children().eq(2);
                            var icono = firsthijo.children().eq(0); 
                            $(icono).css("color", "#FE2E64");
                            $(icono).tooltip('enable');
                             setTimeout(function(){
                                 $(icono).css("color", "#0174DF");
                             },2000);
+                            
                         }    
                            
                     }
@@ -187,13 +189,13 @@ $(function(){
                         if(data.res == "ok"){
                             var padre = $(form2).parent().parent();
                             var secondhijo = padre.children().eq(1);
-                            var twosecondthijo = secondhijo.children().eq(1);
+                            var twosecondthijo = secondhijo.children().eq(3);
                             var nomegusta = twosecondthijo.children().eq(1).html(data.datos);
                         }else
                         if(data.res2 == "error"){
                             var padre = $(form2).parent().parent();
                            var secondhijo = padre.children().eq(1);
-                           var firsthijo = secondhijo.children().eq(1);
+                           var firsthijo = secondhijo.children().eq(3);
                            var icono = firsthijo.children().eq(0); 
                            $(icono).css("color", "#FE2E64");
                            $(icono).tooltip('enable');
@@ -413,7 +415,12 @@ function imagenPreview(input){
                 </div>
                 <div class="block-likes col-md-2 col-lg-6 d-flex justify-content-end align-items-center">
                     <div>
-                        <a class="pr-2 icon1" href="#" data-toggle="tooltip" data-placement="bottom" title="ya ha marcado una opcion"><i class="far fa-thumbs-up"></i></a>
+                        <span class="pr-1 comm" style="color:#2E64FE">comentarios</span>
+                        <span><?php echo $post["commentscount"]?></span>
+                    </div>
+                    <div class="pl-2" style="color:#A4A4A4">|</div>
+                    <div>
+                        <a class="pr-2 pl-2  icon1" href="#" data-toggle="tooltip" data-placement="bottom" title="ya ha marcado una opcion"><i class="far fa-thumbs-up"></i></a>
                         <span id="mg"><?php echo $post["mgustas"]?></span>
                     </div>
                     <div>

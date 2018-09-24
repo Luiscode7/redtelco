@@ -50,18 +50,22 @@ $(function(){
                         if(data.res == "ok"){
                             var padre = $(form).parent().parent();
                            var secondhijo = padre.children().eq(1);
-                           var firsthijo = secondhijo.children().eq(1).html(data.datos);
+                           var firsthijo = secondhijo.children().eq(2);
+                           var shijo = firsthijo.children().eq(1).html(data.datos);
+                           
                         }
                         else
                         if(data.res2 == "error"){
                             var padre = $(form).parent().parent();
                             var secondhijo = padre.children().eq(1);
-                            var icono = secondhijo.children().eq(0);
-                            $(icono).css("color", "#FE2E64");
-                            $(icono).tooltip('enable');
+                            var icono = secondhijo.children().eq(2);
+                            var icono2 = icono.children().eq(0);
+                            $(icono2).css("color", "#FE2E64");
+                            $(icono2).tooltip('enable');
                             setTimeout(function(){
-                                $(icono).css("color", "#0174DF");
+                                $(icono2).css("color", "#0174DF");
                             },2000);
+                            
                         }    
                     }
                         
@@ -83,15 +87,18 @@ $(function(){
                         if(data.res == "ok"){
                             var padre2 = $(form2).parent().parent();
                             var secondhijo2 = padre2.children().eq(1);
-                            var twosecondthijo = secondhijo2.children().eq(3).html(data.datos);
+                            var twosecondthijo = secondhijo2.children().eq(3);
+                            var shijo = twosecondthijo.children().eq(1).html(data.datos);
+                            console.log($(icono2));
                         }
                         else
                         if(data.res2 == "error"){
                             var padre2 = $(form2).parent().parent();
                             var icono = padre2.children().eq(1);
-                            var icono2 = icono.children().eq(2);
-                            $(icono2).css("color", "#FE2E64");
-                            $(icono2).tooltip('enable');
+                            var icono2 = icono.children().eq(3);
+                            var icono3 = icono2.children().eq(0);
+                            $(icono3).css("color", "#FE2E64");
+                            $(icono3).tooltip('enable');
                                 setTimeout(function(){
                                     $(icono2).css("color", "#0174DF");
                                 },2000);
@@ -161,6 +168,8 @@ $(function(){
                         if(data.res == 'ok'){
                             $("#publicarusu").empty();
                             var showmore = $(formdata2);
+                            /*var nuevo =showmore.parent().parent();
+                            var nuevo2 =nuevo.children().eq(2);*/
                             for(dato in data.datos){
                                 var comentarios = data.datos[dato].comments;
                                 var fotoperfil = data.datos[dato].foto;
@@ -169,6 +178,7 @@ $(function(){
                             }
                             $(".btn-showmoreusu").html('ver comentarios');
                             $(".btn-showmoreusu").hide();
+                        
                         }
                         else
                         if(data.res == 'error'){
@@ -413,7 +423,12 @@ function imagenPreview(input){
                     </div>
                     <div class="block-likes col-md-2 col-lg-6 d-flex justify-content-end align-items-center">
                         <div>
-                            <a class="pr-2 iconomg" href="" data-toggle="tooltip" data-placement="bottom" title="ya ha marcado una opcion"><i class="far fa-thumbs-up"></i></a>
+                            <span class="pr-1 comm" style="color:#2E64FE">comentarios</span>
+                            <span><?php echo $usu["countcomment"]?></span>
+                        </div>
+                        <div class="pl-2" style="color:#A4A4A4">|</div>
+                        <div>
+                            <a class="pr-2 pl-2 iconomg" href="" data-toggle="tooltip" data-placement="bottom" title="ya ha marcado una opcion"><i class="far fa-thumbs-up"></i></a>
                             <span><?php echo $usu["mgustas"]?></span>
                         </div>
                         <div>
