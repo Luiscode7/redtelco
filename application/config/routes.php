@@ -26,6 +26,7 @@ $route['nomeGusta'] = "anonimo/nomeGusta";
 $route['Comentarios'] = "anonimo/Comentarios";
 $route['mostrarComPublicados'] = "anonimo/mostrarComPublicados";
 $route['mostrarUsuariosAno'] = "anonimo/mostrarUsuariosAno";
+$route['acerca'] = "anonimo/Acerca";
 
 /* ------- PORTAL USUARIO ---------- */
 
@@ -44,4 +45,5 @@ $route['MuroUsuarios'] = "interfaz/usuario/MuroUsuarios";
 $route['eliminarPost'] = "interfaz/usuario/eliminarPost";
 $route['seccionImgPerfil'] = "interfaz/usuario/seccionImgPerfil";
 $route['eliminarImgPost2'] = "interfaz/usuario/eliminarImgPost2";
+$route['acercausu'] = "interfaz/usuario/acercausu";
 

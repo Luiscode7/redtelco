@@ -99,11 +99,13 @@
                         contentType : false,
                         success: function (data) {
                             if(data.res == "error"){
-                                $.notify(data.msg, {
+                                /*$.notify(data.msg, {
                                 className:'error',
                                 globalPosition: 'top right',
                                 autoHideDelay:5000,
-                                });
+                                });*/
+                                $(".alert-login").css("display",'block');
+                                $(".btn-login").html('Ingresar');
                             $("#correo").focus();
                             }else if(data.res == "ok"){
                                 $('.procesoLogin')[0].reset();
@@ -136,6 +138,7 @@
                                 globalPosition: 'top right',
                                 autoHideDelay:5000,
                                 });
+                                $(".btn-reset").html('Reestablecer');
                             $("#email").focus();
                             }else if(data.res == "ok"){
                                 $('.ReestablecerPass')[0].reset();
@@ -157,6 +160,12 @@
 <body>
     <div class="row hv-100 justify-content-center align-items-center">
         <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="alert alert-danger alert-dismissible fade show alert-login" role="alert" style="display:none">
+                El usuario u contrase&ntilde;a ingresado no existe!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <?php echo form_open_multipart("procesoLogin",array("id"=>"procesoLogin","class"=>"procesoLogin"))?>
                 <div class="container-login">
                     <div class="text-center" style="padding-bottom:30px">

@@ -45,6 +45,14 @@ $(function(){
 });
 </script>
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v3.1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <div class="container-fluid">
   <div class="row">
     <div class="col">
@@ -56,8 +64,8 @@ $(function(){
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
-              <li class="nav-item active">
-                <a class="nav-link" href="#"><i class="fas fa-info-circle mr-2 align-baseline"></i>Acerca De</a>
+              <li class="nav-item">
+                <a class="nav-link" href="<?php base_url();?>Acerca"><i class="fas fa-info-circle mr-2 align-baseline"></i>Acerca De</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link personasusu" href="#"><i class="fas fa-users mr-2 align-baseline"></i>Personas</a>

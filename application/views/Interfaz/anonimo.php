@@ -3,7 +3,7 @@ $(function(){
     $("#publicar").hide();
     var usuarioimagen = "<?php echo $this->session->userdata("procesoLogin")?>";
     if(usuarioimagen){
-        $("#emojiusu").removeClass("ocultarImagenAn");
+        //$("#emojiusu").removeClass("ocultarImagenAn");
         $("#imagenan").removeClass("ocultarImagenAn");
     }
     $(".icon1").tooltip('disable');
@@ -11,7 +11,6 @@ $(function(){
 
     /* ---- FUNCION PUBLICACIONES ----*/
     $(document).on('submit', '#postAnonimo',function(event) {
-      $(".btn-post").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
       var url="<?php echo base_url()?>";
       var post = $(this);
       var formElement = document.querySelector("#postAnonimo");
@@ -24,11 +23,15 @@ $(function(){
             processData: false,
             dataType: "json",
             contentType : false,
+            beforeSend: function(){
+                $(".btn-post").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
+            },
             success: function (data) {
               if(data.res == "error"){
                  var focopubli = post.children().eq(1);
                  var focopubli2 = focopubli.children().eq(1);
                  $(focopubli2).focus();
+                 $(".btn-post").html('Publicar');
               }else if(data.res == "ok"){
                   var puactual = post.parent();
                   var puactual2 = puactual.children().eq(1);
@@ -207,7 +210,6 @@ $(function(){
         
         /* -------- FUNCION PARA PUBLICAR COMENTARIOS ----------- */
         $(document).on('submit', '.Comentarios', function(event){
-            $(".btn-comment3").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
             var url="<?php echo base_url()?>";
             var formdata=$(this);
                 $.ajax({
@@ -216,6 +218,9 @@ $(function(){
                     dataType: "json",
                     data: formdata.serialize(),
                     processData:false,
+                    beforeSend: function(){
+                        $(".btn-comment3").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
+                    },
                     success: function (data) {
                         if(data.res == 'ok'){
                             var nomostrarmsj = formdata.parent();
@@ -228,12 +233,14 @@ $(function(){
                                 var coment = pd.append('<div id ="publicar" class="col p-0 pt-4 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assets/imagenes/login1.png" alt=""></div><div class="container-publicom"><p id="comments" class="mb-0">'+data.datos[dato].comentario+'</p></div></div>');
                             }
                             $(formdata)[0].reset();
+                            $(".btn-comment3").html('Comentar');
                             console.log(nomostrarmsj3);
                         }
                         else
                         if(data.res == 'error'){
                             var foco = formdata.children().eq(2);
                             $(foco).focus();
+                            $(".btn-comment3").html('Comentar');
                         }      
                     }
                         
@@ -243,7 +250,6 @@ $(function(){
 
         /* -------- FUNCION PARA VER COMENTARIOS ----------- */
         $(document).on('submit', '.mostrarComPublicados', function(event){
-            $(".btn-showmore").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
             var url="<?php echo base_url()?>";
             var formdata2=$(this);
                 $.ajax({
@@ -252,6 +258,9 @@ $(function(){
                     dataType: "json",
                     data: formdata2.serialize(),
                     processData:false,
+                    beforeSend: function(){
+                        $(".btn-showmore").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
+                    },
                     success: function (data) {
                         if(data.res == 'ok'){
                             $("#publicar").empty();
@@ -261,6 +270,7 @@ $(function(){
                                 var comentarios = data.datos[dato].comments;
                                 var showmore2 = showmore.append('<div class="col p-0 pt-3 muestra d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assets/imagenes/login1.png" alt=""></div><div class="container-publicom"><p id="comment" class="mb-0">'+comentarios+'</p></div></div>');
                             }
+                            $(".btn-showmore").html('ver comentarios');
                             $(".btn-showmore").hide();
                         }
                         else
@@ -355,8 +365,8 @@ function imagenPreview(input){
         <textarea name="contenido" id="contenido" class="textarea-post" placeholder="Escriba lo que desee..." cols="30" rows="10"></textarea>
         <button type="submit" name="Comentar" id="Comentar" class="btn btn-primary btn-post btn-sinshadow">Publicar</button>
         <input type="file" name="uploadimagenan" id="uploadimagenan" style="display:none">
-        <a href="#" id="emojiusu" class="ocultarImagenAn"><i class="fas fa-smile ml-4 mr-4"></i></a>
-        <a id="imagenan" href="#" class="ocultarImagenAn"><i class="far fa-image mr-4"></i></a>
+        <!--<a href="#" id="emojiusu" class="ocultarImagenAn"><i class="fas fa-smile ml-4 mr-4"></i></a>-->
+        <a id="imagenan" href="#" class="ocultarImagenAn"><i class="far fa-image ml-4"></i></a>
         <div id="previewPublicano" class="mt-3 mb-3" style="display:none"></div>    
         <span class="cancelarimg" role="button" style="display:none"><i class="fas fa-trash mr-2"></i>cancelar</span>
         <hr>

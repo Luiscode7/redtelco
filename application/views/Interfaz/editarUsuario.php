@@ -2,6 +2,7 @@
 $(function(){
 
     $(document).on('submit', '.editarPerfil', function(event){
+            $(".btn-editarp").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
             var url="<?php echo base_url()?>";
             var formdata2=$(this);
             var formElement = document.querySelector(".editarPerfil");
@@ -79,7 +80,7 @@ function imagenPreview(input){
             </div>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Guardar Cambios</button>                 
+            <button type="submit" class="btn btn-primary btn-editarp btn-sinshadow">Guardar Cambios</button>                 
         </div>
     <?php echo form_close();?>
 </div>

@@ -14,7 +14,7 @@ class Anonimo extends CI_Controller {
 	{
         $contenido = array(
             'titulo' => "Portal", 
-            'contenido' => "Anonimo",
+            'contenido' => "anonimo",
             'posteo' => $this->an->mostrarMuroAnonimo(),
             'publicaciones' => $this->an->countPublicaciones(),
             'countMg' => $this->an->cantidadMg(),
@@ -36,6 +36,19 @@ class Anonimo extends CI_Controller {
         );
         $this->load->view("plantilla/plantilla8", $contenido8);
     }
+
+    public function Acerca(){
+        $contenido9 = array(
+            'titulo' => "Acerca",
+            'contenido9' => "acerca",
+            'publicaciones' => $this->an->countPublicaciones(),
+            'countMg' => $this->an->cantidadMg(),
+            'countNoMg' => $this->an->cantidadNoMg(),
+            'countComentarios' => $this->an->cantidadComentarios()
+        );
+        $this->load->view("plantilla/plantilla9", $contenido9);
+    }
+
 
 
     public function postAnonimo(){

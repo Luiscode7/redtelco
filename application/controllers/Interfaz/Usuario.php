@@ -295,6 +295,10 @@ class Usuario extends CI_Controller {
         $contenido4 = array(
             'titulo' => "Edición de Perfil",
             'contenido4' => "editarUsuario",
+            'publicaciones' => $this->usu->countPublicaciones($id),
+            'countMg' => $this->usu->cantidadMg($id),
+            'countNoMg' => $this->usu->cantidadNoMg($id),
+            'countComentarios' => $this->usu->cantidadComentarios($id),
             'fotoperfil' => $this->usu->ImagenPerfil($id),
             //'usuario' => $this->session->userdata("procesoLogin");
         );

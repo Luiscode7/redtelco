@@ -85,12 +85,13 @@ $(function(){
                         globalPosition: 'top right',
                         autoHideDelay:5000
                       });
+                      $(".btn_registro").html('Registrarse');
                       $("#correo").focus();
                   }else if(data.res == "ok"){
                     $(".btn_registro").attr("disabled", false);
                     $.notify(data.msg, {
                       className:'success',
-                      globalPosition: 'middle',
+                      globalPosition: 'top right',
                       autoHideDelay:5000
                     });
                     $('#procesoRegistro')[0].reset();

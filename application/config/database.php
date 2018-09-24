@@ -25,13 +25,12 @@ $query_builder = TRUE;
 	$password='';
 	$database='redtelco';
  }else{
- 	$hostname='localhost';
+ 	$hostname='sql206.epizy.com';
 	$username='epiz_22741452';
 	$password='VnbfUdsCqFR8ylQ';
 	$database='epiz_22741452_redtelco';
  }
-
-
+ 
 
 $db['default'] = array(
 	'dsn'	=> '',
@@ -47,7 +46,7 @@ $db['default'] = array(
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
-	'db_debug' => (ENVIRONMENT !== 'development'),
+	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,
 	'cachedir' => '',
 	'char_set' => 'utf8',

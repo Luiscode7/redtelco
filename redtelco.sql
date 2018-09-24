@@ -106,7 +106,7 @@ CREATE TABLE `imagen_pub_usu` (
 CREATE TABLE `me_gusta_anonimos` (
   `id_mg` int(11) NOT NULL,
   `mg_id_publicacion` int(11) NOT NULL,
-  `mg_ip` int(11) NOT NULL
+  `mg_ip` varchar(50) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -131,7 +131,7 @@ CREATE TABLE `me_gusta_usuarios` (
 CREATE TABLE `no_me_gusta_anonimos` (
   `id_nmg` int(11) NOT NULL,
   `nmg_id_publicacion` int(11) NOT NULL,
-  `nmg_ip` int(11) NOT NULL
+  `nmg_ip` varchar(50) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------

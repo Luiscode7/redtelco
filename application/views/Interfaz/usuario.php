@@ -5,7 +5,6 @@ $(function(){
 
     /* ---- Creacion de publicacion con AJAX ----*/
     $(document).on('submit', '#postUsuario',function(event) {
-      $(".btn-post_u").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
       var url="<?php echo base_url()?>";
       var formElement = document.querySelector("#postUsuario");
       var formData = new FormData(formElement);
@@ -17,6 +16,9 @@ $(function(){
             processData: false,
             dataType: "json",
             contentType : false,
+            beforeSend: function(){
+                $(".btn-post_u").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
+            },
             success: function (data) {
               if(data.res == "error"){
                   $.notify(data.msg, {
@@ -24,6 +26,7 @@ $(function(){
                     globalPosition: 'top right',
                     autoHideDelay:5000
                   });
+                  $(".btn-post_u").html('Publicar');
               }else if(data.res == "ok"){
                 $('#postUsuario')[0].reset();
                 window.location="usuario";
@@ -100,7 +103,6 @@ $(function(){
 
     /* -------- FUNCION PARA PUBLICAR COMENTARIOS ----------- */
     $(document).on('submit', '.ComentariosUsu', function(event){
-        $(".btn-comment2").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
             var url="<?php echo base_url()?>";
             var formdata=$(this);
                 $.ajax({
@@ -109,6 +111,9 @@ $(function(){
                     dataType: "json",
                     data: formdata.serialize(),
                     processData:false,
+                    beforeSend: function(){
+                        $(".btn-comment2").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
+                    },
                     success: function (data) {
                         if(data.res == 'ok'){
                             var nomostrarmsj = formdata.parent();
@@ -121,14 +126,16 @@ $(function(){
                                 var comentario = data.datos[dato].comentario;
                                 var nombre = data.datos[dato].nombre;
                                 var fotoperfil = data.datos[dato].foto;
-                                var coment = pd.append('<div id ="publicarusu" class="col p-0 pt-4 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assets/imagenes/perfil/'+fotoperfil+'" alt=""></div><div class="container-publicom"><div class="text-negrilla">'+nombre+'</div><p id="commentsusu" class="container-publicom mb-0">'+" "+''+comentario+'</p></div></div>');
+                                var coment = pd.append('<div id ="publicarusu" class="col p-0 pt-4 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assets/imagenes/perfil/'+fotoperfil+'" alt=""></div><div class="container-publicom"><div class="text-negrilla">'+nombre+'</div><p id="commentsusu" class="mb-0">'+" "+''+comentario+'</p></div></div>');
                             }
                             $(formdata)[0].reset();
+                            $(".btn-comment2").html('Comentar');
                         }
                         else
                         if(data.res == 'error'){
                             var foco = formdata.children().eq(2);
                             $(foco).focus();
+                            $(".btn-comment2").html('Comentar');
                         }      
                     }
                         
@@ -139,7 +146,6 @@ $(function(){
 
     /* -------- FUNCION PARA VER COMENTARIOS ----------- */
     $(document).on('submit', '.mostrarComPublicadosUsu', function(event){
-        $(".btn-showmoreusu").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
             var url="<?php echo base_url()?>";
             var formdata2=$(this);
                 $.ajax({
@@ -148,6 +154,9 @@ $(function(){
                     dataType: "json",
                     data: formdata2.serialize(),
                     processData:false,
+                    beforeSend: function(){
+                        $(".btn-showmoreusu").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
+                    },
                     success: function (data) {
                         if(data.res == 'ok'){
                             $("#publicarusu").empty();
@@ -158,6 +167,7 @@ $(function(){
                                 var nombre = data.datos[dato].nombre;
                                 var showmore2 = showmore.append('<div class="col p-0 pt-3 muestra2 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assets/imagenes/perfil/'+fotoperfil+'" alt=""></div><div class="container-publicom"><div class="text-negrilla">'+nombre+'</div><p id="commentusu" class="mb-0">'+" "+''+comentarios+'</p></div></div>');
                             }
+                            $(".btn-showmoreusu").html('ver comentarios');
                             $(".btn-showmoreusu").hide();
                         }
                         else
@@ -287,7 +297,6 @@ function Comments2(){
         $("div").remove(".muestra2"); //elimina el div de mostrar comentarios
         $("div").remove("#publicarusu");//elimina el div de publicar comentarios
         $(".btn-showmoreusu").show();//muestra el boton ver comentarios, nuevamente
-
         
         /* DIRIGE EL SCROLL A LA CAJA DE COMENTARIOS */
         var buscar = $(mostrarcom3).offset().top;
@@ -323,8 +332,8 @@ function imagenPreview(input){
         <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Encuesta</button>-->
         <input type="file" name="uploadimagen" id="uploadimagen" hidden="hidden">
         <input type="file" name="uploadarchivo" id="uploadarchivo" hidden="hidden">
-        <a id="smilepost" href="#"><i class="fas fa-smile ml-4 mr-4"></i></a>
-        <a id="imagen" href="#"><i class="far fa-image mr-4"></i></a>
+        <!--<a id="smilepost" href="#"><i class="fas fa-smile ml-4 mr-4"></i></a>-->
+        <a id="imagen" href="#"><i class="far fa-image ml-4"></i></a>
         <!--<a id="archivo" href="#"><i class="fas fa-file-upload"></i></a>-->
         <div id="previewPublic" class="mt-3 mb-3" style="display:none"></div>    
         <span class="cancelarimg" role="button" style="display:none"><i class="fas fa-trash mr-2"></i>cancelar</span>
@@ -352,42 +361,42 @@ function imagenPreview(input){
         <?php foreach($posteos_usu as $usu): ?>
             <div class="col container-post border-post">
                 <div class="row perfil-post">
-                <?php if(empty($usu["foto"])):?>
-                <div class="col-1 pr-0">
-                    <img class="perfil" src="<?php echo base_url()?>assets/imagenes/user.png" alt="">
-                </div>
-                <?php else: ?>      
-                <div class="col-1 pr-0">
-                    <img class="perfil" src="<?php echo base_url()?>assets/imagenes/perfil/<?php echo $usu["foto"]?>" alt="">
-                </div>
-                <?php endif ?>  
-                <div class="col-10 pl-4">
-                    <div class="row">
-                        <div class="col-12">
-                            <span class="text-negrilla"><?php echo $usu["nombre"]?></span>
-                        </div>
-                        <div class="col-12">
-                            <span class="font-fecha"><?php echo $usu["fecha"]?></span>
+                    <?php if(empty($usu["foto"])):?>
+                    <div class="col-2 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+                        <img class="perfil" src="<?php echo base_url()?>assets/imagenes/user.png" alt="">
+                    </div>
+                    <?php else: ?>      
+                    <div class="col-2 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+                        <img class="perfil" src="<?php echo base_url()?>assets/imagenes/perfil/<?php echo $usu["foto"]?>" alt="">
+                    </div>
+                    <?php endif ?>  
+                    <div class="col-8 col-sm-10 col-md-10 col-lg-10 col-xl-10 pl-4">
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="text-negrilla"><?php echo $usu["nombre"]?></span>
+                            </div>
+                            <div class="col-12">
+                                <span class="font-fecha"><?php echo $usu["fecha"]?></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-1 pr-0">
-                <?php echo form_open_multipart("eliminarPost",array("id"=>"eliminarPost","class"=>"eliminarPost"))?>
-                <?php $id_pub=$usu["id"]; $clave = $this->encryption->encrypt($id_pub);?>
-                <input type="hidden" name="id_pu" value="<?php echo $clave?>">
-                    <div class="dropdown">
-                        <button class="btn boton-drop-elimi dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            x
-                        </button>
-                        <div class="dropdown-menu menu-eliminar" aria-labelledby="dropdownMenuButton3">
-                            <button class="dropdown-item link-drop-elimi btn-eliminar" type="submit">Eliminar Publicaci&oacute;n</button>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+                    <?php echo form_open_multipart("eliminarPost",array("id"=>"eliminarPost","class"=>"eliminarPost"))?>
+                    <?php $id_pub=$usu["id"]; $clave = $this->encryption->encrypt($id_pub);?>
+                    <input type="hidden" name="id_pu" value="<?php echo $clave?>">
+                        <div class="dropdown">
+                            <button class="btn boton-drop-elimi dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                x
+                            </button>
+                            <div class="dropdown-menu menu-eliminar" aria-labelledby="dropdownMenuButton3">
+                                <button class="dropdown-item link-drop-elimi btn-eliminar" type="submit">Eliminar Publicaci&oacute;n</button>
+                            </div>
                         </div>
+                    <?php echo form_close();?>
                     </div>
-                <?php echo form_close();?>
-                </div>
                 </div>
                 <p class="p-post"><?php echo $usu["contenido"]?></p>
-                <img style="width:100%" src="<?php echo base_url();?>assets/imagenes/subidas/<?php echo $usu["imagen"]?>" alt="">
+                <img class="img-post-usu" style="width:100%" src="<?php echo base_url();?>assets/imagenes/subidas/<?php echo $usu["imagen"]?>" alt="">
                 <div class="row">
                     <div class="col-6 container-button-post d-flex justify-content-start">
                         <?php echo form_open_multipart("meGustaUsu",array("id"=>"meGustaUsu","class"=>"meGustaUsu"))?>
@@ -402,11 +411,15 @@ function imagenPreview(input){
                         <?php echo form_close();?>
                         <button type="submit" class="btn btn-secondary form-control btn-commentusu1 btn-sinshadow">Comentar</button>
                     </div>
-                    <div class="col-6 d-flex justify-content-end align-items-center">
-                        <a class="pr-2 iconomg" href="" data-toggle="tooltip" data-placement="bottom" title="ya ha marcado una opcion"><i class="far fa-thumbs-up"></i></a>
-                        <span><?php echo $usu["mgustas"]?></span>
-                        <a class=" pr-2 pl-2 icononmg" href="#" data-toggle="tooltip" data-placement="bottom" title="ya ha marcado una opcion"><i class="far fa-thumbs-down"></i></a>
-                        <span><?php echo $usu["nmgustas"]?></span>
+                    <div class="block-likes col-md-2 col-lg-6 d-flex justify-content-end align-items-center">
+                        <div>
+                            <a class="pr-2 iconomg" href="" data-toggle="tooltip" data-placement="bottom" title="ya ha marcado una opcion"><i class="far fa-thumbs-up"></i></a>
+                            <span><?php echo $usu["mgustas"]?></span>
+                        </div>
+                        <div>
+                            <a class="pr-2 pl-2 icononmg" href="#" data-toggle="tooltip" data-placement="bottom" title="ya ha marcado una opcion"><i class="far fa-thumbs-down"></i></a>
+                            <span><?php echo $usu["nmgustas"]?></span>
+                        </div>
                     </div>
                     <div class="col pt-3 pb-1 ocultarComment">
                         <?php echo form_open_multipart("ComentariosUsu",array("id"=>"ComentariosUsu","class"=>"ComentariosUsu"))?>
