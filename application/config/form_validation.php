@@ -29,10 +29,6 @@ $config = array(
 
       'postAnonimo' => array(
             array(
-                  'field'   => 'nombre',
-                  'rules'   => 'required'
-            ),
-            array(
                   'field'   => 'contenido',
                   'rules'   => 'required'
             )

@@ -5,7 +5,7 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 
-if($_SERVER["HTTP_HOST"]=="localhost"){
+/*if($_SERVER["HTTP_HOST"]=="localhost"){
 	$hostname='localhost';
 	$username='root';
 	$password='asdf1212';
@@ -16,9 +16,21 @@ if($_SERVER["HTTP_HOST"]=="localhost"){
 	$username='ceningen_redtelc';
 	$password='@*WMbKD{^Mkz';
 	$database='ceningen_redtelco';
+ }*/
+
+ if($_SERVER["HTTP_HOST"]=="localhost"){
+	$hostname='localhost';
+	$username='root';
+	//$password='asdf1212';
+	$password='';
+	$database='redtelco';
+ }else{
+ 	$hostname='sql206.epizy.com';
+	$username='epiz_22741452';
+	$password='VnbfUdsCqFR8ylQ';
+	$database='epiz_22741452_redtelco';
  }
-
-
+ 
 
 $db['default'] = array(
 	'dsn'	=> '',

@@ -16,6 +16,9 @@ $(function(){
             processData: false,
             dataType: "json",
             contentType : false,
+            beforeSend: function(){
+                $(".btn-post_mu").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
+            },
             success: function (data) {
               if(data.res == "error"){
                   $.notify(data.msg, {
@@ -23,6 +26,7 @@ $(function(){
                     globalPosition: 'top right',
                     autoHideDelay:5000
                   });
+                  $(".btn-post_mu").html('Publicar');
               }else if(data.res == "ok"){
                 window.location="usuario";
                 $('#postUsuario')[0].reset();
@@ -107,6 +111,9 @@ $(function(){
                     dataType: "json",
                     data: formdata.serialize(),
                     processData:false,
+                    beforeSend: function(){
+                        $(".btn-comment2mu").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
+                    },
                     success: function (data) {
                         if(data.res == 'ok'){
                             var nomostrarmsj = formdata.parent();
@@ -122,11 +129,13 @@ $(function(){
                                 var coment = pd.append('<div id ="publicarusu" class="col p-0 pt-4 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assets/imagenes/perfil/'+fotoperfil+'" alt=""></div><div class="container-publicom"><div class="text-negrilla">'+nombre+'</div><p id="commentsusu" class="container-publicom mb-0">'+" "+''+comentario+'</p></div></div>');
                             }
                             $(formdata)[0].reset();
+                            $(".btn-comment2mu").html('Comentar');
                         }
                         else
                         if(data.res == 'error'){
                             var foco = formdata.children().eq(2);
                             $(foco).focus();
+                            $(".btn-comment2mu").html('Comentar');
                         }      
                     }
                         
@@ -145,6 +154,9 @@ $(function(){
                     dataType: "json",
                     data: formdata2.serialize(),
                     processData:false,
+                    beforeSend: function(){
+                        $(".btn-showmoreusumu").html('<i class="fas fa-spinner fa-lg fa-spin"></i>');
+                    },
                     success: function (data) {
                         if(data.res == 'ok'){
                             $("#publicarusu").empty();
@@ -155,7 +167,8 @@ $(function(){
                                 var nombre = data.datos[dato].nombre;
                                 var showmore2 = showmore.append('<div class="col p-0 pt-3 muestra2 d-flex"><div><img class="perfil-comments mr-4" src="<?php echo base_url()?>assets/imagenes/perfil/'+fotoperfil+'" alt=""></div><div class="container-publicom"><div class="text-negrilla">'+nombre+'</div><p id="commentusu" class="mb-0">'+" "+''+comentarios+'</p></div></div>');
                             }
-                            $(".btn-showmoreusu").hide();
+                            $(".btn-showmoreusumu").html('ver comentarios');
+                            $(".btn-showmoreusumu").hide();
                         }
                         else
                         if(data.res == 'error'){
@@ -255,7 +268,7 @@ function Comments2(){
 
         $("div").remove(".muestra2"); //elimina el div de mostrar comentarios
         $("div").remove("#publicarusu");//elimina el div de publicar comentarios
-        $(".btn-showmoreusu").show();//muestra el boton ver comentarios, nuevamente
+        $(".btn-showmoreusumu").show();//muestra el boton ver comentarios, nuevamente
 
         
         /* DIRIGE EL SCROLL A LA CAJA DE COMENTARIOS */
@@ -285,14 +298,14 @@ function imagenPreview(input){
     <input type="hidden" name="id_usuario" id="id_post_usuario" value="<?php echo $clave ?>">
     <div class="col container-public p-cero">
         <textarea name="contenido_usuario" id="contenido_usuario" class="textarea-post" placeholder="Escriba lo que desee..." cols="30" rows="10"></textarea>
-        <button type="submit" name="Comentar" id="Comentar" class="btn btn-primary btn-post_u">Publicar</button>
+        <button type="submit" name="Comentar" id="Comentar" class="btn btn-primary btn-post_mu btn-sinshadow">Publicar</button>
         <!--<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
             Encuesta
-        </button>-->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Encuesta</button>
+        </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Encuesta</button>-->
         <input type="file" name="uploadimagen" id="uploadimagen" hidden="hidden">
-        <a href="#"><i class="fas fa-smile ml-4 mr-4"></i></a>
-        <a id="imagen" href="#"><i class="far fa-image mr-4"></i></a>
+        <!--<a href="#"><i class="fas fa-smile ml-4 mr-4"></i></a>-->
+        <a id="imagen" href="#"><i class="far fa-image ml-4"></i></a>
         <div id="previewPublic" class="mt-3 mb-3" style="display:none"></div>    
         <span class="cancelarimg" role="button" style="display:none"><i class="fas fa-trash mr-2"></i>cancelar</span>
         <hr>
@@ -301,16 +314,16 @@ function imagenPreview(input){
 
     
     <div id="publicausu">
-    <?php foreach($encuesta as $en): ?>
+    <!--<?php foreach($encuesta as $en): ?>
         <div class="col container-post border-post">
-            <!--<div class="perfil-post">
+            <div class="perfil-post">
                 <img class="perfil mr-2" src="<?php echo base_url()?>assets/imagenes/perfil/<?php echo $en["foto"]?>" alt="">
                 <span><?php echo $en["nombre"]?></span>
-            </div>-->
+            </div>
             <p class="p-post"><?php echo $en["titulo"]?></p>
             <p class="mb-3"><?php echo $en["opciones"]?></p>  
         </div>
-    <?php endforeach; ?>
+    <?php endforeach; ?>-->
     </div>
    
     
@@ -346,14 +359,14 @@ function imagenPreview(input){
                         <?php echo form_open_multipart("meGustaUsu",array("id"=>"meGustaUsu","class"=>"meGustaUsu"))?>
                             <?php $id_publi=$usu["id"]; $clave = $this->encryption->encrypt($id_publi);?>
                             <input type="hidden" name="id_publimg" id="id_publimg" value="<?php echo $clave?>">
-                            <button type="submit" class="btn btn-secondary form-control">Me gusta</button>
+                            <button type="submit" class="btn btn-secondary form-control btn-sinshadow">Me gusta</button>
                         <?php echo form_close();?>
                         <?php echo form_open_multipart("NomeGustaUsu",array("id"=>"NomeGustaUsu","class"=>"NomeGustaUsu"))?>
                             <?php $id_public=$usu["id"]; $clave = $this->encryption->encrypt($id_public);?>
                             <input type="hidden" name="id_publinomg" id="id_publinomg" value="<?php echo $clave?>"> 
-                            <button type="submit" class="btn btn-secondary form-control">No me gusta</button>
+                            <button type="submit" class="btn btn-secondary form-control btn-sinshadow">No me gusta</button>
                         <?php echo form_close();?>
-                        <button type="submit" class="btn btn-secondary form-control btn-commentusu1">Comentar</button>
+                        <button type="submit" class="btn btn-secondary form-control btn-commentusu1 btn-sinshadow">Comentar</button>
                     </div>
                     <div class="col-6 d-flex justify-content-end align-items-center">
                         <a class="pr-2 iconomg" href="" data-toggle="tooltip" data-placement="bottom" title="ya ha marcado una opcion"><i class="far fa-thumbs-up"></i></a>
@@ -367,13 +380,13 @@ function imagenPreview(input){
                             <?php $id_publico=$usu["id"]; $clave = $this->encryption->encrypt($id_publico);?>
                             <input type="hidden" name="id_publicacionusu" value="<?php echo $clave?>">
                             <textarea name="comentariousu" class="textarea-comment" placeholder="Comentario..." cols="30" rows="10"></textarea>
-                            <button type="submit" class="btn btn-primary btn-comment2">Comentar</button>
+                            <button type="submit" class="btn btn-primary btn-comment2mu btn-sinshadow">Comentar</button>
                         <?php echo form_close();?>
                         <?php echo form_open_multipart("mostrarComPublicadosUsu",array("id"=>"mostrarComPublicadosUsu","class"=>"mostrarComPublicadosUsu"))?>
                             <?php $id_public=$usu["id"]; $clave = $this->encryption->encrypt($id_public);?>
                             <input type="hidden" name="id_publicacionshowusu" value="<?php echo $clave?>">
                             <div class="d-flex justify-content-center mb-3">
-                                <button class="btn btn-primary btn-showmoreusu" type="submit" id="showmoreusu" name="showmoreusu">ver comentarios</button>
+                                <button class="btn btn-primary btn-showmoreusumu btn-sinshadow" type="submit" id="showmoreusu" name="showmoreusu">ver comentarios</button>
                             </div>
                         <?php echo form_close();?>
                     </div>

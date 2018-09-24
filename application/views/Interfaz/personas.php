@@ -42,7 +42,11 @@
                     <input type="hidden" name="id_seramigo" value="<?php echo $clave ?>">
                     <!--<input type="text" name="id_seramigo2" value="<?php echo $per["id"] ?>">-->
                     <div class="col-2" style="margin:10px 0 10px 0;">
+                    <?php if(!empty($per["foto"])):?>
                     <img class="img-mostrarper" src="<?php echo base_url()?>assets/imagenes/perfil/<?php echo $per["foto"];?>" alt="">
+                    <?php else:?>
+                    <img class="img-mostrarper" src="<?php echo base_url()?>assets/imagenes/user.png" alt="">
+                    <?php endif?>
                     </div>
                     <div class="col-4">
                         <span class="text-negrilla"><?php echo $per["nombre"];?></span>

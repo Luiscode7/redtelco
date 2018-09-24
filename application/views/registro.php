@@ -85,6 +85,7 @@ $(function(){
                         globalPosition: 'top right',
                         autoHideDelay:5000
                       });
+                      $(".btn_registro").html('Registrarse');
                       $("#correo").focus();
                   }else if(data.res == "ok"){
                     $(".btn_registro").attr("disabled", false);
